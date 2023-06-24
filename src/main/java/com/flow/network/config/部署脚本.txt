@@ -1,0 +1,5 @@
+1.电脑需安装任一web服务器、mysql5.7，java11以上版本。
+2.首先web服务器下部署前端dist.zip，将该压缩包解压后直接放置于web根目录。
+3.mysql数据库创建network数据库，编码utf-8，账户密码root/123456
+4.执行数据库建库脚本network.sql
+5.执行java -jar network-0.0.1-SNAPSHOT.jar 运行服务器后端，服务器运行在9080端口。
