@@ -4,6 +4,7 @@ import com.flow.network.domain.MessageEntity;
 import com.flow.network.mapper.MessageDetailMapper;
 import com.flow.network.mapper.MessageMapper;
 import com.flow.network.tools.Tools;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,12 @@ public class MessageServiceImp
     MessageMapper mapper;
     @Autowired
     MessageDetailMapper detailMapper;
+    public List<MessageEntity> getList(Integer pageNum,Integer pageSize) {
+        System.out.print("getlist");
+        PageHelper.startPage(pageNum, pageSize);
+        List<MessageEntity> list=mapper.getList();
+        return list;
+    }
     public List<MessageEntity> getAllList() {
         System.out.print("getlist");
         List<MessageEntity> list=mapper.getList();

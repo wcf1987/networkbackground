@@ -12,7 +12,7 @@ public interface RuleDetailMapper {
     @Insert("insert into "+TbaleName+"(id,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,ruleID)values(null,#{name},#{ename},#{length},#{rulestr},#{optional},#{type},#{sourceid},#{targetid},#{sourcedata},#{targetdata},#{funcrule},#{ruleID})")
     int insert(RuleDetailEntity entity);
 
-    @Insert("insert into "+TbaleName+" (id,name,ename,length,valuestr,optional,appID) select null,name,ename,length,valuestr,optional,#{newid} from "+TbaleName+" where appID=#{oldid}")
+    @Insert("insert into "+TbaleName+" (id,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,ruleID) select null,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,#{newid} from "+TbaleName+" where ruleID=#{oldid}")
     int copyByPID(Integer oldid,Integer newid);
     //删除一个Person
     @Delete("delete from "+TbaleName+" where id = #{id}")

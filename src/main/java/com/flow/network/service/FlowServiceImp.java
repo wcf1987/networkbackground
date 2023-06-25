@@ -3,6 +3,7 @@ package com.flow.network.service;
 import com.flow.network.domain.FlowEntity;
 import com.flow.network.mapper.FlowMapper;
 import com.flow.network.tools.Tools;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,12 @@ public class FlowServiceImp
    // AppDetailMapper detailMapper;
     public List<FlowEntity> getAllList() {
         System.out.println("get-flow-list");
+        List<FlowEntity> list=mapper.getList();
+        return list;
+    }
+    public List<FlowEntity> getList(Integer pageNum,Integer pageSize) {
+        System.out.println("get-flow-list");
+        PageHelper.startPage(pageNum, pageSize);
         List<FlowEntity> list=mapper.getList();
         return list;
     }

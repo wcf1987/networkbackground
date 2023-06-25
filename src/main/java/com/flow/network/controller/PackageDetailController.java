@@ -1,6 +1,7 @@
 package com.flow.network.controller;
 
 import com.flow.network.domain.PackageDetailEntity;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.service.PackageDetailServiceImp;
 import com.flow.network.tools.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,21 @@ import java.util.List;
 public class PackageDetailController {
     @Autowired
     private PackageDetailServiceImp packageDetailServiceImp;
-    @RequestMapping("/list")
-    public List<PackageDetailEntity> list(@RequestBody PackageDetailEntity packageDetailEntity) {
 
-        return packageDetailServiceImp.getListByPID(packageDetailEntity.getPackageID());
+
+    @RequestMapping("/list")
+    public List<PackageDetailEntity> list(@RequestBody PageParmInfo pageParmInfo) {
+
+        return packageDetailServiceImp.getListByPID(pageParmInfo.getPid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize());
 
     }
+    @RequestMapping("/alllistnum")
+    public Integer allList(@RequestBody PageParmInfo pageParmInfo) {
+
+        return packageDetailServiceImp.geAlltListByPID(pageParmInfo.getPid()).size();
+
+    }
+
     @RequestMapping("/delete")
     public String delete(@RequestBody PackageDetailEntity packageDetailEntity) {
         //List<InterfaceEntity> u = new ArrayList<>();

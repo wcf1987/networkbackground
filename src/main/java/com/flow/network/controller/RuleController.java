@@ -1,5 +1,7 @@
 package com.flow.network.controller;
 
+import com.flow.network.domain.AppEntity;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain.RuleEntity;
 import com.flow.network.service.RuleServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,18 @@ import java.util.List;
 public class RuleController {
     @Autowired
     private RuleServiceImp serviceImp;
-    @RequestMapping("/list")
-    public List<RuleEntity> list() {
 
-        return serviceImp.getAllList();
+    @RequestMapping("/list")
+    public List<RuleEntity> list(@RequestBody PageParmInfo pageParmInfo) {
+
+        return serviceImp.getList(pageParmInfo.getPageNum(), pageParmInfo.getPageSize());
+
+    }
+
+    @RequestMapping("/alllistnum")
+    public Integer alllistNum() {
+
+        return serviceImp.getAllList().size();
 
     }
     @RequestMapping("/delete")

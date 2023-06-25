@@ -1,5 +1,7 @@
 package com.flow.network.controller;
 
+import com.flow.network.domain.InterfaceDetailEntity;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain.RuleDetailEntity;
 import com.flow.network.service.RuleDetailServiceImp;
 import com.flow.network.tools.Tools;
@@ -16,10 +18,17 @@ import java.util.List;
 public class RuleDetailController {
     @Autowired
     private RuleDetailServiceImp detailServiceImp;
-    @RequestMapping("/list")
-    public List<RuleDetailEntity> list(@RequestBody RuleDetailEntity detailEntity) {
 
-        return detailServiceImp.getListByPID(detailEntity.getRuleID());
+    @RequestMapping("/list")
+    public List<RuleDetailEntity> list(@RequestBody PageParmInfo pageParmInfo) {
+
+        return detailServiceImp.getListByPID(pageParmInfo.getPid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize());
+
+    }
+    @RequestMapping("/alllistnum")
+    public Integer allList(@RequestBody PageParmInfo pageParmInfo) {
+
+        return detailServiceImp.geAlltListByPID(pageParmInfo.getPid()).size();
 
     }
     @RequestMapping("/delete")

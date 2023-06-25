@@ -3,6 +3,7 @@ package com.flow.network.service;
 import com.flow.network.domain.RuleDetailEntity;
 import com.flow.network.mapper.RuleDetailMapper;
 import com.flow.network.tools.Tools;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,14 @@ public class RuleDetailServiceImp
 
     @Autowired
     RuleDetailMapper detailMapper;
-    public List<RuleDetailEntity> getListByPID(Integer id) {
+
+    public List<RuleDetailEntity> getListByPID(Integer id, Integer pageNum, Integer pageSize) {
+        System.out.print("getlist");
+        PageHelper.startPage(pageNum, pageSize);
+        List<RuleDetailEntity> list=detailMapper.getList(id);
+        return list;
+    }
+    public List<RuleDetailEntity> geAlltListByPID(Integer id) {
         System.out.print("getlist");
         List<RuleDetailEntity> list=detailMapper.getList(id);
         return list;

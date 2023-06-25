@@ -5,6 +5,7 @@ import com.flow.network.domain.InterfaceEntity;
 import com.flow.network.mapper.InterfaceDetailMapper;
 import com.flow.network.mapper.InterfaceMapper;
 import com.flow.network.tools.Tools;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,20 @@ public class InterfaceServiceImp
     InterfaceMapper interfaceMapper;
     @Autowired
     InterfaceDetailMapper interfaceDetailMapper;
-    public List<InterfaceEntity> getAllList() {
-        System.out.print("getlist");
+    public List<InterfaceEntity> getList(Integer pageNum,Integer pageSize) {
+        System.out.println("getlist");
+        PageHelper.startPage(pageNum, pageSize);
         List<InterfaceEntity> list=interfaceMapper.getList();
+        //PageInfo<ProjectListVO> pageInfo = new PageInfo<>(projectVOList);
+
+        return list;
+    }
+    public List<InterfaceEntity> getAllList() {
+        System.out.println("getlist");
+
+        List<InterfaceEntity> list=interfaceMapper.getList();
+        //PageInfo<ProjectListVO> pageInfo = new PageInfo<>(projectVOList);
+
         return list;
     }
     public String add(InterfaceEntity interfaceEntity) {

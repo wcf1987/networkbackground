@@ -1,6 +1,8 @@
 package com.flow.network.controller;
 
+import com.flow.network.domain.FlowEntity;
 import com.flow.network.domain.PackEntity;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.service.PackServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +17,18 @@ import java.util.List;
 public class PackController {
     @Autowired
     private PackServiceImp serviceImp;
-    @RequestMapping("/list")
-    public List<PackEntity> list() {
 
-        return serviceImp.getAllList();
+    @RequestMapping("/list")
+    public List<PackEntity> list(@RequestBody PageParmInfo pageParmInfo) {
+
+        return serviceImp.getList(pageParmInfo.getPageNum(), pageParmInfo.getPageSize());
+
+    }
+
+    @RequestMapping("/alllistnum")
+    public Integer alllistNum() {
+
+        return serviceImp.getAllList().size();
 
     }
     @RequestMapping("/listByType")

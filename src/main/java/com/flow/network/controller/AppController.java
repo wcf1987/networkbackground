@@ -1,6 +1,7 @@
 package com.flow.network.controller;
 
 import com.flow.network.domain.AppEntity;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.service.AppServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +17,21 @@ public class AppController {
     @Autowired
     private AppServiceImp serviceImp;
     @RequestMapping("/list")
-    public List<AppEntity> list() {
+    public List<AppEntity> list(@RequestBody PageParmInfo pageParmInfo) {
 
-        return serviceImp.getAllList();
+        return serviceImp.getList(pageParmInfo.getPageNum(), pageParmInfo.getPageSize());
 
     }
+
+    @RequestMapping("/alllistnum")
+    public Integer alllistNum() {
+
+        return serviceImp.getAllList().size();
+
+    }
+
+
+
     @RequestMapping("/delete")
     public List<AppEntity> delete(@RequestBody AppEntity entity) {
         //List<InterfaceEntity> u = new ArrayList<>();

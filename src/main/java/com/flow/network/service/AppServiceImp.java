@@ -5,6 +5,7 @@ import com.flow.network.mapper.AppDetailMapper;
 import com.flow.network.mapper.AppMapper;
 import com.flow.network.mapper.PackMapper;
 import com.flow.network.tools.Tools;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,21 @@ public class AppServiceImp
     PackMapper packMapper;
     public List<AppEntity> getAllList() {
         System.out.print("getlist");
+        List<AppEntity> list=mapper.getList();
+        for (int i=0;i<list.size();i++){
+            if(list.get(i).getPackID()!=null){
+
+                list.get(i).setPackName(packMapper.selectByPrimaryKey(list.get(i).getPackID()).getName());
+            }
+            if(list.get(i).getUnpackID()!=null) {
+                list.get(i).setUnpackName(packMapper.selectByPrimaryKey(list.get(i).getUnpackID()).getName());
+            }
+        }
+        return list;
+    }
+    public List<AppEntity> getList(Integer pageNum,Integer pageSize) {
+        System.out.print("getlist");
+        PageHelper.startPage(pageNum, pageSize);
         List<AppEntity> list=mapper.getList();
         for (int i=0;i<list.size();i++){
             if(list.get(i).getPackID()!=null){

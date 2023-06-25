@@ -1,6 +1,8 @@
 package com.flow.network.controller;
 
 import com.flow.network.domain.AppDetailEntity;
+import com.flow.network.domain.InterfaceDetailEntity;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.service.AppDetailServiceImp;
 import com.flow.network.tools.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,17 @@ import java.util.List;
 public class AppDetailController {
     @Autowired
     private AppDetailServiceImp detailServiceImp;
-    @RequestMapping("/list")
-    public List<AppDetailEntity> list(@RequestBody AppDetailEntity detailEntity) {
 
-        return detailServiceImp.getListByPID(detailEntity.getAppID());
+    @RequestMapping("/list")
+    public List<AppDetailEntity> list(@RequestBody PageParmInfo pageParmInfo) {
+
+        return detailServiceImp.getListByPID(pageParmInfo.getPid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize());
+
+    }
+    @RequestMapping("/alllistnum")
+    public Integer allList(@RequestBody PageParmInfo pageParmInfo) {
+
+        return detailServiceImp.geAlltListByPID(pageParmInfo.getPid()).size();
 
     }
     @RequestMapping("/delete")

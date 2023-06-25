@@ -3,6 +3,7 @@ package com.flow.network.service;
 import com.flow.network.domain.MessageDetailEntity;
 import com.flow.network.mapper.MessageDetailMapper;
 import com.flow.network.tools.Tools;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,16 @@ public class MessageDetailServiceImp
 
     @Autowired
     MessageDetailMapper detailMapper;
-    public List<MessageDetailEntity> getListByPID(Integer mid,Integer pid) {
+
+    public List<MessageDetailEntity> getListByPID(Integer id,Integer idnear,Integer pageNum, Integer pageSize) {
         System.out.print("getlist");
-        List<MessageDetailEntity> list=detailMapper.getListByPid(mid,pid);
+        PageHelper.startPage(pageNum, pageSize);
+        List<MessageDetailEntity> list=detailMapper.getListByPid(id,idnear);
+        return list;
+    }
+    public List<MessageDetailEntity> geAlltListByPID(Integer id,Integer idnear) {
+        System.out.print("getlist");
+        List<MessageDetailEntity> list=detailMapper.getListByPid(id,idnear);
         return list;
     }
     public List<MessageDetailEntity> getListByMID(Integer id) {

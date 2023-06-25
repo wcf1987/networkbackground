@@ -5,6 +5,7 @@ import com.flow.network.mapper.PackMapper;
 import com.flow.network.mapper.PackageDetailMapper;
 import com.flow.network.mapper.PackageMapper;
 import com.flow.network.tools.Tools;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,22 @@ public class PackageServiceImp
         }
         return list;
     }
+
+    public List<PackageEntity> getList(Integer pageNum,Integer pageSize) {
+        System.out.print("getlist");
+        PageHelper.startPage(pageNum, pageSize);
+        List<PackageEntity> list=packageMapper.getList();
+        for (int i=0;i<list.size();i++){
+            if(list.get(i).getPackID()!=null){
+                list.get(i).setPackName(packMapper.selectByPrimaryKey(list.get(i).getPackID()).getName());
+            }
+            if(list.get(i).getUnpackID()!=null) {
+                list.get(i).setUnpackName(packMapper.selectByPrimaryKey(list.get(i).getUnpackID()).getName());
+            }
+        }
+        return list;
+    }
+
     public String add(PackageEntity interfaceEntity) {
         //System.out.print("getlist");
         //interfaceEntity.setId(-1);

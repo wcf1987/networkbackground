@@ -1,6 +1,8 @@
 package com.flow.network.controller;
 
+import com.flow.network.domain.AppEntity;
 import com.flow.network.domain.PackageEntity;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.service.PackageServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,36 +16,45 @@ import java.util.List;
 @RequestMapping("/package")
 public class PackageController {
     @Autowired
-    private PackageServiceImp packageServiceImp;
+    private PackageServiceImp serviceImp;
+
+
 
     @RequestMapping("/list")
-    public List<PackageEntity> list() {
+    public List<PackageEntity> list(@RequestBody PageParmInfo pageParmInfo) {
 
-        return packageServiceImp.getAllList();
+        return serviceImp.getList(pageParmInfo.getPageNum(), pageParmInfo.getPageSize());
+
+    }
+
+    @RequestMapping("/alllistnum")
+    public Integer alllistNum() {
+
+        return serviceImp.getAllList().size();
 
     }
     @RequestMapping("/delete")
     public List<PackageEntity> delete(@RequestBody PackageEntity interfaceEntity) {
         //List<InterfaceEntity> u = new ArrayList<>();
-        packageServiceImp.deleteByID(interfaceEntity.getId());
-        return packageServiceImp.getAllList();
+        serviceImp.deleteByID(interfaceEntity.getId());
+        return serviceImp.getAllList();
 
     }
     @RequestMapping("/copy")
     public List<PackageEntity> copy(@RequestBody PackageEntity interfaceEntity) {
         //List<InterfaceEntity> u = new ArrayList<>();
-        packageServiceImp.copyByID(interfaceEntity);
-        return packageServiceImp.getAllList();
+        serviceImp.copyByID(interfaceEntity);
+        return serviceImp.getAllList();
 
     }
     @PostMapping("add")
     public List<PackageEntity> add(@RequestBody PackageEntity interfaceEntity){
-        packageServiceImp.add(interfaceEntity);
-        return packageServiceImp.getAllList();
+        serviceImp.add(interfaceEntity);
+        return serviceImp.getAllList();
     }
     @PostMapping("update")
     public List<PackageEntity> update(@RequestBody PackageEntity interfaceEntity){
-        packageServiceImp.update(interfaceEntity);
-        return packageServiceImp.getAllList();
+        serviceImp.update(interfaceEntity);
+        return serviceImp.getAllList();
     }
 }

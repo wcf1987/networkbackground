@@ -1,6 +1,7 @@
 package com.flow.network.controller;
 
 import com.flow.network.domain.MessageDetailEntity;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.service.MessageDetailServiceImp;
 import com.flow.network.tools.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,17 @@ import java.util.List;
 public class MessageDetailController {
     @Autowired
     private MessageDetailServiceImp detailServiceImp;
-    @RequestMapping("/list")
-    public List<MessageDetailEntity> list(@RequestBody MessageDetailEntity detailEntity) {
 
-        return detailServiceImp.getListByMID(detailEntity.getMessageID());
+    @RequestMapping("/list")
+    public List<MessageDetailEntity> list(@RequestBody PageParmInfo pageParmInfo) {
+
+        return detailServiceImp.getListByPID(pageParmInfo.getPid(),pageParmInfo.getPidNear(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize());
+
+    }
+    @RequestMapping("/alllistnum")
+    public Integer allList(@RequestBody PageParmInfo pageParmInfo) {
+
+        return detailServiceImp.geAlltListByPID(pageParmInfo.getPid(),pageParmInfo.getPidNear()).size();
 
     }
     @RequestMapping("/allList")
@@ -28,12 +36,7 @@ public class MessageDetailController {
         return detailServiceImp.getAllListByMID(detailEntity.getMessageID());
 
     }
-    @RequestMapping("/getpidlist")
-    public List<MessageDetailEntity> getPidList(@RequestBody MessageDetailEntity detailEntity) {
 
-        return detailServiceImp.getListByPID(detailEntity.getMessageID(),detailEntity.getPid());
-
-    }
     @RequestMapping("/delete")
     public String delete(@RequestBody MessageDetailEntity detailEntity) {
         //List<InterfaceEntity> u = new ArrayList<>();
