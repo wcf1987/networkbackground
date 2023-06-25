@@ -23,7 +23,13 @@ public class FlowController {
         return serviceImp.getList(pageParmInfo.getPageNum(), pageParmInfo.getPageSize());
 
     }
+    @RequestMapping("/createScript")
+    public String createScript(@RequestBody FlowEntity entity) {
+        //List<InterfaceEntity> u = new ArrayList<>();
+        String s=serviceImp.createScriptByID(entity.getId());
+        return s;
 
+    }
     @RequestMapping("/alllistnum")
     public Integer alllistNum() {
 

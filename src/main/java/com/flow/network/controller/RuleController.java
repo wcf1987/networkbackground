@@ -1,6 +1,5 @@
 package com.flow.network.controller;
 
-import com.flow.network.domain.AppEntity;
 import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain.RuleEntity;
 import com.flow.network.service.RuleServiceImp;

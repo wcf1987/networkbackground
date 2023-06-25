@@ -1,6 +1,8 @@
 package com.flow.network.service;
 
+import com.flow.network.domain.FlowDetailEntity;
 import com.flow.network.domain.FlowEntity;
+import com.flow.network.mapper.FlowDetailMapper;
 import com.flow.network.mapper.FlowMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
@@ -17,6 +19,8 @@ public class FlowServiceImp
     @Autowired
     FlowMapper mapper;
     @Autowired
+    private FlowDetailMapper flowDetailMapper;
+    @Autowired
    // AppDetailMapper detailMapper;
     public List<FlowEntity> getAllList() {
         System.out.println("get-flow-list");
@@ -28,6 +32,13 @@ public class FlowServiceImp
         PageHelper.startPage(pageNum, pageSize);
         List<FlowEntity> list=mapper.getList();
         return list;
+    }
+    public String createScriptByID(Integer id) {
+        //System.out.println("deleteByID");
+        //mapper.delete(id);
+        //detailMapper.deleteByPID(id);
+        FlowDetailEntity flowDetailEntity=flowDetailMapper.selectByPrimaryKey(id);
+        return  flowDetailEntity.getBpmnjsonstr();
     }
     public String add(FlowEntity entity) {
         //System.out.print("getlist");

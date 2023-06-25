@@ -50,6 +50,7 @@ public class RuleServiceImp
         detailMapper.deleteByPID(id);
         return  Tools.SUCCESS;
     }
+
     public String copyByID(RuleEntity entity) {
         System.out.print("deleteByID");
         int oldid=entity.getId();

@@ -14,6 +14,7 @@ public class FlowDetailEntity {
 
     private String bpmnstr;
     private Integer flowID;
+    private String bpmnjsonstr;
 
 
 }

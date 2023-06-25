@@ -9,7 +9,7 @@ import java.util.List;
 public interface FlowDetailMapper {
     public static String TbaleName="flowDetail";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(id,bpmnstr,flowID)values(null,#{bpmnstr},#{flowID})")
+    @Insert("insert into "+TbaleName+"(id,bpmnstr,flowID,bpmnjsonstr)values(null,#{bpmnstr},#{flowID},#{bpmnjsonstr})")
     int insert(FlowDetailEntity entity);
 
     @Insert("insert into "+TbaleName+" (id,bpmnstr,flowID) select null,bpmnstr,#{newid} from "+TbaleName+" where flowID=#{oldid}")
@@ -21,10 +21,10 @@ public interface FlowDetailMapper {
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
-    @Update("update "+TbaleName+" set  bpmnstr =#{bpmnstr} where flowID=#{flowID}")
+    @Update("update "+TbaleName+" set  bpmnstr =#{bpmnstr},bpmnjsonstr =#{bpmnjsonstr} where flowID=#{flowID}")
     int updateByPrimaryKey(FlowDetailEntity entity);
     //查询一个Person
-    @Select("select id,bpmnstr ,flowID from  "+TbaleName+"  where flowID = #{id}")
+    @Select("select id,bpmnstr ,flowID,bpmnjsonstr from  "+TbaleName+"  where flowID = #{id}")
     FlowDetailEntity selectByPrimaryKey(Integer id);
     //查询所有的Person
     @Select("select id,name,ename,length,valuestr,optional,appid from "+TbaleName+" where appid=#{id}")
