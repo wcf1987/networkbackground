@@ -19,7 +19,7 @@ public class InterfaceController {
     private InterfaceServiceImp interfaceService;
     @RequestMapping("/list")
     public List<InterfaceEntity> list(@RequestBody PageParmInfo pageParmInfo) {
-
+        System.out.println("get interface list");
         return interfaceService.getList(pageParmInfo.getPageNum(), pageParmInfo.getPageSize());
 
     }
