@@ -65,7 +65,7 @@ public class FlowServiceImp
         int oldid=entity.getId();
         int newid=mapper.copy(entity);
         newid=entity.getId();
-        //detailMapper.copyByPID(oldid,newid);
+        flowDetailMapper.copyByPID(oldid,newid);
         return Tools.SUCCESS;
     }
 }

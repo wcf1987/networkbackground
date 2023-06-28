@@ -31,6 +31,7 @@ public class FlowDetailController {
     }
     @PostMapping("add")
     public String add(@RequestBody FlowDetailEntity flowDetailEntity){
+        System.out.println("保存流程图："+flowDetailEntity.getFlowID());
         flowDetailServiceImp.add(flowDetailEntity);
         return Tools.SUCCESS;
     }

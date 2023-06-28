@@ -12,7 +12,7 @@ public interface FlowDetailMapper {
     @Insert("insert into "+TbaleName+"(id,bpmnstr,flowID,bpmnjsonstr)values(null,#{bpmnstr},#{flowID},#{bpmnjsonstr})")
     int insert(FlowDetailEntity entity);
 
-    @Insert("insert into "+TbaleName+" (id,bpmnstr,flowID) select null,bpmnstr,#{newid} from "+TbaleName+" where flowID=#{oldid}")
+    @Insert("insert into "+TbaleName+" (id,bpmnstr,flowID,bpmnjsonstr) select null,bpmnstr,#{newid},bpmnjsonstr from "+TbaleName+" where flowID=#{oldid}")
     int copyByPID(Integer oldid,Integer newid);
     //删除一个Person
     @Delete("delete from "+TbaleName+" where id = #{id}")
