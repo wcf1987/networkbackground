@@ -13,5 +13,7 @@ public class PageParmInfo {
     private Integer pageNum;
     private Integer pageSize;
     private Integer pid;
+    private Integer uid;
+    private String name;
     private Integer pidNear;
 }

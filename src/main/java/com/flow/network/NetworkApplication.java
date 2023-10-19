@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @MapperScan("com.flow.network.mapper")
+@MapperScan("com.flow.network.mapper2")
 @ComponentScan(basePackages = {"com.flow.network"})
 public class NetworkApplication {
 
