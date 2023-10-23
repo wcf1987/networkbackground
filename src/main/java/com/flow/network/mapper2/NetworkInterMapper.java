@@ -32,5 +32,6 @@ public interface NetworkInterMapper {
 
 
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid} and Name like concat('%',#{name},'%')")
+    @Options(flushCache = Options.FlushCachePolicy.TRUE)
     List<NetworkInterEntity> searchByName(String name,Integer uid);
 }
