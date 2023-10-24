@@ -24,7 +24,7 @@ public interface FieldsMapper {
     @Update("update "+TbaleName+" set Name =#{Name},  IDNO=#{IDNO},Version=#{Version},ShortName=#{ShortName},ApplicableMess=#{ApplicableMess}, Describes =#{Describes}, CreateTime =#{CreateTime}  where ID=#{ID}")
     int updateByPrimaryKey(FieldsEntity entity);
     //查询一个Person
-    @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
+    @Select("select ID,IDNO ,Version from  "+TbaleName+"  where id = #{id}")
     FieldsEntity selectByPrimaryKey(Integer id);
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")

@@ -1,7 +1,7 @@
 package com.flow.network.service2;
 
-import com.flow.network.domain2.FieldsEntity;
-import com.flow.network.mapper2.FieldsMapper;
+import com.flow.network.domain2.FieldsDetailEntity;
+import com.flow.network.mapper2.FieldsDetailMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,33 +11,33 @@ import java.util.List;
 
 
 @Service
-public class FieldsServiceImp
+public class FieldsDetailServiceImp
 {
 
     @Autowired
-    FieldsMapper detailMapper;
+    FieldsDetailMapper detailMapper;
 
 
-    public String add(FieldsEntity entity) {
+    public String add(FieldsDetailEntity entity) {
         //System.out.print("getlist");
         detailMapper.insert(entity);
         return Tools.SUCCESS;
     }
-    public String update(FieldsEntity entity) {
+    public String update(FieldsDetailEntity entity) {
         //System.out.print("getlist");
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;
     }
-    public List<FieldsEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
+    public List<FieldsDetailEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<FieldsEntity> list=detailMapper.searchByName(name,uid);
+        List<FieldsDetailEntity> list=detailMapper.searchByName(name,uid);
 
         return list;
     }
-    public List<FieldsEntity> searchAll(String name,Integer uid) {
+    public List<FieldsDetailEntity> searchAll(String name,Integer uid) {
         //System.out.print("getlist");
-        List<FieldsEntity> list=detailMapper.searchByName(name,uid);
+        List<FieldsDetailEntity> list=detailMapper.searchByName(name,uid);
 
         return list;
     }
@@ -46,10 +46,4 @@ public class FieldsServiceImp
         detailMapper.delete(id);
         return 1;
     }
-    public FieldsEntity getByID(Integer id) {
-        //System.out.print("deleteByID");
-        FieldsEntity fe=detailMapper.selectByPrimaryKey(id);
-        return fe;
-    }
-
 }
