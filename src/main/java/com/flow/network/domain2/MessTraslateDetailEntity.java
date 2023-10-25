@@ -13,29 +13,27 @@ import java.util.List;
 @NoArgsConstructor
 @Component
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE)
-public class MessDetailEntity {
+public class MessTraslateDetailEntity {
     private Integer ID;
-    private Integer SortID ;
-    private String Name;
-    private String Flag;
-    private List<MessDetailEntity> children;
-    private String TType;
-    private Double OrderID;
     private Integer OutID;
+    private String Name;
     private String OutType;
+    private List<MessTraslateDetailEntity> children;
     private Integer NestID;
     private Integer PID;
-
-    private String Type;
     private String ShortName;
     private String EName;
-    private String Length;
 
-
+    private String TName;
+    private Integer TransID;
+    private Integer TransDetailID;
+    private String Optional;
+    private String Transrule;
     private String Describes;
     private String CreateTime;
-    private Integer AuthorID;
-    private Integer FieldsID;
-    private Integer DFIID;
+    private String Funcrule;
+    private String SourceData;
+
+
 
 }

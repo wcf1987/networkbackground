@@ -28,16 +28,16 @@ public class FieldsDetailServiceImp
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;
     }
-    public List<FieldsDetailEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
+    public List<FieldsDetailEntity> search(String name,Integer uid,Integer pid,Integer pageNum, Integer pageSize) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<FieldsDetailEntity> list=detailMapper.searchByName(name,uid);
+        List<FieldsDetailEntity> list=detailMapper.searchByName(name,uid,pid);
 
         return list;
     }
-    public List<FieldsDetailEntity> searchAll(String name,Integer uid) {
+    public List<FieldsDetailEntity> searchAll(String name,Integer uid,Integer pid) {
         //System.out.print("getlist");
-        List<FieldsDetailEntity> list=detailMapper.searchByName(name,uid);
+        List<FieldsDetailEntity> list=detailMapper.searchByName(name,uid,pid);
 
         return list;
     }

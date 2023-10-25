@@ -31,6 +31,6 @@ public interface FieldsDetailMapper {
     List<FieldsDetailEntity> getList(Integer uid);
 
 
-    @Select("select t0.ID,t0.Name,t0.Type,t0.Describes,t0.CreateTime,t0.AuthorID,t0.ShortName,t0.DFIID,t1.IDNO as DFINO,t1.Version as DFIVersion,t0.DUINO,t0.DUIVersion,t0.EName,t0.TypeCode,t0.Length,t0.TableName,t0.TableSaveName from "+TbaleName+" t0, t_fields t1 where t0.DFIID=t1.ID and t0.AuthorID=#{uid} and t0.Name like concat('%',#{name},'%')")
-    List<FieldsDetailEntity> searchByName(String name,Integer uid);
+    @Select("select t0.ID,t0.Name,t0.Type,t0.Describes,t0.CreateTime,t0.AuthorID,t0.ShortName,t0.DFIID,t1.IDNO as DFINO,t1.Version as DFIVersion,t0.DUINO,t0.DUIVersion,t0.EName,t0.TypeCode,t0.Length,t0.TableName,t0.TableSaveName from "+TbaleName+" t0, t_fields t1 where t0.DFIID=t1.ID and t0.AuthorID=#{uid} and t0.DFIID=#{pid} and t0.Name like concat('%',#{name},'%')")
+    List<FieldsDetailEntity> searchByName(String name,Integer uid,Integer pid);
 }
