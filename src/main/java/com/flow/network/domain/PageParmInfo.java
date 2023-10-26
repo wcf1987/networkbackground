@@ -15,7 +15,7 @@ public class PageParmInfo {
     private Integer pid;
     private Integer transid;
     private String ttype;
-
+    private Integer id;
     private Integer uid;
     private String name;
     private Integer pidNear;
