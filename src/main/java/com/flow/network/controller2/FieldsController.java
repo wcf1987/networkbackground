@@ -1,14 +1,17 @@
 package com.flow.network.controller2;
 
 import com.flow.network.config.ApiResponse;
+import com.flow.network.domain2.FieldsUploadEntity;
+import com.flow.network.tools.*;
 import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.FieldsEntity;
 import com.flow.network.domain2.MessBodyEntity;
 import com.flow.network.service2.FieldsServiceImp;
-import com.flow.network.tools.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/fields")
@@ -45,8 +48,15 @@ public class FieldsController {
         // 调用fileService保存文件
         try {
             result = Tools.storeFile(file[0], path);
+            List<FieldsUploadEntity> list = ExcelUtils.importExcel(result,1,1, FieldsUploadEntity.class);
+            for(int i=0;i<list.size();i++){
+                FieldsEntity fieldsEntity=new FieldsEntity(list.get(i));
+                serviceImp.add(fieldsEntity);
+            }
+
         }catch (Exception e){
 
+            e.printStackTrace();
         }
         //serviceImp.add(detailEntity);
         return ApiResponse.success();

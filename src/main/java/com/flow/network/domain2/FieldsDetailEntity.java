@@ -32,4 +32,18 @@ public class FieldsDetailEntity {
     private Integer AuthorID;
 
 
+    public FieldsDetailEntity(FieldsDetailUploadEntity up) {
+        Name=up.getName();
+        DUINO=up.getDUINO();
+        DUIVersion=up.getDUIVersion();
+        EName=up.getEName();
+        ShortName=up.getShortName();
+        Type=up.getType();
+        TypeCode=up.getTypeCode();
+        Length=up.getLength();
+        TableName=up.getTableName();
+        TableSaveName=up.getTableSaveName();
+        Describes=up.getDescribes();
+        this.AuthorID=1;
+    }
 }
