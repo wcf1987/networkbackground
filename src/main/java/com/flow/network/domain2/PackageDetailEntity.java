@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class PackageDetailEntity {
     private Integer ID;
     private String Name;
+    private String EName;
     private String Type;
     private String Length;
 

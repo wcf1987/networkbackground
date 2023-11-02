@@ -9,7 +9,7 @@ import java.util.List;
 public interface PackageDetailMapper {
     public static String TbaleName="t_packagedetail";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID)values(null,#{Name},#{Type},#{Length},#{ArrayOr},#{DefaultValue},#{packID},#{Describes},#{CreateTime},#{AuthorID})")
+    @Insert("insert into "+TbaleName+"(ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID)values(null,#{Name},#{EName},#{Type},#{Length},#{ArrayOr},#{DefaultValue},#{packID},#{Describes},#{CreateTime},#{AuthorID})")
     int insert(PackageDetailEntity entity);
 
 
@@ -28,6 +28,6 @@ public interface PackageDetailMapper {
     //查询所有的Person
 
 
-    @Select("select ID,Name,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid} and Name like concat('%',#{name},'%') and packID=#{pid}")
+    @Select("select ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid} and Name like concat('%',#{name},'%') and packID=#{pid}")
     List<PackageDetailEntity> searchByName(String name,Integer uid,Integer pid);
 }

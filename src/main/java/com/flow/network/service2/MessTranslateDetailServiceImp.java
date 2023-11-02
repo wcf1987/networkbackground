@@ -120,11 +120,14 @@ public class MessTranslateDetailServiceImp {
             t.setTransDetailID(temp.getID());
 
         } else {
-            detailMapper.insertByFieldsID(t.getID(), transid);
-            temp = detailMapper.selectByFieldsID(t.getID(), transid);
-            t.setTransID(transid);
-            t.setTransDetailID(temp.getID());
+            if(transid==-1){
 
+            }else {
+                detailMapper.insertByFieldsID(t.getID(), transid);
+                temp = detailMapper.selectByFieldsID(t.getID(), transid);
+                t.setTransID(transid);
+                t.setTransDetailID(temp.getID());
+            }
         }
 
     }
