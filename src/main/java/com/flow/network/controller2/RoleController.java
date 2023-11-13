@@ -46,4 +46,9 @@ public class RoleController {
         return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
     }
+    @PostMapping("/getbyid")
+    public ApiResponse getbyid(@RequestBody PageParmInfo pageParmInfo ){
+        return ApiResponse.success(serviceImp.getByID(pageParmInfo.getId()));
+
+    }
 }

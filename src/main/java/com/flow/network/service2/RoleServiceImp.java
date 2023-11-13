@@ -41,6 +41,12 @@ public class RoleServiceImp
 
         return list;
     }
+    public RoleEntity getByID(Integer id) {
+        //System.out.print("getlist");
+        RoleEntity r=detailMapper.getByID(id);
+
+        return r;
+    }
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);

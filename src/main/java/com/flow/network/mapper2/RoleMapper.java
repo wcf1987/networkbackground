@@ -25,7 +25,7 @@ public interface RoleMapper {
     int updateByPrimaryKey(RoleEntity entity);
     //查询一个Person
     @Select("select id,roleName,roleSign,menustr,status,describes,createTime from  "+TbaleName+"  where id = #{id}")
-    RoleEntity selectByPrimaryKey(Integer id);
+    RoleEntity getByID(Integer id);
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<RoleEntity> getList(Integer uid);

@@ -13,6 +13,7 @@ public class UserEntity {
     private Integer id;
     private String userName;
     private String userNickname;
+    private String menustr;
     private String password;
     private Integer roleSign;
     private String roleStr;

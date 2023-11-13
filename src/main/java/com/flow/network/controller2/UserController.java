@@ -46,4 +46,18 @@ public class UserController {
         return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
     }
+    @PostMapping("/signIn")
+    public ApiResponse signIn(@RequestBody UserEntity detailEntity){
+        UserEntity u=serviceImp.getByPass(detailEntity.getUserName(),detailEntity.getPassword());
+        if(u==null){
+            return ApiResponse.fail(301,"用户密码错误");
+        }else {
+            return ApiResponse.success(u);
+        }
+    }
+    @PostMapping("/signOut")
+    public ApiResponse signOut(@RequestBody UserEntity detailEntity ){
+        return ApiResponse.success(serviceImp.sighOut(detailEntity.getUserName()));
+
+    }
 }

@@ -25,6 +25,16 @@ public class UserServiceImp
         detailMapper.insert(entity);
         return Tools.SUCCESS;
     }
+    public UserEntity getByPass(String name,String pass) {
+        //System.out.print("getlist");
+        UserEntity userEntity=detailMapper.check(name,pass);
+        return userEntity;
+    }
+    public UserEntity sighOut(String name) {
+        //System.out.print("getlist");
+        //detailMapper.check(name,pass);
+        return null;
+    }
     public String update(UserEntity entity) {
         //System.out.print("getlist");
         detailMapper.updateByPrimaryKey(entity);

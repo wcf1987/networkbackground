@@ -24,8 +24,8 @@ public interface UserMapper {
     @Update("update "+TbaleName+" set userNickname =#{userNickname},  roleSign=#{roleSign}, phone =#{phone}, email =#{email} ,status=#{status},describes=#{describes} ,password=#{password} where id=#{id}")
     int updateByPrimaryKey(UserEntity entity);
     //查询一个Person
-    @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
-    UserEntity selectByPrimaryKey(Integer id);
+    @Select("select t0.id,t0.userName,t0.userNickname,t0.roleSign ,t0.phone,t0.email ,t1.menustr from  "+TbaleName+"  t0, t_role t1 where userName = #{name} and password=#{pass} and t0.roleSign=t1.id")
+    UserEntity check(String name,String pass );
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<UserEntity> getList(Integer uid);
