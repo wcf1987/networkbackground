@@ -19,7 +19,7 @@ public interface MessTranslateDetailMapper {
     @Insert("insert into "+TbaleName+"(ID,Name,TType,OrderID,OutID,OutType,PID,NestID,Flag) values(null,#{Name},#{TType},#{OrderID},#{OutID},#{OutType},#{PID},#{NestID},#{Flag})")
     int insert(MessDetailEntity entity);
 
-    @Insert("insert into "+TbaleName1+"(ID,Type,Describes,CreateTime,AuthorID,ShortName,EName,Length)values(null,#{Type},#{Describes},#{CreateTime},#{AuthorID},#{ShortName},#{EName},#{Length})")
+    @Insert("insert into "+TbaleName1+"(ID,Type,Describes,CreateTime,AuthorID,ShortName,EName,Length)values(null,#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID},#{ShortName},#{EName},#{Length})")
     @Options(useGeneratedKeys = true, keyProperty = "ID", keyColumn = "ID")
     int insertCustom(MessDetailEntity entity);
 
@@ -35,7 +35,7 @@ public interface MessTranslateDetailMapper {
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
-    @Update("update "+TbaleName3+" set TName =#{TName},Optional=#{Optional}, Transrule=#{Transrule}, Describes =#{Describes}, CreateTime =#{CreateTime} , Funcrule =#{Funcrule}, SourceData =#{SourceData} where ID=#{TransDetailID}")
+    @Update("update "+TbaleName3+" set TName =#{TName},Optional=#{Optional}, Transrule=#{Transrule}, Describes =#{Describes},  Funcrule =#{Funcrule}, SourceData =#{SourceData} where ID=#{TransDetailID}")
     int updateByPrimaryKey(MessTraslateDetailEntity entity);
 
     @Update("update "+TbaleName1+" set EName =#{EName}, ShortName=#{ShortName},Length =#{Length},Type =#{Type}  where ID=#{OutID}")

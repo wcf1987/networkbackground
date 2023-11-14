@@ -1,7 +1,6 @@
 package com.flow.network.mapper2;
 
 import com.flow.network.domain2.FlowDistributionEntity;
-import com.flow.network.domain2.MessTranslateEntity;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 public interface FlowDistributionMapper {
     public static String TbaleName="t_flowdistribution";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,FlowID,GatewayIDs,Describes,CreateTime,AuthorID)values(null,#{Name},#{FlowID},#{GatewayIDs},#{Describes},#{CreateTime},#{AuthorID})")
+    @Insert("insert into "+TbaleName+"(ID,Name,FlowID,GatewayIDs,Describes,CreateTime,AuthorID)values(null,#{Name},#{FlowID},#{GatewayIDs},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
     int insert(FlowDistributionEntity entity);
 
     @Insert("insert into "+TbaleName+" (id,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,ruleID) select null,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,#{newid} from "+TbaleName+" where ruleID=#{oldid}")
@@ -31,6 +30,6 @@ public interface FlowDistributionMapper {
 
 
 
-    @Select("select ID,Name,FlowID,GatewayIDs,Describes,CreateTime,AuthorID from "+TbaleName+"  where   AuthorID=#{uid} and Name like concat('%',#{name},'%')")
+    @Select("select ID,Name,FlowID,GatewayIDs,Describes,CreateTime,AuthorID from "+TbaleName+"  where    Name like concat('%',#{name},'%')")
     List<FlowDistributionEntity> searchByName(String name,Integer uid);
 }

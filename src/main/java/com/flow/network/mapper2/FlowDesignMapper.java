@@ -9,7 +9,7 @@ import java.util.List;
 public interface FlowDesignMapper {
     public static String TbaleName="t_flow";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,LastModified)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%d-%m %H:%i:%S'),#{AuthorID},#{FlowJson},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'))")
+    @Insert("insert into "+TbaleName+"(ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,LastModified)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID},#{FlowJson},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'))")
     int insert(FlowDesignEntity entity);
 
     @Insert("insert into "+TbaleName+" (id,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,ruleID) select null,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,#{newid} from "+TbaleName+" where ruleID=#{oldid}")
@@ -32,6 +32,6 @@ public interface FlowDesignMapper {
     @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified from "+TbaleName+" where ID=#{id}")
     FlowDesignEntity getFlowDesignByID(Integer id);
 
-    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified from "+TbaleName+" where AuthorID=#{uid} and Name like concat('%',#{name},'%')")
+    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified from "+TbaleName+" where  Name like concat('%',#{name},'%')")
     List<FlowDesignEntity> searchByName(String name,Integer uid);
 }

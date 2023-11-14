@@ -9,7 +9,7 @@ import java.util.List;
 public interface PackageDetailMapper {
     public static String TbaleName="t_packagedetail";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID)values(null,#{Name},#{EName},#{Type},#{Length},#{ArrayOr},#{DefaultValue},#{packID},#{Describes},#{CreateTime},#{AuthorID})")
+    @Insert("insert into "+TbaleName+"(ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID)values(null,#{Name},#{EName},#{Type},#{Length},#{ArrayOr},#{DefaultValue},#{packID},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
     int insert(PackageDetailEntity entity);
 
 
@@ -20,7 +20,7 @@ public interface PackageDetailMapper {
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
-    @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type},Length=#{Length},ArrayOr=#{ArrayOr},DefaultValue=#{DefaultValue}, Describes =#{Describes}, CreateTime =#{CreateTime}  where ID=#{ID}")
+    @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type},Length=#{Length},ArrayOr=#{ArrayOr},DefaultValue=#{DefaultValue}, Describes =#{Describes}  where ID=#{ID}")
     int updateByPrimaryKey(PackageDetailEntity entity);
     //查询一个Person
     @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
@@ -28,6 +28,6 @@ public interface PackageDetailMapper {
     //查询所有的Person
 
 
-    @Select("select ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid} and Name like concat('%',#{name},'%') and packID=#{pid}")
+    @Select("select ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%') and packID=#{pid}")
     List<PackageDetailEntity> searchByName(String name,Integer uid,Integer pid);
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface MessTraslateMapper {
     public static String TbaleName="t_messtranslate";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,sourceID,targetID,Describes,CreateTime,AuthorID)values(null,#{Name},#{sourceID},#{targetID},#{Describes},#{CreateTime},#{AuthorID})")
+    @Insert("insert into "+TbaleName+"(ID,Name,sourceID,targetID,Describes,CreateTime,AuthorID)values(null,#{Name},#{sourceID},#{targetID},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
     int insert(MessTranslateEntity entity);
 
     @Insert("insert into "+TbaleName+" (id,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,ruleID) select null,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,#{newid} from "+TbaleName+" where ruleID=#{oldid}")
@@ -21,7 +21,7 @@ public interface MessTraslateMapper {
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
-    @Update("update "+TbaleName+" set Name =#{Name},   Describes =#{Describes}, CreateTime =#{CreateTime}  where ID=#{ID}")
+    @Update("update "+TbaleName+" set Name =#{Name},   Describes =#{Describes}  where ID=#{ID}")
     int updateByPrimaryKey(MessTranslateEntity entity);
     //查询一个Person
     @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
@@ -31,6 +31,6 @@ public interface MessTraslateMapper {
     List<MessTranslateEntity> getList(Integer uid);
 
 
-    @Select("select t0.ID,t0.Name,t0.sourceID,t0.targetID,t1.name as sourmess,t2.name as tarmess,t0.Describes,t0.CreateTime,t0.AuthorID from "+TbaleName+" t0,t_messbody t1,t_messbody t2 where t0.sourceID=t1.ID and  t0.targetID=t2.ID and   t0.AuthorID=#{uid} and t0.Name like concat('%',#{name},'%')")
+    @Select("select t0.ID,t0.Name,t0.sourceID,t0.targetID,t1.name as sourmess,t2.name as tarmess,t0.Describes,t0.CreateTime,t0.AuthorID from "+TbaleName+" t0,t_messbody t1,t_messbody t2 where t0.sourceID=t1.ID and  t0.targetID=t2.ID and    t0.Name like concat('%',#{name},'%')")
     List<MessTranslateEntity> searchByName(String name,Integer uid);
 }
