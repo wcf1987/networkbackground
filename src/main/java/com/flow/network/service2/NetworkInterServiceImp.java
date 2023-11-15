@@ -1,5 +1,6 @@
 package com.flow.network.service2;
 
+import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.NetworkInterEntity;
 import com.flow.network.mapper2.NetworkInterMapper;
 import com.flow.network.tools.Tools;
@@ -31,6 +32,11 @@ public class NetworkInterServiceImp
 
     public String add(NetworkInterEntity entity) {
         //System.out.print("getlist");
+
+        if(detailMapper.selectByName(entity.getName())!=null){
+            throw new ServiceException("名称重复，请更改");
+        }
+
         detailMapper.insert(entity);
         return Tools.SUCCESS;
     }

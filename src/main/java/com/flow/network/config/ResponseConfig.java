@@ -1,6 +1,8 @@
 package com.flow.network.config;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -33,7 +35,13 @@ public class ResponseConfig implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest serverHttpRequest,
                                   ServerHttpResponse serverHttpResponse) {
 
-
+        if(o instanceof String){
+            try {
+                return objectMapper.writeValueAsString(ApiResponse.success(o));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
        if(o!=null && o instanceof LinkedHashMap){
            LinkedHashMap i=(LinkedHashMap)o;
            if((Integer) i.get("status")==400){
@@ -47,4 +55,5 @@ public class ResponseConfig implements ResponseBodyAdvice<Object> {
         return o;
     }
 
+    private ObjectMapper objectMapper;
 }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/networkinter")
 public class NetworkInterfaceController {
@@ -43,7 +45,7 @@ public class NetworkInterfaceController {
 
     }
     @PostMapping("/add")
-    public ApiResponse add(@RequestBody NetworkInterEntity detailEntity){
+    public ApiResponse add(@RequestBody @Valid NetworkInterEntity detailEntity){
         serviceImp.add(detailEntity);
         return ApiResponse.success();
     }
