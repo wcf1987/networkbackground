@@ -1,5 +1,6 @@
 package com.flow.network.mapper2;
 
+import com.flow.network.domain2.SysplugEntity;
 import com.flow.network.domain2.UserEntity;
 import org.apache.ibatis.annotations.*;
 
@@ -30,7 +31,8 @@ public interface UserMapper {
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<UserEntity> getList(Integer uid);
 
-
+    @Select("select ID,username from  "+TbaleName+"  where username = #{name}")
+    SysplugEntity selectByName(String name);
     @Select("select t0.id,userName,userNickname,t0.roleSign,t1.roleName as roleStr,department,phone,email,t0.status,t0.describes,t0.createTime from "+TbaleName+" t0 LEFT JOIN t_role t1 ON t0.roleSign=t1.id where  userName like concat('%',#{userName},'%')")
     List<UserEntity> searchByName(String userName,Integer uid);
 }

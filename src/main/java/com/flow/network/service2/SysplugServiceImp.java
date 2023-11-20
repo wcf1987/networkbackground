@@ -1,5 +1,6 @@
 package com.flow.network.service2;
 
+import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.SysplugEntity;
 import com.flow.network.mapper2.SysplugMapper;
 import com.flow.network.tools.Tools;
@@ -19,6 +20,9 @@ public class SysplugServiceImp
 
 
     public String add(SysplugEntity entity) {
+        if(detailMapper.selectByName(entity.getName())!=null){
+            throw new ServiceException("名称重复，请更改");
+        }
         //System.out.print("getlist");
         detailMapper.insert(entity);
         return Tools.SUCCESS;

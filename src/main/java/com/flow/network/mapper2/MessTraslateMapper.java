@@ -29,7 +29,8 @@ public interface MessTraslateMapper {
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<MessTranslateEntity> getList(Integer uid);
-
+    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
+    MessTranslateEntity selectByName(String name);
 
     @Select("select t0.ID,t0.Name,t0.sourceID,t0.targetID,t1.name as sourmess,t2.name as tarmess,t0.Describes,t0.CreateTime,t0.AuthorID from "+TbaleName+" t0,t_messbody t1,t_messbody t2 where t0.sourceID=t1.ID and  t0.targetID=t2.ID and    t0.Name like concat('%',#{name},'%')")
     List<MessTranslateEntity> searchByName(String name,Integer uid);

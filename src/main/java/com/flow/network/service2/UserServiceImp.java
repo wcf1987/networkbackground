@@ -1,5 +1,6 @@
 package com.flow.network.service2;
 
+import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.UserEntity;
 import com.flow.network.mapper2.RoleMapper;
 import com.flow.network.mapper2.UserMapper;
@@ -22,6 +23,9 @@ public class UserServiceImp
 
     public String add(UserEntity entity) {
         //System.out.print("getlist");
+        if(detailMapper.selectByName(entity.getUserName())!=null){
+            throw new ServiceException("用户名重复，请更改");
+        }
         detailMapper.insert(entity);
         return Tools.SUCCESS;
     }

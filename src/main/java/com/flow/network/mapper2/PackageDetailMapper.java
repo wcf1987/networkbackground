@@ -1,6 +1,7 @@
 package com.flow.network.mapper2;
 
 import com.flow.network.domain2.PackageDetailEntity;
+import com.flow.network.domain2.SerialInterEntity;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -11,7 +12,8 @@ public interface PackageDetailMapper {
     //增加一个Person
     @Insert("insert into "+TbaleName+"(ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID)values(null,#{Name},#{EName},#{Type},#{Length},#{ArrayOr},#{DefaultValue},#{packID},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
     int insert(PackageDetailEntity entity);
-
+    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
+    SerialInterEntity selectByName(String name);
 
     //删除一个Person
     @Delete("delete from "+TbaleName+" where ID = #{id}")

@@ -1,5 +1,6 @@
 package com.flow.network.service2;
 
+import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.GatewayEntity;
 import com.flow.network.domain2.PackageEntity;
 import com.flow.network.mapper2.FlowDesignMapper;
@@ -22,6 +23,9 @@ public class GatewayServiceImp
 
 
     public String add(GatewayEntity entity) {
+        if(detailMapper.selectByName(entity.getName())!=null){
+            throw new ServiceException("名称重复，请更改");
+        }
         //System.out.print("getlist");
         detailMapper.insert(entity);
         return Tools.SUCCESS;

@@ -1,5 +1,6 @@
 package com.flow.network.service2;
 
+import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.PackageEntity;
 import com.flow.network.mapper2.PackageMapper;
 import com.flow.network.tools.Tools;
@@ -20,6 +21,9 @@ public class PackageServiceImp
 
     public String add(PackageEntity entity) {
         //System.out.print("getlist");
+        if(detailMapper.selectByName(entity.getName())!=null){
+            throw new ServiceException("名称重复，请更改");
+        }
         detailMapper.insert(entity);
         return Tools.SUCCESS;
     }

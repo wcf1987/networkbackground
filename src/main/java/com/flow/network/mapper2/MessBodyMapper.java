@@ -27,6 +27,9 @@ public interface MessBodyMapper {
     @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
     MessBodyEntity selectByPrimaryKey(Integer id);
     //查询所有的Person
+
+    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
+    MessBodyEntity selectByName(String name);
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<MessBodyEntity> getList(Integer uid);
 

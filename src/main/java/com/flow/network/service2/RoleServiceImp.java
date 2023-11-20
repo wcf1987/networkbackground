@@ -1,5 +1,6 @@
 package com.flow.network.service2;
 
+import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.RoleEntity;
 import com.flow.network.mapper2.RoleMapper;
 import com.flow.network.tools.Tools;
@@ -20,6 +21,9 @@ public class RoleServiceImp
 
     public String add(RoleEntity entity) {
         //System.out.print("getlist");
+        if(detailMapper.selectByName(entity.getRoleName())!=null){
+            throw new ServiceException("角色名称重复，请更改");
+        }
         detailMapper.insert(entity);
         return Tools.SUCCESS;
     }

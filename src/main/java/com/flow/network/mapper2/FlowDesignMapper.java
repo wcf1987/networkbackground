@@ -31,7 +31,8 @@ public interface FlowDesignMapper {
 
     @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified from "+TbaleName+" where ID=#{id}")
     FlowDesignEntity getFlowDesignByID(Integer id);
-
+    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
+    FlowDesignEntity selectByName(String name);
     @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified from "+TbaleName+" where  Name like concat('%',#{name},'%')")
     List<FlowDesignEntity> searchByName(String name,Integer uid);
 }

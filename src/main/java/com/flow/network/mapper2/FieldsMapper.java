@@ -30,7 +30,10 @@ public interface FieldsMapper {
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<FieldsEntity> getList(Integer uid);
 
-
+    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
+    FieldsEntity selectByName(String name);
+    @Select("select ID,Name from  "+TbaleName+"  where IDNO = #{idno}")
+    FieldsEntity selectByIDNO(String idno);
     @Select("select ID,Name,IDNO,Version,ShortName,ApplicableMess,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%')")
     List<FieldsEntity> searchByName(String name,Integer uid);
 }

@@ -1,5 +1,6 @@
 package com.flow.network.service2;
 
+import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.MessHeaderEntity;
 import com.flow.network.mapper2.MessHeaderMapper;
 import com.flow.network.tools.Tools;
@@ -19,6 +20,9 @@ public class MessHeaderServiceImp
 
 
     public String add(MessHeaderEntity entity) {
+        if(detailMapper.selectByName(entity.getName())!=null){
+            throw new ServiceException("名称重复，请更改");
+        }
         //System.out.print("getlist");
         detailMapper.insert(entity);
         return Tools.SUCCESS;

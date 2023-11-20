@@ -30,7 +30,8 @@ public interface GlobalVarMapper {
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<GlobalVarEntity> getList(Integer uid);
 
-
+    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
+    GlobalVarEntity selectByName(String name);
     @Select("select ID,Name,Type,Code,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%')")
     List<GlobalVarEntity> searchByName(String name,Integer uid);
 }

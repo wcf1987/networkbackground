@@ -1,5 +1,6 @@
 package com.flow.network.service2;
 
+import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.FieldsDetailEntity;
 import com.flow.network.mapper2.FieldsDetailMapper;
 import com.flow.network.tools.Tools;
@@ -19,6 +20,13 @@ public class FieldsDetailServiceImp
 
 
     public String add(FieldsDetailEntity entity) {
+        if(detailMapper.selectByName(entity.getName())!=null){
+            throw new ServiceException("名称重复，请更改");
+        }
+        if(detailMapper.selectByDFIDUI(entity.getDFIID(),entity.getDUINO())!=null){
+            throw new ServiceException("DUI标识重复，请更改");
+        }
+
         //System.out.print("getlist");
         detailMapper.insert(entity);
         return Tools.SUCCESS;

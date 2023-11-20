@@ -30,7 +30,8 @@ public interface MessHeaderMapper {
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<MessHeaderEntity> getList(Integer uid);
 
-
+    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
+    MessHeaderEntity selectByName(String name);
     @Select("select ID,Name,Type,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%')")
     List<MessHeaderEntity> searchByName(String name,Integer uid);
 }

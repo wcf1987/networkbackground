@@ -1,6 +1,7 @@
 package com.flow.network.mapper2;
 
 import com.flow.network.domain2.RoleEntity;
+import com.flow.network.domain2.SysplugEntity;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public interface RoleMapper {
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<RoleEntity> getList(Integer uid);
 
-
+    @Select("select ID from  "+TbaleName+"  where rolename = #{name}")
+    SysplugEntity selectByName(String name);
     @Select("select id,roleName,roleSign,menustr,status,describes,createTime from "+TbaleName+" where roleName like concat('%',#{roleName},'%')")
     List<RoleEntity> searchByName(String roleName,Integer uid);
 }
