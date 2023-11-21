@@ -33,7 +33,7 @@ public class NetworkInterServiceImp
     public String add(NetworkInterEntity entity) {
         //System.out.print("getlist");
 
-        if(detailMapper.selectByName(entity.getName())!=null){
+        if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
 
@@ -42,6 +42,9 @@ public class NetworkInterServiceImp
     }
     public String update(NetworkInterEntity entity) {
         //System.out.print("getlist");
+        if(detailMapper.selectByName(entity.getName(),entity.getID())>0){
+            throw new ServiceException("名称重复，请更改");
+        }
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;
     }

@@ -46,4 +46,20 @@ public class FieldsDetailEntity {
         Describes=up.getDescribes();
         this.AuthorID=1;
     }
+    public FieldsDetailEntity(FieldsDetailUploadAllEntity up) {
+        Name=up.getName();
+        DFINO=up.getDFINO();
+        DUINO=up.getDUINO();
+        DUIVersion=up.getDUIVersion();
+        EName=up.getEName();
+        ShortName=up.getShortName();
+        Type=up.getType();
+        TypeCode=up.getTypeCode();
+        Length=up.getLength();
+        TableName=up.getTableName();
+        TableSaveName=up.getTableSaveName();
+        Describes=up.getDescribes();
+        this.AuthorID=1;
+    }
+
 }

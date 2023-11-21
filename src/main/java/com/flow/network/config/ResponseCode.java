@@ -12,6 +12,7 @@ public enum  ResponseCode {
     INVALID_TOKEN(2001,"访问令牌不合法"),
     ACCESS_DENIED(2002,"没有权限访问该资源"),
     USERNAME_OR_PASSWORD_ERROR(2003,"用户名或密码错误"),
+    UPLOAD_ERROR(2004,"上传文件内容有误"),
     BODY_NOT_MATCH(400,"请求的数据格式不符!"),
     REQUEST_METHOD_ERROR(400,"请求的方法不存在!"),
     NOT_FOUND(404, "未找到该资源!"),

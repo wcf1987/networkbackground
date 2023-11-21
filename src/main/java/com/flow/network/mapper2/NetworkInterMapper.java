@@ -27,8 +27,8 @@ public interface NetworkInterMapper {
     @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
     NetworkInterEntity selectByPrimaryKey(Integer id);
 
-    @Select("select ID,Name,Type,IP from  "+TbaleName+"  where Name = #{name}")
-    NetworkInterEntity selectByName(String name);
+    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
+    Integer selectByName(String name,Integer id);
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" ")
     List<NetworkInterEntity> getList(Integer uid);

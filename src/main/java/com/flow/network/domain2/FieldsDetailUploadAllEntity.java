@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
-public class FieldsDetailUploadEntity {
+public class FieldsDetailUploadAllEntity {
     private Integer ID;
     @Excel(name = "名称")
     private String name;
     private Integer DFIID;
 
-
+    @Excel(name="DFI标识号")
+    private String dFINO;
 
     @Excel(name = "类型")
     private String type;

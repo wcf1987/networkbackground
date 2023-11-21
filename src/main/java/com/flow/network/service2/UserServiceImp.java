@@ -23,8 +23,8 @@ public class UserServiceImp
 
     public String add(UserEntity entity) {
         //System.out.print("getlist");
-        if(detailMapper.selectByName(entity.getUserName())!=null){
-            throw new ServiceException("用户名重复，请更改");
+        if(detailMapper.selectByName(entity.getUserName(),0)>0){
+            throw new ServiceException("名称重复，请更改");
         }
         detailMapper.insert(entity);
         return Tools.SUCCESS;

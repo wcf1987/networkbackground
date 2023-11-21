@@ -28,7 +28,7 @@ public class FlowDistributionServiceImp
     @Autowired
     GatewayMapper detailMapper3;
     public String add(FlowDistributionEntity entity) {
-        if(detailMapper.selectByName(entity.getName())!=null){
+        if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
         //System.out.print("getlist");
@@ -37,6 +37,9 @@ public class FlowDistributionServiceImp
     }
     public String update(FlowDistributionEntity entity) {
         //System.out.print("getlist");
+        if(detailMapper.selectByName(entity.getName(),entity.getID())>0){
+            throw new ServiceException("名称重复，请更改");
+        }
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;
     }

@@ -20,7 +20,7 @@ public class MessBodyServiceImp
 
 
     public String add(MessBodyEntity entity) {
-        if(detailMapper.selectByName(entity.getName())!=null){
+        if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
         //System.out.print("getlist");
@@ -29,6 +29,9 @@ public class MessBodyServiceImp
     }
     public String update(MessBodyEntity entity) {
         //System.out.print("getlist");
+        if(detailMapper.selectByName(entity.getName(),entity.getID())>0){
+            throw new ServiceException("名称重复，请更改");
+        }
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;
     }

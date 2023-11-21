@@ -30,8 +30,8 @@ public interface SysplugMapper {
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<SysplugEntity> getList(Integer uid);
 
-    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
-    SysplugEntity selectByName(String name);
+    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
+    Integer selectByName(String name,Integer id);
     @Select("select ID,Name,Type,InputPar,OutputPar,Version,Plugfile,Status,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%')")
     List<SysplugEntity> searchByName(String name,Integer uid);
 }

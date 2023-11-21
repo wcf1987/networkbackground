@@ -29,8 +29,10 @@ public interface SerialInterMapper {
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<SerialInterEntity> getList(Integer uid);
-    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
-    SerialInterEntity selectByName(String name);
+
+    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
+    Integer selectByName(String name,Integer id);
+
 
     @Select("select ID,Name,Type,SerialNO,BAUD,DataBit,StopBit,FlowControl,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%')")
     List<SerialInterEntity> searchByName(String name,Integer uid);

@@ -21,14 +21,17 @@ public class RoleServiceImp
 
     public String add(RoleEntity entity) {
         //System.out.print("getlist");
-        if(detailMapper.selectByName(entity.getRoleName())!=null){
-            throw new ServiceException("角色名称重复，请更改");
+        if(detailMapper.selectByName(entity.getRoleName(),0)>0){
+            throw new ServiceException("名称重复，请更改");
         }
         detailMapper.insert(entity);
         return Tools.SUCCESS;
     }
     public String update(RoleEntity entity) {
         //System.out.print("getlist");
+        if(detailMapper.selectByName(entity.getRoleName(),entity.getId())>0){
+            throw new ServiceException("名称重复，请更改");
+        }
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;
     }

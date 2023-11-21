@@ -2,10 +2,7 @@ package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.GatewayEntity;
-import com.flow.network.domain2.PackageEntity;
-import com.flow.network.mapper2.FlowDesignMapper;
 import com.flow.network.mapper2.GatewayMapper;
-import com.flow.network.mapper2.PackageMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +20,7 @@ public class GatewayServiceImp
 
 
     public String add(GatewayEntity entity) {
-        if(detailMapper.selectByName(entity.getName())!=null){
+        if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
         //System.out.print("getlist");
@@ -32,6 +29,9 @@ public class GatewayServiceImp
     }
     public String update(GatewayEntity entity) {
         //System.out.print("getlist");
+        if(detailMapper.selectByName(entity.getName(),entity.getID())>0){
+            throw new ServiceException("名称重复，请更改");
+        }
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;
     }

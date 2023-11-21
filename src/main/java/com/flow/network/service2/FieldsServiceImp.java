@@ -19,18 +19,31 @@ public class FieldsServiceImp
     FieldsMapper detailMapper;
 
 
-    public String add(FieldsEntity entity) {
-        if(detailMapper.selectByName(entity.getName())!=null){
+    public Integer add(FieldsEntity entity) {
+        if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
-        if(detailMapper.selectByIDNO(entity.getIDNO())!=null){
+        if(detailMapper.selectByIDNO(entity.getIDNO(),0)>0){
             throw new ServiceException("标识号重复，请更改");
         }
         //System.out.print("getlist");
         detailMapper.insert(entity);
-        return Tools.SUCCESS;
+        return entity.getID();
+    }
+    public Integer add2(FieldsEntity entity) {
+
+
+        //System.out.print("getlist");
+        detailMapper.insert(entity);
+        return entity.getID();
     }
     public String update(FieldsEntity entity) {
+        if(detailMapper.selectByName(entity.getName(),entity.getID())>0){
+            throw new ServiceException("名称重复，请更改");
+        }
+        if(detailMapper.selectByIDNO(entity.getIDNO(),entity.getID())>0){
+            throw new ServiceException("标识号重复，请更改");
+        }
         //System.out.print("getlist");
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;

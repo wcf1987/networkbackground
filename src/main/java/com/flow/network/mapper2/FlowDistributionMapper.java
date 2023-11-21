@@ -27,8 +27,8 @@ public interface FlowDistributionMapper {
     @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
     FlowDistributionEntity selectByPrimaryKey(Integer id);
     //查询所有的Person
-    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
-    FlowDistributionEntity selectByName(String name);
+    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
+    Integer selectByName(String name,Integer id);
 
 
     @Select("select ID,Name,FlowID,GatewayIDs,Describes,CreateTime,AuthorID from "+TbaleName+"  where    Name like concat('%',#{name},'%')")

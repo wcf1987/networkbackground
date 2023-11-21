@@ -20,10 +20,10 @@ public class FieldsDetailServiceImp
 
 
     public String add(FieldsDetailEntity entity) {
-        if(detailMapper.selectByName(entity.getName())!=null){
+        if(detailMapper.selectByName(entity.getName(),entity.getDFIID(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
-        if(detailMapper.selectByDFIDUI(entity.getDFIID(),entity.getDUINO())!=null){
+        if(detailMapper.selectByDFIDUI(entity.getDFIID(),entity.getDUINO(),0)>0){
             throw new ServiceException("DUI标识重复，请更改");
         }
 
@@ -32,6 +32,12 @@ public class FieldsDetailServiceImp
         return Tools.SUCCESS;
     }
     public String update(FieldsDetailEntity entity) {
+        if(detailMapper.selectByName(entity.getName(),entity.getDFIID(),entity.getID())>0){
+            throw new ServiceException("名称重复，请更改");
+        }
+        if(detailMapper.selectByDFIDUI(entity.getDFIID(),entity.getDUINO(),entity.getID())>0){
+            throw new ServiceException("DUI标识重复，请更改");
+        }
         //System.out.print("getlist");
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;
@@ -46,6 +52,12 @@ public class FieldsDetailServiceImp
     public List<FieldsDetailEntity> searchAll(String name,Integer uid,Integer pid) {
         //System.out.print("getlist");
         List<FieldsDetailEntity> list=detailMapper.searchByName(name,uid,pid);
+
+        return list;
+    }
+    public List<FieldsDetailEntity> searchAll(String name,Integer uid) {
+        //System.out.print("getlist");
+        List<FieldsDetailEntity> list=detailMapper.searchByNameAll(name,uid);
 
         return list;
     }

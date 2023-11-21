@@ -86,17 +86,21 @@ public class MessDetailServiceImp
         return Tools.SUCCESS;
     }
     public String add(MessDetailEntity entity) {
-        if(detailMapper.selectByName(entity.getName())!=null){
-            throw new ServiceException("名称重复，请更改");
-        }
+
         //System.out.print("getlist");
         if(entity.getOutType().equals("custom")){
+            if(detailMapper.selectByName(entity.getName(),entity.getPID(),0)>0){
+                throw new ServiceException("名称重复，请更改");
+            }
             addCustom(entity);
         }
         if(entity.getOutType().equals("fields")){
             addFields(entity);
         }
         if(entity.getOutType().equals("nest")){
+            if(detailMapper.selectByName(entity.getName(),entity.getPID(),0)>0){
+                throw new ServiceException("名称重复，请更改");
+            }
             addNest(entity);
         }
         return Tools.SUCCESS;
@@ -179,13 +183,20 @@ public class MessDetailServiceImp
         return Tools.SUCCESS;
     }
     public String update(MessDetailEntity entity) {
+
         if(entity.getOutType().equals("custom")){
+            if(detailMapper.selectByName(entity.getName(),entity.getPID(),entity.getID())>0){
+                throw new ServiceException("名称重复，请更改");
+            }
             updateCustom(entity);
         }
         if(entity.getOutType().equals("fields")){
             updateFields(entity);
         }
         if(entity.getOutType().equals("nest")){
+            if(detailMapper.selectByName(entity.getName(),entity.getPID(),entity.getID())>0){
+                throw new ServiceException("名称重复，请更改");
+            }
             updateNest(entity);
         }
         return Tools.SUCCESS;

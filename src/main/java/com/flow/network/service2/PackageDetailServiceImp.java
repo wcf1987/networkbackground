@@ -21,7 +21,7 @@ public class PackageDetailServiceImp
 
     public String add(PackageDetailEntity entity) {
         //System.out.print("getlist");
-        if(detailMapper.selectByName(entity.getName())!=null){
+        if(detailMapper.selectByName(entity.getName(),entity.getPackID(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.insert(entity);
@@ -29,6 +29,9 @@ public class PackageDetailServiceImp
     }
     public String update(PackageDetailEntity entity) {
         //System.out.print("getlist");
+        if(detailMapper.selectByName(entity.getName(),entity.getPackID(),entity.getID())>0){
+            throw new ServiceException("名称重复，请更改");
+        }
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;
     }

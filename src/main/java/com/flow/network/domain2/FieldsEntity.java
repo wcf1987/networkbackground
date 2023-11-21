@@ -43,4 +43,8 @@ public class FieldsEntity {
         this.Describes= fieldsUploadEntity.getDescribes();
         this.AuthorID=1;
     }
+    public FieldsEntity(String dfino) {
+        this.IDNO= dfino;
+        this.setName("");
+    }
 }

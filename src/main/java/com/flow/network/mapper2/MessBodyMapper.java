@@ -28,8 +28,8 @@ public interface MessBodyMapper {
     MessBodyEntity selectByPrimaryKey(Integer id);
     //查询所有的Person
 
-    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
-    MessBodyEntity selectByName(String name);
+    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
+    Integer selectByName(String name,Integer id);
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<MessBodyEntity> getList(Integer uid);
 

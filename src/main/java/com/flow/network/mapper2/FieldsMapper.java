@@ -9,6 +9,7 @@ import java.util.List;
 public interface FieldsMapper {
     public static String TbaleName="t_fields";
     //增加一个Person
+    @Options(useGeneratedKeys = true,keyProperty = "ID",keyColumn = "ID")
     @Insert("insert into "+TbaleName+"(ID,Name,IDNO,Version,ShortName,ApplicableMess,Describes,CreateTime,AuthorID)values(null,#{Name},#{IDNO},#{Version},#{ShortName},#{ApplicableMess},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
     int insert(FieldsEntity entity);
 
@@ -30,10 +31,10 @@ public interface FieldsMapper {
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<FieldsEntity> getList(Integer uid);
 
-    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
-    FieldsEntity selectByName(String name);
-    @Select("select ID,Name from  "+TbaleName+"  where IDNO = #{idno}")
-    FieldsEntity selectByIDNO(String idno);
+    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
+    Integer selectByName(String name,Integer id);
+    @Select("select count(*)  from  "+TbaleName+"  where IDNO = #{idno} and ID!=#{id}")
+    Integer selectByIDNO(String idno,Integer id);
     @Select("select ID,Name,IDNO,Version,ShortName,ApplicableMess,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%')")
     List<FieldsEntity> searchByName(String name,Integer uid);
 }

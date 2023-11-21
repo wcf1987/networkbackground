@@ -32,8 +32,9 @@ public interface MessDetailMapper {
     //更改一个Person
     @Update("update "+TbaleName+" set Name =#{Name},OutID=#{OutID}, NestID=#{NestID}, Flag =#{Flag}  where ID=#{ID}")
     int updateByPrimaryKey(MessDetailEntity entity);
-    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
-    MessDetailEntity selectByName(String name);
+    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and PID=#{pid} and ID!=#{id}")
+    Integer selectByName(String name,Integer pid,Integer id);
+
     @Update("update "+TbaleName1+" set EName =#{EName}, ShortName=#{ShortName},Length =#{Length},Type =#{Type}  where ID=#{OutID}")
     int updateCustomByPrimaryKey(MessDetailEntity entity);
 

@@ -1,7 +1,6 @@
 package com.flow.network.mapper2;
 
 import com.flow.network.domain2.PackageEntity;
-import com.flow.network.domain2.SerialInterEntity;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -28,8 +27,8 @@ public interface PackageMapper {
     @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
     PackageEntity selectByPrimaryKey(Integer id);
 
-    @Select("select ID,Name from  "+TbaleName+"  where Name = #{name}")
-    SerialInterEntity selectByName(String name);
+    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
+    Integer selectByName(String name,Integer id);
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<PackageEntity> getList(Integer uid);
