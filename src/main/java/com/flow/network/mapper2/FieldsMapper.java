@@ -35,6 +35,6 @@ public interface FieldsMapper {
     Integer selectByName(String name,Integer id);
     @Select("select count(*)  from  "+TbaleName+"  where IDNO = #{idno} and ID!=#{id}")
     Integer selectByIDNO(String idno,Integer id);
-    @Select("select ID,Name,IDNO,Version,ShortName,ApplicableMess,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%') order by IDNO asc")
-    List<FieldsEntity> searchByName(String name,Integer uid);
+    @Select("select ID,Name,IDNO,Version,ShortName,ApplicableMess,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%') order by IDNO ${order}")
+    List<FieldsEntity> searchByName(String name,Integer uid,String order);
 }

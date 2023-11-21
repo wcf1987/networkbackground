@@ -249,7 +249,7 @@ public class FieldsController {
 
     @PostMapping("/search")
     public ApiResponse search(@RequestBody PageParmInfo pageParmInfo) {
-        return ApiResponse.success(serviceImp.search(pageParmInfo.getName(), pageParmInfo.getUid(), pageParmInfo.getPageNum(), pageParmInfo.getPageSize()));
+        return ApiResponse.success(serviceImp.search(pageParmInfo.getName(), pageParmInfo.getUid(), pageParmInfo.getPageNum(), pageParmInfo.getPageSize(),pageParmInfo.getOrder()));
 
     }
 
