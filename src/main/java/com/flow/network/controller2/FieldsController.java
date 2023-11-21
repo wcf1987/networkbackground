@@ -199,11 +199,11 @@ public class FieldsController {
             for (int j = i + 1; j < list.size(); j++) {
                 FieldsDetailUploadAllEntity f1 = list.get(i);
                 FieldsDetailUploadAllEntity f2 = list.get(j);
-                if (f1.getDUINO().equals(f2.getDUINO())) {
+                if (f1.getDUINO().equals(f2.getDUINO()) && f1.getDFINO().equals(f2.getDFINO())) {
                     errorlist.add(new UploadErrorEntity(String.valueOf(i + 1), "DUI标示号和第" + String.valueOf(j + 1) + "行重复"));
 
                 }
-                if (f1.getName().equals(f2.getName())) {
+                if (f1.getName().equals(f2.getName()) && f1.getDFINO().equals(f2.getDFINO())) {
                     errorlist.add(new UploadErrorEntity(String.valueOf(i + 1), "DUI名称和第" + String.valueOf(j + 1) + "行重复"));
 
                 }
