@@ -8,16 +8,19 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
 @Service
 public class NetworkInterServiceImp
 {
-
+    @Autowired
+    private LogServiceImp logimp;
     @Autowired
     NetworkInterMapper detailMapper;
-
+    @Autowired
+    HttpServletRequest request;
     public List<NetworkInterEntity> getListByUID(Integer id, Integer pageNum, Integer pageSize) {
         System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
@@ -36,8 +39,8 @@ public class NetworkInterServiceImp
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
-
         detailMapper.insert(entity);
+        logimp.addInfo("添加网口:"+entity.getName());
         return Tools.SUCCESS;
     }
     public String update(NetworkInterEntity entity) {
@@ -46,6 +49,7 @@ public class NetworkInterServiceImp
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新网口:"+entity.getName());
         return Tools.SUCCESS;
     }
     public List<NetworkInterEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
@@ -64,6 +68,7 @@ public class NetworkInterServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除网口:"+id);
         return 1;
     }
 }

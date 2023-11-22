@@ -3,11 +3,9 @@ package com.flow.network.service2;
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.FlowDistributionEntity;
 import com.flow.network.domain2.GatewayEntity;
-import com.flow.network.domain2.MessTranslateEntity;
 import com.flow.network.mapper2.FlowDesignMapper;
 import com.flow.network.mapper2.FlowDistributionMapper;
 import com.flow.network.mapper2.GatewayMapper;
-import com.flow.network.mapper2.MessTraslateMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,8 @@ public class FlowDistributionServiceImp
 
     @Autowired
     FlowDistributionMapper detailMapper;
-
+    @Autowired
+    private LogServiceImp logimp;
     @Autowired
     FlowDesignMapper detailMapper2;
     @Autowired
@@ -33,6 +32,7 @@ public class FlowDistributionServiceImp
         }
         //System.out.print("getlist");
         detailMapper.insert(entity);
+        logimp.addInfo("添加流程分发:"+entity.getName());
         return Tools.SUCCESS;
     }
     public String update(FlowDistributionEntity entity) {
@@ -41,6 +41,7 @@ public class FlowDistributionServiceImp
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新流程分发:"+entity.getName());
         return Tools.SUCCESS;
     }
     public List<FlowDistributionEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
@@ -83,6 +84,7 @@ public class FlowDistributionServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除流程分发:"+id);
         return 1;
     }
 }

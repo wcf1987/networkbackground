@@ -1,8 +1,9 @@
 package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
-import com.flow.network.domain2.PackageEntity;
-import com.flow.network.mapper2.PackageMapper;
+import com.flow.network.domain2.FunctionplugEntity;
+import com.flow.network.domain2.SysplugEntity;
+import com.flow.network.mapper2.FunctionplugMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,49 +13,49 @@ import java.util.List;
 
 
 @Service
-public class PackageServiceImp
+public class FunctionplugServiceImp
 {
 
     @Autowired
-    PackageMapper detailMapper;
+    FunctionplugMapper detailMapper;
+
     @Autowired
     private LogServiceImp logimp;
-
-    public String add(PackageEntity entity) {
-        //System.out.print("getlist");
+    public String add(FunctionplugEntity entity) {
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
+        //System.out.print("getlist");
         detailMapper.insert(entity);
-        logimp.addInfo("添加封装头:"+entity.getName());
+        logimp.addInfo("添加函数插件:"+entity.getName());
         return Tools.SUCCESS;
     }
-    public String update(PackageEntity entity) {
+    public String update(FunctionplugEntity entity) {
         //System.out.print("getlist");
         if(detailMapper.selectByName(entity.getName(),entity.getID())>0){
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
-        logimp.addInfo("更新封装头:"+entity.getName());
+        logimp.addInfo("更新函数插件:"+entity.getName());
         return Tools.SUCCESS;
     }
-    public List<PackageEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
+    public List<FunctionplugEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<PackageEntity> list=detailMapper.searchByName(name,uid);
+        List<FunctionplugEntity> list=detailMapper.searchByName(name,uid);
 
         return list;
     }
-    public List<PackageEntity> searchAll(String name,Integer uid) {
+    public List<FunctionplugEntity> searchAll(String name,Integer uid) {
         //System.out.print("getlist");
-        List<PackageEntity> list=detailMapper.searchByName(name,uid);
+        List<FunctionplugEntity> list=detailMapper.searchByName(name,uid);
 
         return list;
     }
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
-        logimp.addInfo("删除封装头:"+id);
+        logimp.addInfo("删除函数插件:"+id);
         return 1;
     }
 }

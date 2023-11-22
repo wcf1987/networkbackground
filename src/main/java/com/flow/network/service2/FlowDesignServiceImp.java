@@ -18,13 +18,15 @@ public class FlowDesignServiceImp
     @Autowired
     FlowDesignMapper detailMapper;
 
-
+    @Autowired
+    private LogServiceImp logimp;
     public String add(FlowDesignEntity entity) {
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
         //System.out.print("getlist");
         detailMapper.insert(entity);
+        logimp.addInfo("添加流程设计:"+entity.getName());
         return Tools.SUCCESS;
     }
     public String update(FlowDesignEntity entity) {
@@ -33,6 +35,7 @@ public class FlowDesignServiceImp
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新流程设计:"+entity.getName());
         return Tools.SUCCESS;
     }
     public FlowDesignEntity updateJson(FlowDesignEntity entity) {
@@ -64,6 +67,7 @@ public class FlowDesignServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除流程设计:"+id);
         return 1;
     }
 }

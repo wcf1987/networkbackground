@@ -18,13 +18,15 @@ public class MessHeaderServiceImp
     @Autowired
     MessHeaderMapper detailMapper;
 
-
+    @Autowired
+    private LogServiceImp logimp;
     public String add(MessHeaderEntity entity) {
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
         //System.out.print("getlist");
         detailMapper.insert(entity);
+        logimp.addInfo("添加消息头:"+entity.getName());
         return Tools.SUCCESS;
     }
     public String update(MessHeaderEntity entity) {
@@ -33,6 +35,7 @@ public class MessHeaderServiceImp
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新消息头:"+entity.getName());
         return Tools.SUCCESS;
     }
     public List<MessHeaderEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
@@ -51,6 +54,7 @@ public class MessHeaderServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除消息头:"+id);
         return 1;
     }
 }

@@ -18,7 +18,8 @@ public class FieldsServiceImp
     @Autowired
     FieldsMapper detailMapper;
 
-
+    @Autowired
+    private LogServiceImp logimp;
     public Integer add(FieldsEntity entity) {
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
@@ -28,6 +29,7 @@ public class FieldsServiceImp
         }
         //System.out.print("getlist");
         detailMapper.insert(entity);
+        logimp.addInfo("添加DFI:"+entity.getIDNO());
         return entity.getID();
     }
     public Integer add2(FieldsEntity entity) {
@@ -46,6 +48,7 @@ public class FieldsServiceImp
         }
         //System.out.print("getlist");
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新DFI:"+entity.getIDNO());
         return Tools.SUCCESS;
     }
     public List<FieldsEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize,String order) {
@@ -69,6 +72,7 @@ public class FieldsServiceImp
     public FieldsEntity getByID(Integer id) {
         //System.out.print("deleteByID");
         FieldsEntity fe=detailMapper.selectByPrimaryKey(id);
+        logimp.addInfo("删除DFI:"+id);
         return fe;
     }
 

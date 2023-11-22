@@ -17,7 +17,8 @@ public class RoleServiceImp
 
     @Autowired
     RoleMapper detailMapper;
-
+    @Autowired
+    private LogServiceImp logimp;
 
     public String add(RoleEntity entity) {
         //System.out.print("getlist");
@@ -25,6 +26,7 @@ public class RoleServiceImp
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.insert(entity);
+        logimp.addInfo("添加角色:"+entity.getRoleName());
         return Tools.SUCCESS;
     }
     public String update(RoleEntity entity) {
@@ -33,6 +35,7 @@ public class RoleServiceImp
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新角色:"+entity.getRoleName());
         return Tools.SUCCESS;
     }
     public List<RoleEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
@@ -57,6 +60,7 @@ public class RoleServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除角色:"+id);
         return 1;
     }
 }

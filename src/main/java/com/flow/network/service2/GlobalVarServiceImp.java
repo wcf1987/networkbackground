@@ -17,7 +17,8 @@ public class GlobalVarServiceImp
 
     @Autowired
     GlobalVarMapper detailMapper;
-
+    @Autowired
+    private LogServiceImp logimp;
 
     public String add(GlobalVarEntity entity) {
         if(detailMapper.selectByName(entity.getName(),0)>0){
@@ -28,6 +29,7 @@ public class GlobalVarServiceImp
         }
         //System.out.print("getlist");
         detailMapper.insert(entity);
+        logimp.addInfo("添加全局变量:"+entity.getName());
         return Tools.SUCCESS;
     }
     public String update(GlobalVarEntity entity) {
@@ -39,6 +41,7 @@ public class GlobalVarServiceImp
             throw new ServiceException("变量名重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新全局变量:"+entity.getName());
         return Tools.SUCCESS;
     }
     public List<GlobalVarEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
@@ -57,6 +60,7 @@ public class GlobalVarServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除全局变量:"+id);
         return 1;
     }
 }

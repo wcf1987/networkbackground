@@ -17,7 +17,8 @@ public class PackageDetailServiceImp
 
     @Autowired
     PackageDetailMapper detailMapper;
-
+    @Autowired
+    private LogServiceImp logimp;
 
     public String add(PackageDetailEntity entity) {
         //System.out.print("getlist");

@@ -17,7 +17,8 @@ public class MessBodyServiceImp
 
     @Autowired
     MessBodyMapper detailMapper;
-
+    @Autowired
+    private LogServiceImp logimp;
 
     public String add(MessBodyEntity entity) {
         if(detailMapper.selectByName(entity.getName(),0)>0){
@@ -25,6 +26,7 @@ public class MessBodyServiceImp
         }
         //System.out.print("getlist");
         detailMapper.insert(entity);
+        logimp.addInfo("添加消息体:"+entity.getName());
         return Tools.SUCCESS;
     }
     public String update(MessBodyEntity entity) {
@@ -33,6 +35,7 @@ public class MessBodyServiceImp
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新消息体:"+entity.getName());
         return Tools.SUCCESS;
     }
     public List<MessBodyEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
@@ -51,6 +54,7 @@ public class MessBodyServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除消息体:"+id);
         return 1;
     }
 }

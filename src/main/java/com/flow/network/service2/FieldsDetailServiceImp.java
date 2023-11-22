@@ -17,9 +17,11 @@ public class FieldsDetailServiceImp
 
     @Autowired
     FieldsDetailMapper detailMapper;
-
+    @Autowired
+    private LogServiceImp logimp;
 
     public String add(FieldsDetailEntity entity) {
+
         if(detailMapper.selectByName(entity.getName(),entity.getDFIID(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
@@ -29,6 +31,7 @@ public class FieldsDetailServiceImp
 
         //System.out.print("getlist");
         detailMapper.insert(entity);
+        logimp.addInfo("添加DUI:"+entity.getDUINO());
         return Tools.SUCCESS;
     }
     public String update(FieldsDetailEntity entity) {
@@ -40,6 +43,7 @@ public class FieldsDetailServiceImp
         }
         //System.out.print("getlist");
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新DUI:"+entity.getDUINO());
         return Tools.SUCCESS;
     }
     public List<FieldsDetailEntity> search(String name,Integer uid,Integer pid,Integer pageNum, Integer pageSize,String order) {
@@ -64,6 +68,7 @@ public class FieldsDetailServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除DUI:"+id);
         return 1;
     }
 }

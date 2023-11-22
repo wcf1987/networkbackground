@@ -14,7 +14,8 @@ import java.util.List;
 @Service
 public class SerialInterServiceImp
 {
-
+    @Autowired
+    private LogServiceImp logimp;
     @Autowired
     SerialInterMapper detailMapper;
 
@@ -24,7 +25,9 @@ public class SerialInterServiceImp
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
-        detailMapper.insert(entity);
+        //detailMapper.insert(entity);
+        //logimp.addInfo("添加串口:"+entity.getName());
+        logimp.addInfo("添加串口:"+entity.getName());
         return Tools.SUCCESS;
     }
     public String update(SerialInterEntity entity) {
@@ -33,13 +36,14 @@ public class SerialInterServiceImp
             throw new ServiceException("名称重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新串口:"+entity.getName());
         return Tools.SUCCESS;
     }
     public List<SerialInterEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
         List<SerialInterEntity> list=detailMapper.searchByName(name,uid);
-
+        //logimp.addInfo("查询:");
         return list;
     }
     public List<SerialInterEntity> searchAll(String name,Integer uid) {
@@ -51,6 +55,7 @@ public class SerialInterServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除串口ID:"+id);
         return 1;
     }
 }

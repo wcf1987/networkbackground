@@ -20,7 +20,8 @@ public class MessTranslateDetailServiceImp {
     @Autowired
     MessTranslateDetailMapper detailMapper;
 
-
+    @Autowired
+    private LogServiceImp logimp;
     public String update(MessTraslateDetailEntity entity) {
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;

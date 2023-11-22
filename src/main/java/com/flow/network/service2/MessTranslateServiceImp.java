@@ -18,13 +18,15 @@ public class MessTranslateServiceImp
     @Autowired
     MessTraslateMapper detailMapper;
 
-
+    @Autowired
+    private LogServiceImp logimp;
     public String add(MessTranslateEntity entity) {
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
         //System.out.print("getlist");
         detailMapper.insert(entity);
+        logimp.addInfo("添加消息转换:"+entity.getName());
         return Tools.SUCCESS;
     }
     public String update(MessTranslateEntity entity) {
@@ -33,6 +35,7 @@ public class MessTranslateServiceImp
         }
         //System.out.print("getlist");
         detailMapper.updateByPrimaryKey(entity);
+        logimp.addInfo("更新消息转换:"+entity.getName());
         return Tools.SUCCESS;
     }
     public List<MessTranslateEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
@@ -51,6 +54,7 @@ public class MessTranslateServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        logimp.addInfo("删除消息转换:"+id);
         return 1;
     }
 }

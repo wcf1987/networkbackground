@@ -20,7 +20,8 @@ public class MessDetailServiceImp
 
     @Autowired
     MessDetailMapper detailMapper;
-
+    @Autowired
+    private LogServiceImp logimp;
     public String addCustom(MessDetailEntity entity){
         int temp=detailMapper.insertCustom(entity);
         //System.out.println(temp);
