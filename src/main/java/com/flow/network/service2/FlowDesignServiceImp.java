@@ -29,6 +29,15 @@ public class FlowDesignServiceImp
         logimp.addInfo("添加流程设计:"+entity.getName());
         return Tools.SUCCESS;
     }
+    public String copy(FlowDesignEntity entity) {
+        FlowDesignEntity f=detailMapper.getFlowDesignByID(entity.getID());
+        //System.out.print("getlist");
+        f.setName(f.getName()+"_copy");
+        f.setAuthorID(entity.getAuthorID());
+        detailMapper.insert(f);
+        logimp.addInfo("复制流程设计:"+f.getName());
+        return Tools.SUCCESS;
+    }
     public String update(FlowDesignEntity entity) {
         //System.out.print("getlist");
         if(detailMapper.selectByName(entity.getName(),entity.getID())>0){

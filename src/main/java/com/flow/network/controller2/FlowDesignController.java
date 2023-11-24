@@ -36,6 +36,11 @@ public class FlowDesignController {
         serviceImp.add(detailEntity);
         return ApiResponse.success();
     }
+    @PostMapping("/copy")
+    public ApiResponse copy(@RequestBody FlowDesignEntity detailEntity){
+        serviceImp.copy(detailEntity);
+        return ApiResponse.success();
+    }
     @PostMapping("/update")
     public ApiResponse update(@RequestBody FlowDesignEntity detailEntity){
         serviceImp.update(detailEntity);
