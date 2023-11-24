@@ -283,7 +283,7 @@ public class MessDetailServiceImp
         }
         if(t.getOutType().equals("fields")){
             temp=detailMapper.selectFieldsByPrimaryKey(t.getOutID());
-            t.setEName(temp.getEName());
+            //t.setEName(temp.getEName());
             t.setShortName(temp.getShortName());
             t.setLength(temp.getLength());
             t.setType(temp.getType());

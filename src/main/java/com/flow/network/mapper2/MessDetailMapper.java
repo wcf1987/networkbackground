@@ -1,6 +1,5 @@
 package com.flow.network.mapper2;
 
-import com.flow.network.domain2.FieldsDetailEntity;
 import com.flow.network.domain2.MessDetailEntity;
 import org.apache.ibatis.annotations.*;
 
@@ -13,7 +12,7 @@ public interface MessDetailMapper {
     public static String TbaleName2="t_fieldsdetail";
 
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,TType,OrderID,OutID,OutType,PID,NestID,Flag) values(null,#{Name},#{TType},#{OrderID},#{OutID},#{OutType},#{PID},#{NestID},#{Flag})")
+    @Insert("insert into "+TbaleName+"(ID,Name,TType,OrderID,OutID,OutType,PID,NestID,Flag,EName) values(null,#{Name},#{TType},#{OrderID},#{OutID},#{OutType},#{PID},#{NestID},#{Flag},#{EName})")
     int insert(MessDetailEntity entity);
 
     @Insert("insert into "+TbaleName1+"(ID,Type,Describes,CreateTime,AuthorID,ShortName,EName,Length)values(null,#{Type},#{Describes},#{CreateTime},#{AuthorID},#{ShortName},#{EName},#{Length})")
@@ -30,7 +29,7 @@ public interface MessDetailMapper {
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
-    @Update("update "+TbaleName+" set Name =#{Name},OutID=#{OutID}, NestID=#{NestID}, Flag =#{Flag}  where ID=#{ID}")
+    @Update("update "+TbaleName+" set Name =#{Name},OutID=#{OutID}, NestID=#{NestID}, Flag =#{Flag}, EName=#{EName}  where ID=#{ID}")
     int updateByPrimaryKey(MessDetailEntity entity);
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and PID=#{pid} and ID!=#{id}")
     Integer selectByName(String name,Integer pid,Integer id);
@@ -54,15 +53,12 @@ public interface MessDetailMapper {
     @Select("select count(ID) from  "+TbaleName+"  where NestID = #{id}")
     Integer countByNestID(Integer id);
 
-    @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
-    List<FieldsDetailEntity> getList(Integer uid);
 
-
-    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=0 order by OrderID asc")
+    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag ,t0.EName from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=0 order by OrderID asc")
     List<MessDetailEntity> searchByName(String name, Integer uid,Integer pid,String ttype);
-    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=#{nestid} order by OrderID asc")
+    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag,t0.EName from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=#{nestid} order by OrderID asc")
     List<MessDetailEntity> getListByNestID(String name,Integer uid, Integer pid,String ttype,Integer nestid);
-    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and NestID=#{nestid} order by OrderID asc")
+    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag,t0.EName from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and NestID=#{nestid} order by OrderID asc")
     List<MessDetailEntity> searchByPID(Integer pid,Integer nestid,String ttype);
 
 }
