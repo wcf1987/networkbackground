@@ -11,11 +11,16 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Component
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY,getterVisibility = JsonAutoDetect.Visibility.NONE)
-public class HomeEntity {
+public class CountNum {
 
-    private HomeOneEntity one;
-    private HomeResourceEntity resource;
-    private HomePieEntity pie;
-    private HomeBarEntity bar;
+    private String Name;
+
+    private String num1;
+    private String num2;
+    private String num3;
+
+
+
+
 
 }

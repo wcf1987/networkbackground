@@ -1,6 +1,7 @@
 package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
+import com.flow.network.domain2.FlowDesignEntity;
 import com.flow.network.domain2.FlowDistributionEntity;
 import com.flow.network.domain2.GatewayEntity;
 import com.flow.network.mapper2.FlowDesignMapper;
@@ -53,8 +54,9 @@ public class FlowDistributionServiceImp
             FlowDistributionEntity temp=list.get(i);
             Integer fid=temp.getFlowID();
             if(fid!=null) {
-                temp.setFlowName(detailMapper2.getFlowDesignByID(fid).getName());
-
+                FlowDesignEntity fd=detailMapper2.getFlowDesignByID(fid);
+                temp.setFlowName(fd.getName());
+                temp.setFlowOutStr(fd.getFlowOutStr());
             }
             String s=temp.getGatewayIDs();
             if(!s.equals("")) {

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/home")
 public class HomeController {
@@ -18,7 +20,7 @@ public class HomeController {
 
 
     @PostMapping("/getdata")
-    public ApiResponse search(@RequestBody PageParmInfo pageParmInfo ){
+    public ApiResponse search(@RequestBody PageParmInfo pageParmInfo ) {
         return ApiResponse.success(serviceImp.search());
 
     }

@@ -21,6 +21,6 @@ public class FlowDistributionEntity {
     private String Describes;
     private String CreateTime;
     private Integer AuthorID;
-
+    private String FlowOutStr;
 
 }

@@ -11,12 +11,19 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Component
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY,getterVisibility = JsonAutoDetect.Visibility.NONE)
-public class HomeCPUEntity {
-
+public class HomeResourceEntity {
+    private String all ;
     private String cpu ;
     private String memory;
 
-
+    public void setAll(){
+        int a=Integer.valueOf(cpu);
+        int b=Integer.valueOf(memory);
+        int c=Integer.valueOf(disk);
+        int d=Integer.valueOf(network);
+        int e=((a+b+c+d)/4);
+        all=String.valueOf(e);
+    }
     private String disk ;
     private String network;
 

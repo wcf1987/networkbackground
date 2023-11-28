@@ -43,6 +43,7 @@ public class FlowDesignServiceImp
         if(detailMapper.selectByName(entity.getName(),entity.getID())>0){
             throw new ServiceException("名称重复，请更改");
         }
+        //System.out.println("test"+entity.getFlowOutStr());
         detailMapper.updateByPrimaryKey(entity);
         logimp.addInfo("更新流程设计:"+entity.getName());
         return Tools.SUCCESS;
