@@ -33,4 +33,7 @@ public interface FlowDistributionMapper {
 
     @Select("select ID,Name,FlowID,GatewayIDs,Describes,CreateTime,AuthorID from "+TbaleName+"  where    Name like concat('%',#{name},'%')")
     List<FlowDistributionEntity> searchByName(String name,Integer uid);
+    @Select("select ID,Name,FlowID,GatewayIDs,Describes,CreateTime,AuthorID from "+TbaleName+"  where    ID=#{id} ")
+    List<FlowDistributionEntity> searchById(Integer id);
+
 }

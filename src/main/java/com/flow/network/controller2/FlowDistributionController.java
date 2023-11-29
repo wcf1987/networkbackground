@@ -3,9 +3,7 @@ package com.flow.network.controller2;
 import com.flow.network.config.ApiResponse;
 import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.FlowDistributionEntity;
-import com.flow.network.domain2.MessTranslateEntity;
 import com.flow.network.service2.FlowDistributionServiceImp;
-import com.flow.network.service2.MessTranslateServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,5 +45,14 @@ public class FlowDistributionController {
     public ApiResponse search(@RequestBody PageParmInfo pageParmInfo ){
         return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
+    }
+    @PostMapping("/dispatch")
+    public ApiResponse dispatch(@RequestBody PageParmInfo pageParmInfo ){
+        String re=serviceImp.dispatch(pageParmInfo.getId());
+        if(re.equals("")){
+            return ApiResponse.fail();
+        }else {
+            return ApiResponse.success();
+        }
     }
 }

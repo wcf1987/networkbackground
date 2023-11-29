@@ -42,6 +42,16 @@
             <version>1.4.7</version>
         </dependency>
         <dependency>
+            <groupId>org.zeromq</groupId>
+            <artifactId>jeromq</artifactId>
+            <version>0.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.62</version>
+        </dependency>
+        <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
