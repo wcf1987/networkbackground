@@ -4,10 +4,6 @@ import cn.hutool.json.JSONObject;
 import com.sun.management.OperatingSystemMXBean;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.management.Attribute;
-import javax.management.AttributeList;
-import javax.management.MBeanServerConnection;
-import javax.management.ObjectName;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -51,15 +47,12 @@ public class Tools {
 
         Double cpuUsage = 0.0;
         try {
-            MBeanServerConnection mbsc = ManagementFactory.getPlatformMBeanServer();
-            ObjectName name = ObjectName.getInstance("java.lang:type=OperatingSystem");
-            AttributeList list = mbsc.getAttributes(name, new String[]{"ProcessCpuLoad"});
-            if (list.isEmpty()) {
-                return 0.0;
-            }
+            OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+            //String osJson = JSON.toJSONString(operatingSystemMXBean);
+            Double a=operatingSystemMXBean.getSystemCpuLoad();
+            System.out.println("cpu:"+a);
 
-            Attribute att = (Attribute) list.get(0);
-            Double value = (Double) att.getValue();
+            Double value = (Double) a;
 
             // value为-1表示无法获取CPU使用情况
             if (value == -1) {
