@@ -25,7 +25,7 @@ public class SerialInterServiceImp
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
-        //detailMapper.insert(entity);
+        detailMapper.insert(entity);
         //logimp.addInfo("添加串口:"+entity.getName());
         logimp.addInfo("添加串口:"+entity.getName());
         return Tools.SUCCESS;

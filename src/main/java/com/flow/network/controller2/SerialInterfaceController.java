@@ -35,7 +35,7 @@ public class SerialInterfaceController {
     }
     @PostMapping("/add")
     public ApiResponse add(@RequestBody SerialInterEntity detailEntity, HttpSession session){
-        String username = (String) session.getAttribute("username");
+        //String username = (String) session.getAttribute("username");
         serviceImp.add(detailEntity);
 
         return ApiResponse.success();

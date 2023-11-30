@@ -6,9 +6,7 @@ import com.flow.network.tools.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -30,12 +28,13 @@ public class HomeServiceImp {
         HomeResourceEntity re = new HomeResourceEntity();
 
         try {
-            re.setMemory(String.valueOf((int) Math.round(Tools.getMemory())));
-            re.setDisk(String.valueOf((int) Math.round(Tools.getDisk())));
-            double v = 60 * Math.random();
+            re.setMemory(String.valueOf((int) Math.round(Tools.getMemoryInfo())));
+            re.setDisk(String.valueOf((int) Math.round(Tools.getDiskUsed())));
+            re.setCpu(String.valueOf((int) Math.round(Tools.recordCpuInfo())));
+            double v = 30 * Math.random();
             re.setNetwork(String.valueOf((int) v));
-            //re.setNetwork(Tools.getNetworkThroughput());
-            re.setCpu(String.valueOf((int) Math.round(Tools.getCPU())));
+
+
             re.setAll();
 
         } catch (Exception e) {

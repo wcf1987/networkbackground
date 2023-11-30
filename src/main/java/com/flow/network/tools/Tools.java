@@ -1,15 +1,16 @@
 package com.flow.network.tools;
 
 import cn.hutool.json.JSONObject;
-import com.sun.management.OperatingSystemMXBean;
+import cn.hutool.system.oshi.CpuInfo;
+import cn.hutool.system.oshi.OshiUtil;
 import org.springframework.web.multipart.MultipartFile;
+import oshi.hardware.CentralProcessor;
+import oshi.util.GlobalConfig;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.management.ManagementFactory;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,87 +41,53 @@ public class Tools {
         //logger.info("文件已保存至" +filePath.toString());
         return filePath.toString();
     }
+    public static void main(String args[]){
+        //recordCpuInfo();
+        System.out.println("cpu使用率"+recordCpuInfo());
+        System.out.println("内存使用率"+getMemoryInfo());
+        System.out.println("磁盘使用率"+getDiskUsed());
+    }
+
     /**
-     * 获取内存使用情况
+     * 获取硬盘使用量
      */
-    public static Double getCPU() throws IOException {
-
-        Double cpuUsage = 0.0;
-        try {
-            OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-            //String osJson = JSON.toJSONString(operatingSystemMXBean);
-            Double a=operatingSystemMXBean.getSystemCpuLoad();
-            System.out.println("cpu:"+a);
-
-            Double value = (Double) a;
-
-            // value为-1表示无法获取CPU使用情况
-            if (value == -1) {
-                return 0.0;
-            }
-
-            cpuUsage = ((int) (value * 1000) / 10.0);
-            System.out.println(cpuUsage);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static Double getDiskUsed(){
+        File win = new File("/");
+        if (win.exists()) {
+            long total = win.getTotalSpace();
+            long freeSpace = win.getFreeSpace();
+            //System.out.println("磁盘总量：" + total/1024/1024/1024);
+            //System.out.println("磁盘剩余总量：" + freeSpace/1024/1024/1024);
+            //System.out.println("磁盘已用总量：" + (total - freeSpace)/1024/1024/1024);
+            return (total - freeSpace)*100.0/total;
         }
-        return cpuUsage;
+        return 10.0;
     }
 
-
-    public static float getMemory() throws IOException {
-        OperatingSystemMXBean mem = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        // 获取内存总容量
-        long totalMemorySize = mem.getTotalPhysicalMemorySize();
-        // 获取可用内存容量(剩余物理内存）
-        long freeMemorySize = mem.getFreePhysicalMemorySize();
-        // 空闲的交换容量
-        long freeSwapSpaceSize = mem.getFreeSwapSpaceSize();
-
-        float usedRAM = (float)(((totalMemorySize - freeMemorySize) * 1.0 / totalMemorySize) * 100);
-
-        //System.out.println("物理内存总容量totalMemorySize：" + transformation(totalMemorySize) );
-        //System.out.println("剩余物理内存可用容量freeMemorySize：" + transformation(freeMemorySize));
-       // System.out.println("usedRAM：" + usedRAM);
-        //System.out.println("空闲的交换容量:" + transformation(freeSwapSpaceSize));
-
-        Runtime runtime = Runtime.getRuntime();
-        // java虚拟机中的内存总量，可用内存空间 单位为byte，默认为系统的1/64
-        long totalMemory = runtime.totalMemory();
-        // java虚拟机试图使用的最大内存量 最大可用内存空间 单位byte，默认为系统的1/4
-        long maxMemory = runtime.maxMemory();
-        // java 虚拟机中的空闲内存量 空闲空间 单位byte， 默认为系统的1/4
-        long freeMemory = runtime.freeMemory();
-        float usedRAMJava = (float)(((totalMemory - freeMemory) * 1.0 / totalMemory) * 100);
-        //System.out.println("java虚拟机中的内存总量:" + totalMemory / 1024 / 1024 + "MB" );
-        //System.out.println("java虚拟机试图使用的最大内存量:" + maxMemory / 1024 / 1024 + "MB" );
-        //System.out.println("java虚拟机中的空闲内存量:" + freeMemory / 1024 / 1024 + "MB" );
-        //System.out.println("java虚拟机中的剩余内存占总量:" + usedRAMJava + "%" );
-        return usedRAMJava;
-
+    public static Double getMemoryInfo(){
+        //System.out.println("内存总量：" + OshiUtil.getMemory().getTotal()/1024/1024);
+        //System.out.println("已用内存：" + OshiUtil.getMemory().getAvailable()/1024/1024);
+        return  100-(OshiUtil.getMemory().getAvailable()*100.0/OshiUtil.getMemory().getTotal());
     }
-    public static Double getDisk() throws IOException {
-        DecimalFormat df = new DecimalFormat("#0.00");
-        File[] disks = File.listRoots();
-        for (File file : disks) {
-            // 获取盘符
-            System.out.print(file.getCanonicalPath() + "   ");
-            // 获取总容量
-            long totalSpace = file.getTotalSpace();
-            // 获取剩余容量
-            long usableSpace = file.getUsableSpace();
-            // 获取已经使用的容量
-            long freeSpace = totalSpace - usableSpace;
-            // 获取使用率
-            float useRate = (float)((freeSpace * 1.0 / totalSpace) * 100);
-            System.out.print("总容量： " + transformation(totalSpace));
-            System.out.print("已经使用： " + transformation(freeSpace));
-            System.out.print("剩余容量： " + transformation(usableSpace));
-            System.out.println("使用率： " + Double.parseDouble(df.format(useRate)) + "%   ");
-            return Double.parseDouble(df.format(useRate));
-        }
-        return 0.0;
+
+    public static Double recordCpuInfo(){
+        GlobalConfig.set(GlobalConfig.OSHI_OS_WINDOWS_CPU_UTILITY, true);
+
+        CpuInfo cpuInfo = OshiUtil.getCpuInfo();
+        CentralProcessor processor = OshiUtil.getProcessor();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("cpuTotal",cpuInfo.getToTal());
+        jsonObject.put("cpuSys",cpuInfo.getSys());
+        jsonObject.put("cpuUser",cpuInfo.getUser());
+        jsonObject.put("cpuWait",cpuInfo.getWait());
+        jsonObject.put("cpuFree",cpuInfo.getFree());
+        jsonObject.put("cpuUsed",cpuInfo.getUsed());
+        jsonObject.put("cpuId",processor.getProcessorIdentifier().getProcessorID());
+        jsonObject.put("serialNumber",OshiUtil.getSystem().getSerialNumber());
+        //System.out.println("cpu使用率"+cpuInfo.getFree());
+        return (100-cpuInfo.getFree());
     }
+
     /**
      * 将字节容量转化为GB
      */

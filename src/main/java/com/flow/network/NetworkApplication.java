@@ -1,6 +1,5 @@
 package com.flow.network;
 
-import com.flow.network.tools.ZMQResponder;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,9 +17,8 @@ public class NetworkApplication {
         ConfigurableApplicationContext context =SpringApplication.run(NetworkApplication.class, args);
         // 启动 ZeroMQResponder
 
-        ZMQResponder responder =
-                context.getBean(ZMQResponder.class);
-        responder.receiveMessages();
+        //ZMQResponder responder =   context.getBean(ZMQResponder.class);
+        //responder.receiveMessages();
     }
 
 }

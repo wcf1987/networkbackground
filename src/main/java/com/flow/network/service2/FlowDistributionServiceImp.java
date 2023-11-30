@@ -135,6 +135,7 @@ public class FlowDistributionServiceImp {
                 String saddr=sa1+gatelist.get(k).getIP()+sa2;
                 System.out.println("发送信息:"+saddr);
                 //re=zmqreq.sendRequest(temp.getFlowOutStr(),saddr);
+                re="1";
                 logimp.addInfo(temp.getFlowName()+" 流程下发至:" + saddr+" ,返回"+re);
             }
             //temp.setGatewayNames(s3);
