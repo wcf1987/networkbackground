@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping("/serialinter")
@@ -39,6 +40,13 @@ public class SerialInterfaceController {
         serviceImp.add(detailEntity);
 
         return ApiResponse.success();
+    }
+    @RequestMapping("/delids")
+    public ApiResponse delids(@RequestBody List<String> ids) {
+        //List<InterfaceEntity> u = new ArrayList<>();
+        return ApiResponse.success(serviceImp.deleteByIDS(ids));
+
+
     }
     @PostMapping("/update")
     public ApiResponse update(@RequestBody SerialInterEntity detailEntity){

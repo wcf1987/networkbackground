@@ -2,12 +2,14 @@ package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.FieldsDetailEntity;
+import com.flow.network.domain2.FieldsStatisticsEntity;
 import com.flow.network.mapper2.FieldsDetailMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -70,5 +72,36 @@ public class FieldsDetailServiceImp
         detailMapper.delete(id);
         logimp.addInfo("删除DUI:"+id);
         return 1;
+    }
+
+    public List<FieldsStatisticsEntity> statistics( Integer pageNum, Integer pageSize) {
+        Integer count=detailMapper.searchAllDUI();
+        //PageHelper.startPage(pageNum, pageSize);
+        List<FieldsStatisticsEntity> list=detailMapper.statistics(count);
+
+        Collections.sort(list);
+        int start=(pageNum-1)*pageSize;
+        int end=start+pageSize;
+        if(end>=list.size()){
+            end=list.size()-1;
+        }
+        List<FieldsStatisticsEntity> list2=list.subList(start,end);
+        for(FieldsStatisticsEntity ft:list2){
+            ft.setDUIPer((Tools.formatNumber(Double.valueOf(ft.getDUIPer())*100))+"%");
+        }
+        return list2;
+    }
+    public Integer deleteByIDS(List<String> ids) {
+        Integer num=0;
+        for(String s :ids){
+            num=num+detailMapper.delete(Integer.parseInt(s));
+        }
+
+        logimp.addInfo("成功删除网口:"+String.valueOf(num)+"条");
+        return num;
+    }
+    public List<FieldsStatisticsEntity> statisticsSize() {
+        List<FieldsStatisticsEntity> list=detailMapper.statistics(1);
+        return list;
     }
 }

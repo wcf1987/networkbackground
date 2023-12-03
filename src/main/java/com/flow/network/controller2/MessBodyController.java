@@ -10,13 +10,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/messbody")
 public class MessBodyController {
     @Autowired
     private MessBodyServiceImp serviceImp;
 
+    @RequestMapping("/delids")
+    public ApiResponse delids(@RequestBody List<String> ids) {
+        //List<InterfaceEntity> u = new ArrayList<>();
+        return ApiResponse.success(serviceImp.deleteByIDS(ids));
 
+
+    }
     @RequestMapping("/searchSize")
     public ApiResponse searchSize(@RequestBody PageParmInfo pageParmInfo) {
 

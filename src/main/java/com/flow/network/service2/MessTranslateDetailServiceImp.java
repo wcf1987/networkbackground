@@ -22,6 +22,15 @@ public class MessTranslateDetailServiceImp {
 
     @Autowired
     private LogServiceImp logimp;
+    public Integer deleteByIDS(List<String> ids) {
+        Integer num=0;
+        for(String s :ids){
+            num=num+detailMapper.delete(Integer.parseInt(s));
+        }
+
+        logimp.addInfo("成功删除网口:"+String.valueOf(num)+"条");
+        return num;
+    }
     public String update(MessTraslateDetailEntity entity) {
         detailMapper.updateByPrimaryKey(entity);
         return Tools.SUCCESS;

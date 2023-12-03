@@ -163,8 +163,10 @@ public class Tools {
         String result = "";
         if (obj.getClass().getSimpleName().equals("Float")) {
             result = new Formatter().format("%.2f", (float) obj).toString();
+            return result;
         } else if (obj.getClass().getSimpleName().equals("Double")) {
             result = new Formatter().format("%.2f", (double) obj).toString();
+            return result;
         }
         return String.valueOf(obj);
     }

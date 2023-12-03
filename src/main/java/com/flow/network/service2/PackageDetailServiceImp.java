@@ -19,7 +19,15 @@ public class PackageDetailServiceImp
     PackageDetailMapper detailMapper;
     @Autowired
     private LogServiceImp logimp;
+    public Integer deleteByIDS(List<String> ids) {
+        Integer num=0;
+        for(String s :ids){
+            num=num+detailMapper.delete(Integer.parseInt(s));
+        }
 
+        logimp.addInfo("成功删除网口:"+String.valueOf(num)+"条");
+        return num;
+    }
     public String add(PackageDetailEntity entity) {
         //System.out.print("getlist");
         if(detailMapper.selectByName(entity.getName(),entity.getPackID(),0)>0){

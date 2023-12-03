@@ -69,6 +69,15 @@ public class FieldsServiceImp
         detailMapper.delete(id);
         return 1;
     }
+    public Integer deleteByIDS(List<String> ids) {
+        Integer num=0;
+        for(String s :ids){
+            num=num+detailMapper.delete(Integer.parseInt(s));
+        }
+
+        logimp.addInfo("成功删除网口:"+String.valueOf(num)+"条");
+        return num;
+    }
     public FieldsEntity getByID(Integer id) {
         //System.out.print("deleteByID");
         FieldsEntity fe=detailMapper.selectByPrimaryKey(id);

@@ -2,7 +2,6 @@ package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.FunctionplugEntity;
-import com.flow.network.domain2.SysplugEntity;
 import com.flow.network.mapper2.FunctionplugMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
@@ -21,6 +20,15 @@ public class FunctionplugServiceImp
 
     @Autowired
     private LogServiceImp logimp;
+    public Integer deleteByIDS(List<String> ids) {
+        Integer num=0;
+        for(String s :ids){
+            num=num+detailMapper.delete(Integer.parseInt(s));
+        }
+
+        logimp.addInfo("成功删除网口:"+String.valueOf(num)+"条");
+        return num;
+    }
     public String add(FunctionplugEntity entity) {
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");

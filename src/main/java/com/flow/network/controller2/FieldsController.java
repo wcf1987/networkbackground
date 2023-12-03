@@ -3,15 +3,17 @@ package com.flow.network.controller2;
 import com.flow.network.config.ApiResponse;
 import com.flow.network.config.ResponseCode;
 import com.flow.network.config.ServiceException;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.*;
 import com.flow.network.service2.FieldsDetailServiceImp;
-import com.flow.network.tools.*;
-import com.flow.network.domain.PageParmInfo;
 import com.flow.network.service2.FieldsServiceImp;
+import com.flow.network.tools.ExcelUtils;
+import com.flow.network.tools.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,13 @@ public class FieldsController {
         return ApiResponse.success();
 
     }
+    @RequestMapping("/delids")
+    public ApiResponse delids(@RequestBody List<String> ids) {
+        //List<InterfaceEntity> u = new ArrayList<>();
+        return ApiResponse.success(serviceImp.deleteByIDS(ids));
 
+
+    }
     @PostMapping("/add")
     public ApiResponse add(@RequestBody FieldsEntity detailEntity) {
         serviceImp.add(detailEntity);
@@ -49,6 +57,19 @@ public class FieldsController {
     public ApiResponse uploadfile(@RequestParam("file") MultipartFile[] file) {
 
         String path = "D:\\uploadfiles";
+
+
+        File fileupload = new File("upload" + File.separator);
+        try{
+            if (!fileupload.exists()) {
+                fileupload.mkdirs();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        path=fileupload.getAbsolutePath();
+        System.out.println(path);
         String result = "";
         // 调用fileService保存文件
         List<FieldsEntity> listdb = serviceImp.searchAll("", 0);
@@ -139,6 +160,20 @@ public class FieldsController {
     @PostMapping("/uploadfileall")
     public ApiResponse uploadfileAll(@RequestParam("file") MultipartFile[] file) throws IOException {
         String path = "D:\\uploadfiles";
+
+
+        File fileupload = new File("upload" + File.separator);
+        try{
+            if (!fileupload.exists()) {
+                fileupload.mkdirs();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        path=fileupload.getAbsolutePath();
+
+
         String result = "";
         List<FieldsEntity> listdfidb = serviceImp.searchAll("", 0);
         List<FieldsDetailEntity> listduidb = serviceImp2.searchAll("", 0);

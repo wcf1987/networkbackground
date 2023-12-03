@@ -29,10 +29,16 @@ public class ZMQResponder {
     @PostConstruct
     public void init() {
         ZMQ.Context context = ZMQ.context(1);
+        try {
         responder = context.socket(SocketType.REP);
+
+
         responder.bind(addr); // 绑定发布者到地址
         log.debug("ZMQResponder初始化成功，地址为：{}", addr);
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     /**
      * 接收消息

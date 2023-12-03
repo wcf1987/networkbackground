@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/messdetail")
 public class MessDetailController {
@@ -36,6 +38,13 @@ public class MessDetailController {
     public ApiResponse add(@RequestBody MessDetailEntity detailEntity){
         serviceImp.add(detailEntity);
         return ApiResponse.success();
+    }
+    @RequestMapping("/delids")
+    public ApiResponse delids(@RequestBody List<String> ids) {
+        //List<InterfaceEntity> u = new ArrayList<>();
+        return ApiResponse.success(serviceImp.deleteByIDS(ids));
+
+
     }
     @PostMapping("/update")
     public ApiResponse update(@RequestBody MessDetailEntity detailEntity){

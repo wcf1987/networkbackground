@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/networkinter")
@@ -42,6 +43,13 @@ public class NetworkInterfaceController {
         //List<InterfaceEntity> u = new ArrayList<>();
         serviceImp.deleteByID(detailEntity.getID());
         return ApiResponse.success();
+
+    }
+    @RequestMapping("/delids")
+    public ApiResponse delids(@RequestBody List<String> ids) {
+        //List<InterfaceEntity> u = new ArrayList<>();
+        return ApiResponse.success(serviceImp.deleteByIDS(ids));
+
 
     }
     @PostMapping("/add")
