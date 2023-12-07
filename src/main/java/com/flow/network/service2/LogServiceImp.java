@@ -23,6 +23,17 @@ public class LogServiceImp
     HttpServletRequest request;
     @Autowired
     private HttpSession httpSession;
+
+    public Integer deleteByIDS(List<String> ids) {
+        Integer num=0;
+        for(String s :ids){
+            num=num+detailMapper.delete(Integer.parseInt(s));
+        }
+
+        addInfo("成功删除日志:"+String.valueOf(num)+"条");
+        return num;
+    }
+
     public String add(LogEntity entity) {
         //System.out.print("getlist");
 
