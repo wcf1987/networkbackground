@@ -23,7 +23,7 @@ public class MessDetailController {
     @RequestMapping("/searchSize")
     public ApiResponse searchSize(@RequestBody PageParmInfo pageParmInfo) {
 
-        return ApiResponse.success(serviceImp.searchAll(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPid(),pageParmInfo.getTtype()).size());
+        return ApiResponse.success(serviceImp.searchAll(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPid(),pageParmInfo.getTtype(),pageParmInfo.getNestid()).size());
 
     }
 
@@ -54,7 +54,7 @@ public class MessDetailController {
     }
     @PostMapping("/search")
     public ApiResponse search(@RequestBody PageParmInfo pageParmInfo ){
-        return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPid(),pageParmInfo.getTtype(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
+        return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPid(),pageParmInfo.getTtype(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize(),pageParmInfo.getNestid()));
 
     }
 }

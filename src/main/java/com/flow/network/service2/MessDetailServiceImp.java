@@ -36,7 +36,7 @@ public class MessDetailServiceImp
         //System.out.println(temp);
         entity.setOutID(entity.getID());
         if(entity.getSortID()==null){
-            entity.setNestID(0);
+            entity.setNestID(entity.getNestID());
             entity.setOrderID(9999999.0);
         }else {
             MessDetailEntity e2 = detailMapper.selecByPrimaryKey(entity.getSortID());
@@ -57,7 +57,7 @@ public class MessDetailServiceImp
 
         //entity.setOutID(entity.getID());
         if(entity.getSortID()==null){
-            entity.setNestID(0);
+            entity.setNestID(entity.getNestID());
             entity.setOrderID(9999999.0);
         }else {
             MessDetailEntity e2 = detailMapper.selecByPrimaryKey(entity.getSortID());
@@ -78,7 +78,7 @@ public class MessDetailServiceImp
 
         //entity.setOutID(entity.getID());
         if(entity.getSortID()==null){
-            entity.setNestID(0);
+            entity.setNestID(entity.getNestID());
             entity.setOrderID(9999999.0);
         }else {
             MessDetailEntity e2 = detailMapper.selecByPrimaryKey(entity.getSortID());
@@ -182,7 +182,7 @@ public class MessDetailServiceImp
                 entity.setOrderID(e2.getOrderID() - 0.0001);
 
             }
-
+            detailMapper.updateByPrimaryKey(entity);
             detailMapper.updateOrderIDByPrimaryKey(entity);
             updateOrder(entity.getPID(),entity.getNestID(),entity.getTType());
         }else{
@@ -219,11 +219,11 @@ public class MessDetailServiceImp
         detailMapper.updateOrderIDByPrimaryKey(entity);
         return Tools.SUCCESS;
     }
-    public List<MessDetailEntity> search(String name, Integer uid,Integer pid,String ttype, Integer pageNum, Integer pageSize) {
+    public List<MessDetailEntity> search(String name, Integer uid,Integer pid,String ttype, Integer pageNum, Integer pageSize,Integer nestid) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
 
-        List<MessDetailEntity> list=detailMapper.searchByName(name,uid,pid,ttype);
+        List<MessDetailEntity> list=detailMapper.searchByName(name,uid,pid,ttype,nestid);
         Deque<MessDetailEntity> waitList = new ArrayDeque<MessDetailEntity>();
         for(int i=0;i<list.size();i++){
             if(list.get(i).getOutType().equals("nest")){
@@ -299,9 +299,9 @@ public class MessDetailServiceImp
             t.setDFIID(temp.getDFIID());
         }
     }
-    public List<MessDetailEntity> searchAll(String name, Integer uid,Integer pid,String ttype ) {
+    public List<MessDetailEntity> searchAll(String name, Integer uid,Integer pid,String ttype,Integer nestid ) {
         //System.out.print("getlist");
-        List<MessDetailEntity> list=detailMapper.searchByName(name,uid,pid,ttype);
+        List<MessDetailEntity> list=detailMapper.searchByName(name,uid,pid,ttype,nestid);
 
         return list;
     }

@@ -20,4 +20,5 @@ public class PageParmInfo {
     private String name;
     private String order;
     private Integer pidNear;
+    private Integer nestid;
 }
