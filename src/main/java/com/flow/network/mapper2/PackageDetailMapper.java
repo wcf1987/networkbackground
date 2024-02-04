@@ -21,7 +21,7 @@ public interface PackageDetailMapper {
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
-    @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type},Length=#{Length},ArrayOr=#{ArrayOr},DefaultValue=#{DefaultValue}, Describes =#{Describes}  where ID=#{ID}")
+    @Update("update "+TbaleName+" set Name =#{Name}, EName =#{EName},  Type=#{Type},Length=#{Length},ArrayOr=#{ArrayOr},DefaultValue=#{DefaultValue}, Describes =#{Describes}  where ID=#{ID}")
     int updateByPrimaryKey(PackageDetailEntity entity);
     //查询一个Person
     @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
