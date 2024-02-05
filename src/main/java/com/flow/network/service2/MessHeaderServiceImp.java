@@ -1,6 +1,7 @@
 package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
+import com.flow.network.domain2.MessDetailEntity;
 import com.flow.network.domain2.MessHeaderEntity;
 import com.flow.network.mapper2.MessDetailMapper;
 import com.flow.network.mapper2.MessHeaderMapper;
@@ -9,6 +10,8 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 
@@ -19,6 +22,8 @@ public class MessHeaderServiceImp {
     MessHeaderMapper detailMapper;
     @Autowired
     MessDetailMapper detailMapper2;
+    @Autowired
+    private MessDetailServiceImp serviceImp2;
     @Autowired
     private LogServiceImp logimp;
 
@@ -54,9 +59,39 @@ public class MessHeaderServiceImp {
 
         }
         header.setName(newName);
-        detailMapper.insert(header);
+        Integer temp=detailMapper.insert(header);
+        copyDetail(id,header.getID());
+
         logimp.addInfo("添加消息头:" + header.getName());
 
+        return 1;
+    }
+    public Integer copyDetail(Integer oldpid,Integer newpid){
+        List<MessDetailEntity> detailtree=serviceImp2.search("",1,oldpid,"header",1,10000,0);
+        Deque<MessDetailEntity> waitList = new ArrayDeque<MessDetailEntity>();
+        for(MessDetailEntity detail:detailtree){
+            waitList.push(detail);
+        }
+        for(;waitList.size()>0;){
+            MessDetailEntity detail=waitList.pop();
+            detail.setPID(newpid);
+            if(detail.getOutType().equals("custom")){
+                int temp=detailMapper2.insertCustom(detail);
+                detail.setOutID(detail.getID());
+                detailMapper2.insert(detail);
+            }
+            if(detail.getOutType().equals("fields")){
+                detailMapper2.insert(detail);
+            }
+            if(detail.getOutType().equals("nest")){
+                detailMapper2.insert(detail);
+                for(MessDetailEntity child:detail.getChildren()){
+                    child.setNestID(detail.getID());
+                    waitList.push(child);
+                }
+
+            }
+        }
         return 1;
     }
 

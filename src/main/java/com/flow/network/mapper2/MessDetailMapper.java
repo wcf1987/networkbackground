@@ -13,6 +13,7 @@ public interface MessDetailMapper {
 
     //增加一个Person
     @Insert("insert into "+TbaleName+"(ID,Name,TType,OrderID,OutID,OutType,PID,NestID,Flag,EName) values(null,#{Name},#{TType},#{OrderID},#{OutID},#{OutType},#{PID},#{NestID},#{Flag},#{EName})")
+    @Options(useGeneratedKeys = true, keyProperty = "ID", keyColumn = "ID")
     int insert(MessDetailEntity entity);
 
     @Insert("insert into "+TbaleName1+"(ID,Type,Describes,CreateTime,AuthorID,ShortName,EName,Length)values(null,#{Type},#{Describes},#{CreateTime},#{AuthorID},#{ShortName},#{EName},#{Length})")
