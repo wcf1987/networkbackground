@@ -9,7 +9,7 @@ import java.util.List;
 public interface PackageDetailMapper {
     public static String TbaleName="t_packagedetail";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID)values(null,#{Name},#{EName},#{Type},#{Length},#{ArrayOr},#{DefaultValue},#{packID},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
+    @Insert("insert into "+TbaleName+"(ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID,OrderID)values(null,#{Name},#{EName},#{Type},#{Length},#{ArrayOr},#{DefaultValue},#{packID},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID},#{OrderID})")
     int insert(PackageDetailEntity entity);
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and packID=#{pid} and ID!=#{id}")
     Integer selectByName(String name,Integer pid,Integer id);
@@ -23,12 +23,20 @@ public interface PackageDetailMapper {
     //更改一个Person
     @Update("update "+TbaleName+" set Name =#{Name}, EName =#{EName},  Type=#{Type},Length=#{Length},ArrayOr=#{ArrayOr},DefaultValue=#{DefaultValue}, Describes =#{Describes}  where ID=#{ID}")
     int updateByPrimaryKey(PackageDetailEntity entity);
+
+    @Update("update "+TbaleName+" set OrderID =#{OrderID}  where ID=#{ID}")
+    int updateOrderIDByPrimaryKey(PackageDetailEntity entity);
+
     //查询一个Person
-    @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
+    @Select("select ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID ,OrderID from  "+TbaleName+"  where ID = #{id}")
     PackageDetailEntity selectByPrimaryKey(Integer id);
     //查询所有的Person
 
 
-    @Select("select ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%') and packID=#{pid}")
+    @Select("select ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID,OrderID from "+TbaleName+" where Name like concat('%',#{name},'%') and packID=#{pid} order by OrderID asc")
     List<PackageDetailEntity> searchByName(String name,Integer uid,Integer pid);
+
+    @Select("select ID,Name,EName,Type,Length,ArrayOr,DefaultValue,packID,Describes,CreateTime,AuthorID,OrderID from "+TbaleName+" where packID=#{pid} order by OrderID asc")
+    List<PackageDetailEntity> searchByPid(Integer pid);
+
 }

@@ -24,8 +24,11 @@ public interface MessHeaderMapper {
     @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type}, Describes =#{Describes}  where ID=#{ID}")
     int updateByPrimaryKey(MessHeaderEntity entity);
     //查询一个Person
-    @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
+
+
+    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID from  "+TbaleName+"  where ID = #{id}")
     MessHeaderEntity selectByPrimaryKey(Integer id);
+
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<MessHeaderEntity> getList(Integer uid);
