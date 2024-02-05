@@ -108,12 +108,14 @@ public class MessTranslateDetailServiceImp {
             temp = detailMapper.selectCustomByPrimaryKey(t.getOutID());
             t.setEName(temp.getEName());
             t.setShortName(temp.getShortName());
+            t.setTName(t.getName());
 
         }
         if (t.getOutType().equals("fields")) {
             temp = detailMapper.selectFieldsByPrimaryKey(t.getOutID());
             t.setEName(temp.getEName());
             t.setShortName(temp.getShortName());
+            t.setTName(t.getName());
 
         }
         temp = detailMapper.selectByFieldsID(t.getID(), transid);

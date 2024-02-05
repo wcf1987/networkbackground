@@ -26,7 +26,7 @@ public class MessTranslateServiceImp
             num=num+detailMapper.delete(Integer.parseInt(s));
         }
 
-        logimp.addInfo("成功删除网口:"+String.valueOf(num)+"条");
+        logimp.addInfo("成功删除消息转换:"+String.valueOf(num)+"条");
         return num;
     }
     public String add(MessTranslateEntity entity) {

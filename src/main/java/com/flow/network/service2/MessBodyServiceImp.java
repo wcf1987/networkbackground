@@ -3,6 +3,7 @@ package com.flow.network.service2;
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.MessBodyEntity;
 import com.flow.network.mapper2.MessBodyMapper;
+import com.flow.network.mapper2.MessDetailMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,13 @@ public class MessBodyServiceImp
     @Autowired
     MessBodyMapper detailMapper;
     @Autowired
+    MessDetailMapper detailMapper2;
+    @Autowired
     private LogServiceImp logimp;
     public Integer deleteByIDS(List<String> ids) {
         Integer num=0;
         for(String s :ids){
+            detailMapper2.deleteByPID(Integer.parseInt(s),"body");
             num=num+detailMapper.delete(Integer.parseInt(s));
         }
 
@@ -62,6 +66,7 @@ public class MessBodyServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        detailMapper2.deleteByPID(id,"body");
         logimp.addInfo("删除消息体:"+id);
         return 1;
     }

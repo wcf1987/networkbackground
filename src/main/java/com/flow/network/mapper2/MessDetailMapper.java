@@ -26,8 +26,8 @@ public interface MessDetailMapper {
     @Delete("delete from "+TbaleName+" where ID = #{id}")
     int delete(Integer id);
 
-    @Delete("delete from "+TbaleName+" where appid = #{id}")
-    int deleteByPID(Integer id);
+    @Delete("delete from "+TbaleName+" where PID = #{pid} and TType=#{ttype}")
+    int deleteByPID(Integer pid,String ttype);
     //更改一个Person
     @Update("update "+TbaleName+" set Name =#{Name},OutID=#{OutID}, NestID=#{NestID}, Flag =#{Flag}, EName=#{EName}  where ID=#{ID}")
     int updateByPrimaryKey(MessDetailEntity entity);
