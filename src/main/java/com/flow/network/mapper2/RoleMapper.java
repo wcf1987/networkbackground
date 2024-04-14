@@ -27,7 +27,7 @@ public interface RoleMapper {
     @Select("select id,roleName,roleSign,menustr,status,describes,createTime from  "+TbaleName+"  where id = #{id}")
     RoleEntity getByID(Integer id);
     //查询所有的Person
-    @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
+    @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid} and ")
     List<RoleEntity> getList(Integer uid);
 
 
@@ -36,6 +36,6 @@ public interface RoleMapper {
     @Select("select count(*) from  "+TbaleName+"  where rolename = #{name} and ID!=#{id}")
     Integer selectByName(String name,Integer id);
 
-    @Select("select id,roleName,roleSign,menustr,status,describes,createTime from "+TbaleName+" where roleName like concat('%',#{roleName},'%')")
+    @Select("select id,roleName,roleSign,menustr,status,describes,createTime from "+TbaleName+" where roleName like concat('%',#{roleName},'%') and roleSign!='superadmin'")
     List<RoleEntity> searchByName(String roleName,Integer uid);
 }

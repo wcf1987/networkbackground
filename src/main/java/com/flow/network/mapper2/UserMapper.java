@@ -37,6 +37,6 @@ public interface UserMapper {
     @Select("select Username from  "+TbaleName+"  where  ID==#{id}")
     String selectByID(Integer id);
 
-    @Select("select t0.id,userName,userNickname,t0.roleSign,t1.roleName as roleStr,department,phone,email,t0.status,t0.describes,t0.createTime from "+TbaleName+" t0 LEFT JOIN t_role t1 ON t0.roleSign=t1.id where  userName like concat('%',#{userName},'%')")
+    @Select("select t0.id,userName,userNickname,t0.roleSign,t1.roleName as roleStr,department,phone,email,t0.status,t0.describes,t0.createTime from "+TbaleName+" t0 LEFT JOIN t_role t1 ON t0.roleSign=t1.id where  userName like concat('%',#{userName},'%') and userName!='admins'")
     List<UserEntity> searchByName(String userName,Integer uid);
 }
