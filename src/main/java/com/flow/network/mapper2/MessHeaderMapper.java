@@ -10,6 +10,7 @@ public interface MessHeaderMapper {
     public static String TbaleName="t_messheader";
     //增加一个Person
     @Insert("insert into "+TbaleName+"(ID,Name,Type,Describes,CreateTime,AuthorID)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
+    @Options(useGeneratedKeys = true, keyProperty = "ID", keyColumn = "ID")
     int insert(MessHeaderEntity entity);
 
     @Insert("insert into "+TbaleName+" (id,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,ruleID) select null,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,#{newid} from "+TbaleName+" where ruleID=#{oldid}")
@@ -24,8 +25,11 @@ public interface MessHeaderMapper {
     @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type}, Describes =#{Describes}  where ID=#{ID}")
     int updateByPrimaryKey(MessHeaderEntity entity);
     //查询一个Person
-    @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
+
+
+    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID from  "+TbaleName+"  where ID = #{id}")
     MessHeaderEntity selectByPrimaryKey(Integer id);
+
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<MessHeaderEntity> getList(Integer uid);

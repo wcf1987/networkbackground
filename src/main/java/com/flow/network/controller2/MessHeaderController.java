@@ -24,7 +24,13 @@ public class MessHeaderController {
 
 
     }
+    @RequestMapping("/copyids")
+    public ApiResponse copyids(@RequestBody List<String> ids) {
+        //List<InterfaceEntity> u = new ArrayList<>();
+        return ApiResponse.success(serviceImp.copyByIDS(ids));
 
+
+    }
     @RequestMapping("/searchSize")
     public ApiResponse searchSize(@RequestBody PageParmInfo pageParmInfo) {
 

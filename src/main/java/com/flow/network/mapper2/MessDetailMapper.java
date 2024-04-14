@@ -13,6 +13,7 @@ public interface MessDetailMapper {
 
     //增加一个Person
     @Insert("insert into "+TbaleName+"(ID,Name,TType,OrderID,OutID,OutType,PID,NestID,Flag,EName) values(null,#{Name},#{TType},#{OrderID},#{OutID},#{OutType},#{PID},#{NestID},#{Flag},#{EName})")
+    @Options(useGeneratedKeys = true, keyProperty = "ID", keyColumn = "ID")
     int insert(MessDetailEntity entity);
 
     @Insert("insert into "+TbaleName1+"(ID,Type,Describes,CreateTime,AuthorID,ShortName,EName,Length)values(null,#{Type},#{Describes},#{CreateTime},#{AuthorID},#{ShortName},#{EName},#{Length})")
@@ -26,8 +27,8 @@ public interface MessDetailMapper {
     @Delete("delete from "+TbaleName+" where ID = #{id}")
     int delete(Integer id);
 
-    @Delete("delete from "+TbaleName+" where appid = #{id}")
-    int deleteByPID(Integer id);
+    @Delete("delete from "+TbaleName+" where PID = #{pid} and TType=#{ttype}")
+    int deleteByPID(Integer pid,String ttype);
     //更改一个Person
     @Update("update "+TbaleName+" set Name =#{Name},OutID=#{OutID}, NestID=#{NestID}, Flag =#{Flag}, EName=#{EName}  where ID=#{ID}")
     int updateByPrimaryKey(MessDetailEntity entity);

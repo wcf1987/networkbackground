@@ -24,6 +24,8 @@ public class PackageDetailEntity {
     private String Describes;
     private String CreateTime;
     private Integer AuthorID;
+    private Double OrderID;
+    private Integer SortID ;
 
 
 }
