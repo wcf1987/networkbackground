@@ -9,7 +9,7 @@ import java.util.List;
 public interface MessBodyMapper {
     public static String TbaleName="t_messbody";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,Type,Describes,CreateTime,AuthorID)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
+    @Insert("insert into "+TbaleName+"( ID,Name,Type,Describes,CreateTime,AuthorID)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
     @Options(useGeneratedKeys = true, keyProperty = "ID", keyColumn = "ID")
     int insert(MessBodyEntity entity);
 
