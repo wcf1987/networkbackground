@@ -1,6 +1,7 @@
 package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
+import com.flow.network.domain2.GatewayDistributeEntity;
 import com.flow.network.domain2.GatewayEntity;
 import com.flow.network.mapper2.GatewayMapper;
 import com.flow.network.tools.Tools;
@@ -36,6 +37,28 @@ public class GatewayServiceImp
         detailMapper.insert(entity);
         logimp.addInfo("添加网关:"+entity.getName());
         return Tools.SUCCESS;
+    }
+    public String addGatewayDistribute(GatewayDistributeEntity entity) {
+        if(detailMapper.selectByGateIDAndFlowID(entity)>0){
+            throw new ServiceException("该流程已添加，请勿重复增加");
+        }
+        //System.out.print("getlist");
+        detailMapper.insertGateDistribute(entity);
+        logimp.addInfo("添加网关分发:"+entity.getGateID());
+        return Tools.SUCCESS;
+    }
+    public Integer deleteGatewayDistribute(GatewayDistributeEntity entity) {
+        //System.out.print("deleteByID");
+        detailMapper.deleteGateDistribute(entity);
+        logimp.addInfo("删除网关分发:"+entity.getGateID()+"-"+entity.getFlowID());
+        return 1;
+    }
+    public List<GatewayDistributeEntity> searchGatewayDistribute(String name,Integer gateid,Integer pageNum, Integer pageSize) {
+        //System.out.print("getlist");
+        PageHelper.startPage(pageNum, pageSize);
+        List<GatewayDistributeEntity> list=detailMapper.getGatewayDistributeByGateID(gateid);
+
+        return list;
     }
     public String update(GatewayEntity entity) {
         //System.out.print("getlist");

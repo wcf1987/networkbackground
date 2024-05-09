@@ -2,10 +2,9 @@ package com.flow.network.controller2;
 
 import com.flow.network.config.ApiResponse;
 import com.flow.network.domain.PageParmInfo;
+import com.flow.network.domain2.GatewayDistributeEntity;
 import com.flow.network.domain2.GatewayEntity;
-import com.flow.network.domain2.PackageEntity;
 import com.flow.network.service2.GatewayServiceImp;
-import com.flow.network.service2.PackageServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +32,23 @@ public class GatewayController {
         //List<InterfaceEntity> u = new ArrayList<>();
         serviceImp.deleteByID(detailEntity.getID());
         return ApiResponse.success();
+
+    }
+    @RequestMapping("/deletedis")
+    public ApiResponse deleteGatewayDistribute(@RequestBody GatewayDistributeEntity detailEntity) {
+        //List<InterfaceEntity> u = new ArrayList<>();
+        serviceImp.deleteGatewayDistribute(detailEntity);
+        return ApiResponse.success();
+
+    }
+    @PostMapping("/adddis")
+    public ApiResponse addGatewayDistribute(@RequestBody GatewayDistributeEntity detailEntity){
+        serviceImp.addGatewayDistribute(detailEntity);
+        return ApiResponse.success();
+    }
+    @PostMapping("/searchdis")
+    public ApiResponse searchGatewayDistribute(@RequestBody PageParmInfo pageParmInfo ){
+        return ApiResponse.success(serviceImp.searchGatewayDistribute(pageParmInfo.getName(),pageParmInfo.getGateid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
     }
     @RequestMapping("/delids")

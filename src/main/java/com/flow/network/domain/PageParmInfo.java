@@ -13,6 +13,7 @@ public class PageParmInfo {
     private Integer pageNum;
     private Integer pageSize;
     private Integer pid;
+    private Integer gateid;
     private Integer transid;
     private String ttype;
     private Integer id;
