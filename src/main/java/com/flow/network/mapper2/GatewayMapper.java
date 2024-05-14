@@ -33,6 +33,10 @@ public interface GatewayMapper {
     List<GatewayDistributeEntity> getGatewayDistributeByGateID(Integer gateid);
 
 
+    @Select("select * from  "+TbaleName1)
+    List<GatewayDistributeEntity> getGatewayDistributeAll();
+
+
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person

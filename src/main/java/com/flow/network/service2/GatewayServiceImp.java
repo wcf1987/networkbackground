@@ -60,6 +60,14 @@ public class GatewayServiceImp
 
         return list;
     }
+    public List<GatewayDistributeEntity> searchGatewayDistributeAll() {
+        //System.out.print("getlist");
+
+        List<GatewayDistributeEntity> list=detailMapper.getGatewayDistributeAll();
+
+        return list;
+    }
+
     public String update(GatewayEntity entity) {
         //System.out.print("getlist");
         if(detailMapper.selectByName(entity.getName(),entity.getID())>0){

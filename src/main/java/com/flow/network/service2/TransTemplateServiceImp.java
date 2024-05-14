@@ -49,8 +49,8 @@ public class TransTemplateServiceImp
         fd.setFlowJson(f.getFlowJson());
 
         fd.setName(f.getName()+"_"+DateTools.getNowStr()+"实例");
-        fd.setType(f.getType()+"的一个实例，创建于"+ DateTools.getNowStr());
-        fd.setDescribes(f.getDescribes());
+        fd.setType(f.getType());
+        fd.setDescribes(f.getName()+"的一个实例，创建于"+ DateTools.getNowStr());
         fd.setAuthorID(entity.getAuthorID());
         detailMapper2.insert(fd);
         logimp.addInfo("应用模板:"+f.getName());

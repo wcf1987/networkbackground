@@ -51,6 +51,11 @@ public class GatewayController {
         return ApiResponse.success(serviceImp.searchGatewayDistribute(pageParmInfo.getName(),pageParmInfo.getGateid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
     }
+    @PostMapping("/searchdisall")
+    public ApiResponse searchGatewayDistributeAll(@RequestBody PageParmInfo pageParmInfo ){
+        return ApiResponse.success(serviceImp.searchGatewayDistributeAll());
+
+    }
     @RequestMapping("/delids")
     public ApiResponse delids(@RequestBody List<String> ids) {
         //List<InterfaceEntity> u = new ArrayList<>();
@@ -73,4 +78,5 @@ public class GatewayController {
         return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
     }
+
 }
