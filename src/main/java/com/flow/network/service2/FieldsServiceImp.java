@@ -81,7 +81,7 @@ public class FieldsServiceImp
     public FieldsEntity getByID(Integer id) {
         //System.out.print("deleteByID");
         FieldsEntity fe=detailMapper.selectByPrimaryKey(id);
-        logimp.addInfo("删除DFI:"+id);
+        logimp.addInfo("获取DFI:"+id);
         return fe;
     }
 

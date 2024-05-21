@@ -25,8 +25,8 @@ public interface FieldsDetailMapper {
     @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type},DUINO=#{DUINO},ShortName=#{ShortName},DUIVersion=#{DUIVersion}, Describes =#{Describes},EName =#{EName},TypeCode =#{TypeCode},Length =#{Length},TableName =#{TableName},TableSaveName =#{TableSaveName}  where ID=#{ID}")
     int updateByPrimaryKey(FieldsDetailEntity entity);
     //查询一个Person
-    @Select("select id,name ,age from  "+TbaleName+"  where id = #{id}")
-    FieldsDetailEntity selectByPrimaryKey(Integer id);
+    @Select("select * from  "+TbaleName+"  where id = #{id}")
+    FieldsDetailEntity getById(Integer id);
     //查询所有的Person
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<FieldsDetailEntity> getList(Integer uid);

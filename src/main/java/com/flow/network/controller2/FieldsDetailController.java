@@ -5,6 +5,7 @@ import com.flow.network.config.ResponseCode;
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.*;
+import com.flow.network.mapper2.FieldsMapper;
 import com.flow.network.service2.FieldsDetailServiceImp;
 import com.flow.network.tools.ExcelUtils;
 import com.flow.network.tools.Tools;
@@ -22,7 +23,8 @@ public class FieldsDetailController {
     @Autowired
     private FieldsDetailServiceImp serviceImp;
 
-
+    @Autowired
+    FieldsMapper detailMapper2;
     @RequestMapping("/searchSize")
     public ApiResponse searchSize(@RequestBody PageParmInfo pageParmInfo) {
 
@@ -166,6 +168,16 @@ public class FieldsDetailController {
     @PostMapping("/search")
     public ApiResponse search(@RequestBody PageParmInfo pageParmInfo) {
         return ApiResponse.success(serviceImp.search( pageParmInfo.getName(), pageParmInfo.getUid(), pageParmInfo.getPid(), pageParmInfo.getPageNum(), pageParmInfo.getPageSize(), pageParmInfo.getOrder()));
+
+    }
+
+    @PostMapping("/getById")
+    public ApiResponse getById(@RequestBody PageParmInfo pageParmInfo) {
+        FieldsDetailEntity entity=serviceImp.getById( pageParmInfo.getId());
+        FieldsEntity entity1=detailMapper2.selectByPrimaryKey(entity.getDFIID());
+        entity.setDFINO(entity1.getIDNO());
+        entity.setDFIVersion(entity1.getVersion());
+        return ApiResponse.success(entity);
 
     }
     @RequestMapping("/delids")

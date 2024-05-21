@@ -67,6 +67,13 @@ public class FieldsDetailServiceImp
 
         return list;
     }
+    public FieldsDetailEntity getById(Integer id) {
+        //System.out.print("getlist");
+        FieldsDetailEntity entity=detailMapper.getById(id);
+
+        return entity;
+    }
+
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
