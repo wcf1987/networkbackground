@@ -57,4 +57,9 @@ public class MessTranslateDetailController {
         return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPid(),pageParmInfo.getTtype(),pageParmInfo.getTransid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
     }
+    @PostMapping("/searchAllDUITrans")
+    public ApiResponse searchAllDUITrans(@RequestBody PageParmInfo pageParmInfo ){
+        return ApiResponse.success(serviceImp.searchAllDUITrans());
+
+    }
 }

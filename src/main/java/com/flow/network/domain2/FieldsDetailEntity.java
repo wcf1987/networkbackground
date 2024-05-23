@@ -30,7 +30,7 @@ public class FieldsDetailEntity {
     private String Describes;
     private String CreateTime;
     private Integer AuthorID;
-
+    private String Flag;
 
     public FieldsDetailEntity(FieldsDetailUploadEntity up) {
         Name=up.getName();

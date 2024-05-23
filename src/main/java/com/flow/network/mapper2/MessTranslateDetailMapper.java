@@ -1,5 +1,6 @@
 package com.flow.network.mapper2;
 
+import com.flow.network.domain2.DUITransDetailEntity;
 import com.flow.network.domain2.FieldsDetailEntity;
 import com.flow.network.domain2.MessDetailEntity;
 import com.flow.network.domain2.MessTraslateDetailEntity;
@@ -69,4 +70,6 @@ public interface MessTranslateDetailMapper {
     @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and NestID=#{nestid} order by OrderID asc")
     List<MessDetailEntity> searchByPID(Integer pid,Integer nestid,String ttype);
 
+    @Select("SELECT t1.ID,t1.TName ,t1.FieldsID as targetFieldID,t1.TransID,t1.Optional,t1.Transrule,t1.Describes,t1.SourceData,t2.sourceID as sourceMessID,t2.targetID  as targetMessID FROM t_messtranslatedetail t1,t_messtranslate t2 where t1.TransID=t2.ID and t1.SourceData is not null and t1.Optional!='默认值'")
+    List<DUITransDetailEntity>  searchAllDUITrans();
 }

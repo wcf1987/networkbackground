@@ -1,7 +1,10 @@
 package com.flow.network.service2;
 
+import com.flow.network.domain2.DUITransDetailEntity;
+import com.flow.network.domain2.FieldsDetailEntity;
 import com.flow.network.domain2.MessDetailEntity;
 import com.flow.network.domain2.MessTraslateDetailEntity;
+import com.flow.network.mapper2.MessDetailMapper;
 import com.flow.network.mapper2.MessTranslateDetailMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
@@ -155,5 +158,15 @@ public class MessTranslateDetailServiceImp {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
         return 1;
+    }
+    MessDetailMapper messDetailMapper;
+    public List<DUITransDetailEntity> searchAllDUITrans() {
+        List<DUITransDetailEntity> list =detailMapper.searchAllDUITrans();
+        for(DUITransDetailEntity tdui:list){
+            FieldsDetailEntity targetDUI=messDetailMapper.selectFieldsInfoByID(tdui.getTargetFieldID());
+            FieldsDetailEntity sourceDUI=messDetailMapper.selectFieldsInfoByName(tdui.getSourceData(),tdui.getSourceMessID());
+
+        }
+        return list;
     }
 }
