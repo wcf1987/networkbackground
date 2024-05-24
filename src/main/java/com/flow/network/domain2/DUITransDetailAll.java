@@ -6,25 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE)
-public class DUITransDetailEntity {
-    private String sourceMessID;
-    private String  targetMessID;
-    private String ID;
-    private String targetFieldID;
-    private String sourceFieldID;
-    private String TName;
-    private Integer TransID;
-    private String Optional;
-
-    private String Transrule;
-    private String Describes;
-    private String SourceData;
-
+public class DUITransDetailAll {
+  private List<DUITransDetailEntity> connect;
+  private List<FieldsDetailEntity>  point;
 
 
 }

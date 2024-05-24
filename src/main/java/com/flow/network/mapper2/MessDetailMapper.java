@@ -54,9 +54,9 @@ public interface MessDetailMapper {
 
     @Select("select count(ID) from  "+TbaleName+"  where NestID = #{id}")
     Integer countByNestID(Integer id);
-    @Select("select t3.IDNO as DFINO,t3.Version as DFIVersion,t2.DUINO as DUINO,t2.DUIVersion as DUIVersion,t1.Flag,t2.`Name`,t2.EName,t2.ShortName,t2.Type,t2.Describes,t2.Length,t2.TypeCode,t2.TableName,t2.TableSaveName from  t_messdetail t1,t_fieldsdetail t2,t_fields t3 where t1.OutType='fields' and t1.OutID=t2.ID  AND t2.DFIID=t3.ID and t1.ID=#{id}")
-    FieldsDetailEntity selectFieldsInfoByID(String id);
-    @Select("select t3.IDNO as DFINO,t3.Version as DFIVersion,t2.DUINO as DUINO,t2.DUIVersion as DUIVersion,t1.Flag,t2.`Name`,t2.EName,t2.ShortName,t2.Type,t2.Describes,t2.Length,t2.TypeCode,t2.TableName,t2.TableSaveName from  t_messdetail t1,t_fieldsdetail t2,t_fields t3 where t1.OutType='fields' and t1.OutID=t2.ID  AND t2.DFIID=t3.ID and t1.Name=#{name} and t1.PID=#{sourceid}")
+    @Select("select t2.ID,t3.IDNO as DFINO,t3.Version as DFIVersion,t2.DUINO as DUINO,t2.DUIVersion as DUIVersion,t1.Flag,t2.`Name`,t2.EName,t2.ShortName,t2.Type,t2.Describes,t2.Length,t2.TypeCode,t2.TableName,t2.TableSaveName from  t_messdetail t1,t_fieldsdetail t2,t_fields t3 where t1.OutType='fields' and t1.OutID=t2.ID  AND t2.DFIID=t3.ID and t1.ID=#{id}")
+    FieldsDetailEntity selectFieldsInfoByID(String id) throws Exception;
+    @Select("select DISTINCT t2.ID,t3.IDNO as DFINO,t3.Version as DFIVersion,t2.DUINO as DUINO,t2.DUIVersion as DUIVersion,t2.`Name`,t2.EName,t2.ShortName,t2.Type,t2.Describes,t2.Length,t2.TypeCode,t2.TableName,t2.TableSaveName from  t_messdetail t1,t_fieldsdetail t2,t_fields t3 where t1.OutType='fields' and t1.OutID=t2.ID  AND t2.DFIID=t3.ID and t1.Name=#{name} and t1.PID=#{sourceid}")
     FieldsDetailEntity selectFieldsInfoByName(String name,String sourceid);
     @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag ,t0.EName from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=#{nestid} order by OrderID asc")
     List<MessDetailEntity> searchByName(String name, Integer uid,Integer pid,String ttype,Integer nestid);

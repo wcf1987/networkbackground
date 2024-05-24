@@ -1,9 +1,8 @@
 package com.flow.network.service2;
 
-import com.flow.network.domain2.DUITransDetailEntity;
-import com.flow.network.domain2.FieldsDetailEntity;
-import com.flow.network.domain2.MessDetailEntity;
-import com.flow.network.domain2.MessTraslateDetailEntity;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONUtil;
+import com.flow.network.domain2.*;
 import com.flow.network.mapper2.MessDetailMapper;
 import com.flow.network.mapper2.MessTranslateDetailMapper;
 import com.flow.network.tools.Tools;
@@ -159,14 +158,57 @@ public class MessTranslateDetailServiceImp {
         detailMapper.delete(id);
         return 1;
     }
+    @Autowired
     MessDetailMapper messDetailMapper;
-    public List<DUITransDetailEntity> searchAllDUITrans() {
+    public DUITransDetailAll searchAllDUITrans() {
+        DUITransDetailAll duiAll=new DUITransDetailAll();
         List<DUITransDetailEntity> list =detailMapper.searchAllDUITrans();
-        for(DUITransDetailEntity tdui:list){
-            FieldsDetailEntity targetDUI=messDetailMapper.selectFieldsInfoByID(tdui.getTargetFieldID());
-            FieldsDetailEntity sourceDUI=messDetailMapper.selectFieldsInfoByName(tdui.getSourceData(),tdui.getSourceMessID());
+        //System.out.println(list);
+        List<DUITransDetailEntity> listone =new ArrayList<DUITransDetailEntity>();
+        List<FieldsDetailEntity> pointone =new ArrayList<FieldsDetailEntity>();
+        try {
+            for (DUITransDetailEntity tdui : list) {
+                //System.out.println(tdui);
+                FieldsDetailEntity targetDUI = messDetailMapper.selectFieldsInfoByID(tdui.getTargetFieldID());
 
+                JSONArray jsonArray = JSONUtil.parseArray(tdui.getSourceData());
+                // 输出转换后的JSONArray对象
+                System.out.println(jsonArray);
+                // 遍历JSONArray对象
+                int k=0;
+                for(int i=0;i<jsonArray.size();i++)
+                {   Object json=jsonArray.get(i);
+                    JSONArray jsonArray1 = JSONUtil.parseArray(json);
+
+                    FieldsDetailEntity sourceDUI=messDetailMapper.selectFieldsInfoByName(jsonArray1.get(0).toString(),tdui.getSourceMessID());
+                    System.out.println(sourceDUI);
+                    if(sourceDUI!=null){
+                        DUITransDetailEntity duione=new DUITransDetailEntity();
+                        if(sourceDUI.getID()==targetDUI.getID()){
+
+                        }else {
+                            k=k+1;
+                            duione.setSourceFieldID(String.valueOf(sourceDUI.getID()));
+                            duione.setTargetFieldID(String.valueOf(targetDUI.getID()));
+                            duione.setTransID(tdui.getTransID());
+                            duione.setOptional(tdui.getOptional());
+                            duione.setTransrule(tdui.getTransrule());
+                            duione.setTName(tdui.getTName());
+                            pointone.add(sourceDUI);
+                            listone.add(duione);
+                        }
+                    }
+                };
+                if(k>0) {
+                    pointone.add(targetDUI);
+                    //FieldsDetailEntity sourceDUI=messDetailMapper.selectFieldsInfoByName(tdui.getSourceData(),tdui.getSourceMessID());
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return list;
+        duiAll.setPoint(pointone);
+        duiAll.setConnect(listone);
+        return duiAll;
     }
 }
