@@ -10,10 +10,8 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -207,8 +205,16 @@ public class MessTranslateDetailServiceImp {
         }catch (Exception e){
             e.printStackTrace();
         }
-        duiAll.setPoint(pointone);
-        duiAll.setConnect(listone);
+
+        // 去重
+        List<DUITransDetailEntity> conectnew = listone.stream().collect(Collectors.collectingAndThen(
+                Collectors.toCollection(() -> new TreeSet<>(
+                        Comparator.comparing(DUITransDetailEntity ::getSouToTar ))), ArrayList::new));
+        List<FieldsDetailEntity> pointnew =pointone.stream().collect(Collectors.collectingAndThen(
+                Collectors.toCollection(() -> new TreeSet<>(
+                        Comparator.comparing(FieldsDetailEntity ::getID ))), ArrayList::new));
+        duiAll.setPoint(pointnew);
+        duiAll.setConnect(conectnew);
         return duiAll;
     }
 }

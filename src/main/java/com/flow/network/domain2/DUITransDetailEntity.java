@@ -25,6 +25,10 @@ public class DUITransDetailEntity {
     private String Describes;
     private String SourceData;
 
+    private String SouToTar;
+    public String getSouToTar(){
+        return sourceFieldID+"_"+targetFieldID;
+    }
 
 
 }

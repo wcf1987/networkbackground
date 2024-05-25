@@ -56,6 +56,7 @@ public class GatewayController {
         return ApiResponse.success(serviceImp.searchGatewayDistributeAll());
 
     }
+    
     @RequestMapping("/delids")
     public ApiResponse delids(@RequestBody List<String> ids) {
         //List<InterfaceEntity> u = new ArrayList<>();
