@@ -47,8 +47,8 @@ public class TransTemplateServiceImp
         //System.out.print("getlist");
         FlowDesignEntity fd=new FlowDesignEntity();
         fd.setFlowJson(f.getFlowJson());
-
-        fd.setName(f.getName()+"_"+DateTools.getNowStr()+"实例");
+        fd.setName(entity.getName());
+        //fd.setName(f.getName()+"_"+DateTools.getNowStr()+"实例");
         fd.setType(f.getType());
         fd.setDescribes(f.getName()+"的一个实例，创建于"+ DateTools.getNowStr());
         fd.setAuthorID(entity.getAuthorID());
