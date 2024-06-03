@@ -26,12 +26,12 @@ public interface TransTemplateMapper {
     @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type}, Describes =#{Describes},LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S')  where ID=#{ID}")
     int updateByPrimaryKey(TransTemplateEntity entity);
 
-    @Update("update "+TbaleName+" set FlowJson =#{FlowJson}, LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S')  where ID=#{ID}")
+    @Update("update "+TbaleName+" set FlowJson =#{FlowJson}, FlowOutStr =#{FlowOutStr}, LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S')  where ID=#{ID}")
     int updateJsonByPrimaryKey(TransTemplateEntity entity);
     //查询一个Person
 
 
-    @Select("select ID,Name,Type,Describes,ClassfyID,CreateTime,AuthorID,FlowJson,LastModified from "+TbaleName+" where ID=#{id}")
+    @Select("select ID,Name,Type,Describes,ClassfyID,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified from "+TbaleName+" where ID=#{id}")
     TransTemplateEntity getFlowDesignByID(Integer id);
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
     Integer selectByName(String name,Integer id);

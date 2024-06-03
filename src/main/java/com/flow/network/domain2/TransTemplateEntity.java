@@ -20,7 +20,7 @@ public class TransTemplateEntity {
     private String CreateTime;
     private Integer AuthorID;
     private String  FlowJson;
-
+    private String FlowOutStr;
     private String LastModified;
 
 }
