@@ -10,9 +10,11 @@ public interface FlowDesignMapper {
     public static String TbaleName="t_flow";
     //增加一个Person
     @Insert("insert into "+TbaleName+"(ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID},#{FlowJson},#{FlowOutStr},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'))")
+    @Options(useGeneratedKeys = true, keyProperty = "ID", keyColumn = "ID")
     int insert(FlowDesignEntity entity);
 
     @Insert("insert into "+TbaleName+" (id,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,ruleID) select null,name,ename,length,rulestr,optional,type,sourceid,targetid,sourcedata,targetdata,funcrule,#{newid} from "+TbaleName+" where ruleID=#{oldid}")
+
     int copyByPID(Integer oldid,Integer newid);
     //删除一个Person
     @Delete("delete from "+TbaleName+" where ID = #{id}")

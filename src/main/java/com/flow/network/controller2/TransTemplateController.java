@@ -49,8 +49,8 @@ public class TransTemplateController {
 
     @PostMapping("/applyflow")
     public ApiResponse applyFlow(@RequestBody TransTemplateEntity detailEntity){
-        serviceImp.applyFlow(detailEntity);
-        return ApiResponse.success();
+        String id=serviceImp.applyFlow(detailEntity);
+        return ApiResponse.success(id);
     }
     @PostMapping("/updatejson")
     public ApiResponse updateJson(@RequestBody TransTemplateEntity detailEntity){

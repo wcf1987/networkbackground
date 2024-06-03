@@ -54,7 +54,7 @@ public class TransTemplateServiceImp
         fd.setAuthorID(entity.getAuthorID());
         detailMapper2.insert(fd);
         logimp.addInfo("应用模板:"+f.getName());
-        return Tools.SUCCESS;
+        return String.valueOf(fd.getID());
     }
     public String update(TransTemplateEntity entity) {
         //System.out.print("getlist");
