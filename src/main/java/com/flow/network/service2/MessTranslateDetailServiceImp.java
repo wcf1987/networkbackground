@@ -175,10 +175,10 @@ public class MessTranslateDetailServiceImp {
                 // 遍历JSONArray对象
                 int k=0;
                 for(int i=0;i<jsonArray.size();i++)
-                {   Object json=jsonArray.get(i);
-                    JSONArray jsonArray1 = JSONUtil.parseArray(json);
+                {   String sname=jsonArray.get(i).toString();
+                    //JSONArray jsonArray1 = JSONUtil.parseArray(json);
 
-                    FieldsDetailEntity sourceDUI=messDetailMapper.selectFieldsInfoByName(jsonArray1.get(0).toString(),tdui.getSourceMessID());
+                    FieldsDetailEntity sourceDUI=messDetailMapper.selectFieldsInfoByName(sname,tdui.getSourceMessID());
                     System.out.println(sourceDUI);
                     if(sourceDUI!=null){
                         DUITransDetailEntity duione=new DUITransDetailEntity();
