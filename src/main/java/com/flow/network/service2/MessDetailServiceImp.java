@@ -182,6 +182,7 @@ public class MessDetailServiceImp
                 entity.setOrderID(e2.getOrderID() - 0.0001);
 
             }
+            System.out.println(entity);
             detailMapper.updateByPrimaryKey(entity);
             detailMapper.updateOrderIDByPrimaryKey(entity);
             updateOrder(entity.getPID(),entity.getNestID(),entity.getTType());
@@ -227,7 +228,7 @@ public class MessDetailServiceImp
         Deque<MessDetailEntity> waitList = new ArrayDeque<MessDetailEntity>();
         for(int i=0;i<list.size();i++){
             if(list.get(i).getOutType().equals("nest")){
-                list.get(i).setEName(list.get(i).getName());
+                //list.get(i).setEName(list.get(i).getName());
                 waitList.push(list.get(i));
             }
         }
@@ -239,7 +240,7 @@ public class MessDetailServiceImp
             }
             for(int i=0;i<listt.size();i++){
                 if(listt.get(i).getOutType().equals("nest")){
-                    listt.get(i).setEName(listt.get(i).getName());
+                   // listt.get(i).setEName(listt.get(i).getName());
                     waitList.push(listt.get(i));
                 }
             }
@@ -247,7 +248,7 @@ public class MessDetailServiceImp
 
         for(int i=0;i<list.size();i++){
             if(list.get(i).getOutType().equals("nest")){
-                list.get(i).setEName(list.get(i).getName());
+              //  list.get(i).setEName(list.get(i).getName());
                 waitList.push(list.get(i));
             }
             else{
@@ -268,7 +269,7 @@ public class MessDetailServiceImp
             }
             for(int i=0;i<listt.size();i++){
                 if(listt.get(i).getOutType().equals("nest")){
-                    listt.get(i).setEName(listt.get(i).getName());
+                //    listt.get(i).setEName(listt.get(i).getName());
                     waitList.push(listt.get(i));
                 }else{
                     CompleteFields(listt.get(i));
