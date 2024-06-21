@@ -52,16 +52,16 @@ public class NetworkInterServiceImp
         logimp.addInfo("更新网口:"+entity.getName());
         return Tools.SUCCESS;
     }
-    public List<NetworkInterEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
+    public List<NetworkInterEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize,String order,String orderField) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<NetworkInterEntity> list=detailMapper.searchByName(name,uid);
+        List<NetworkInterEntity> list=detailMapper.searchByName(name,uid,order,orderField);
 
         return list;
     }
     public List<NetworkInterEntity> searchAll(String name,Integer uid) {
         //System.out.print("getlist");
-        List<NetworkInterEntity> list=detailMapper.searchByName(name,uid);
+        List<NetworkInterEntity> list=detailMapper.searchByName(name,uid,"ASC","CreateTime");
 
         return list;
     }

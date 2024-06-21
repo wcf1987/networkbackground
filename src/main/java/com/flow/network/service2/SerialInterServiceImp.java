@@ -48,16 +48,16 @@ public class SerialInterServiceImp
         logimp.addInfo("更新串口:"+entity.getName());
         return Tools.SUCCESS;
     }
-    public List<SerialInterEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
+    public List<SerialInterEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize,String order,String orderField) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<SerialInterEntity> list=detailMapper.searchByName(name,uid);
+        List<SerialInterEntity> list=detailMapper.searchByName(name,uid,order,orderField);
         //logimp.addInfo("查询:");
         return list;
     }
     public List<SerialInterEntity> searchAll(String name,Integer uid) {
         //System.out.print("getlist");
-        List<SerialInterEntity> list=detailMapper.searchByName(name,uid);
+        List<SerialInterEntity> list=detailMapper.searchByName(name,uid,"ASC","CreateTime");
 
         return list;
     }

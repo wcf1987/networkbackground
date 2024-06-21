@@ -34,6 +34,6 @@ public interface SerialInterMapper {
     Integer selectByName(String name,Integer id);
 
 
-    @Select("select ID,Name,Type,SerialNO,BAUD,DataBit,StopBit,FlowControl,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%')")
-    List<SerialInterEntity> searchByName(String name,Integer uid);
+    @Select("select ID,Name,Type,SerialNO,BAUD,DataBit,StopBit,FlowControl,Describes,CreateTime,AuthorID from "+TbaleName+" where Name like concat('%',#{name},'%') order by ${orderField} ${order}")
+    List<SerialInterEntity> searchByName(String name,Integer uid,String order,String orderField);
 }

@@ -34,7 +34,7 @@ public interface NetworkInterMapper {
     List<NetworkInterEntity> getList(Integer uid);
 
 
-    @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%')")
+    @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%') order by ${orderField} ${order}")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
-    List<NetworkInterEntity> searchByName(String name,Integer uid);
+    List<NetworkInterEntity> searchByName(String name,Integer uid,String order,String orderField);
 }

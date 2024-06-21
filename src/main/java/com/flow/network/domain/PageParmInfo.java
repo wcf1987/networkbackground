@@ -20,6 +20,7 @@ public class PageParmInfo {
     private Integer uid;
     private String name;
     private String order;
+    private String orderField;
     private Integer pidNear;
     private Integer nestid;
 }
