@@ -19,6 +19,8 @@ public class PageParmInfo {
     private Integer id;
     private Integer uid;
     private String name;
+    private String ename;
+    private String appmessstr;
     private String order;
     private String orderField;
     private Integer pidNear;

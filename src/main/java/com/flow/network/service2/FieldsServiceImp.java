@@ -1,6 +1,7 @@
 package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.FieldsEntity;
 import com.flow.network.mapper2.FieldsMapper;
 import com.flow.network.tools.Tools;
@@ -54,13 +55,68 @@ public class FieldsServiceImp
     public List<FieldsEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize,String order) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<FieldsEntity> list=detailMapper.searchByName(name,uid,order);
+        List<FieldsEntity> list=detailMapper.searchByName(name,uid,order,"");
+
+        return list;
+    }
+    public List<FieldsEntity> search(PageParmInfo pageParmInfo) {
+        //System.out.print("getlist");
+        PageHelper.startPage(pageParmInfo.getPageNum(),pageParmInfo.getPageSize());
+        String searchStr="1=2";
+        if(pageParmInfo.getName().equals("")){
+
+        }else{
+            searchStr=searchStr+" or IDNO like '%"+pageParmInfo.getName()+"%'";
+
+        }
+        if(pageParmInfo.getEname().equals("")){
+
+        }else{
+            searchStr=searchStr+" or EName like '%"+pageParmInfo.getEname()+"%'";
+
+        }
+        if(pageParmInfo.getAppmessstr().equals("")){
+
+        }else{
+            searchStr=searchStr+" or ApplicableMess like '%"+pageParmInfo.getAppmessstr()+"%'";
+        }
+        if(searchStr.equals("1=2")){
+            searchStr="1=1";
+        }
+        List<FieldsEntity> list=detailMapper.searchByName(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getOrder(),searchStr);
 
         return list;
     }
     public List<FieldsEntity> searchAll(String name,Integer uid) {
         //System.out.print("getlist");
-        List<FieldsEntity> list=detailMapper.searchByName(name,uid,"asc");
+        List<FieldsEntity> list=detailMapper.searchByName(name,uid,"asc","");
+
+        return list;
+    }
+    public List<FieldsEntity> searchAll(PageParmInfo pageParmInfo) {
+        //System.out.print("getlist");
+        String searchStr="1=2";
+        if(pageParmInfo.getName().equals("")){
+
+        }else{
+            searchStr=searchStr+" or IDNO like '%"+pageParmInfo.getName()+"%'";
+
+        }
+        if(pageParmInfo.getEname().equals("")){
+
+        }else{
+            searchStr=searchStr+" or EName like '%"+pageParmInfo.getEname()+"%'";
+
+        }
+        if(pageParmInfo.getAppmessstr().equals("")){
+
+        }else{
+            searchStr=searchStr+" or ApplicableMess like '%"+pageParmInfo.getAppmessstr()+"%'";
+        }
+        if(searchStr.equals("1=2")){
+            searchStr="1=1";
+        }
+        List<FieldsEntity> list=detailMapper.searchByName(pageParmInfo.getName(),pageParmInfo.getUid(),"asc",searchStr);
 
         return list;
     }

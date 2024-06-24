@@ -1,6 +1,7 @@
 package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.MessBodyEntity;
 import com.flow.network.domain2.MessDetailEntity;
 import com.flow.network.mapper2.MessBodyMapper;
@@ -60,13 +61,26 @@ public class MessBodyServiceImp
     public List<MessBodyEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<MessBodyEntity> list=detailMapper.searchByName(name,uid);
+        List<MessBodyEntity> list=detailMapper.searchByName(name,uid,"asc","ID");
+
+        return list;
+    }
+    public List<MessBodyEntity> search(PageParmInfo pageParmInfo) {
+        //System.out.print("getlist");
+        PageHelper.startPage(pageParmInfo.getPageNum(), pageParmInfo.getPageSize());
+        if(pageParmInfo.getOrder()==null || pageParmInfo.getOrder().equals("")){
+            pageParmInfo.setOrder("ASC");
+        }
+        if(pageParmInfo.getOrderField()==null || pageParmInfo.getOrderField().equals("")){
+            pageParmInfo.setOrderField("ID");
+        }
+        List<MessBodyEntity> list=detailMapper.searchByName(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getOrder(),pageParmInfo.getOrderField());
 
         return list;
     }
     public List<MessBodyEntity> searchAll(String name,Integer uid) {
         //System.out.print("getlist");
-        List<MessBodyEntity> list=detailMapper.searchByName(name,uid);
+        List<MessBodyEntity> list=detailMapper.searchByName(name,uid,"asc","ID");
 
         return list;
     }

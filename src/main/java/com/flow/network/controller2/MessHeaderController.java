@@ -34,7 +34,7 @@ public class MessHeaderController {
     @RequestMapping("/searchSize")
     public ApiResponse searchSize(@RequestBody PageParmInfo pageParmInfo) {
 
-        return ApiResponse.success(serviceImp.searchAll(pageParmInfo.getName(),pageParmInfo.getUid()).size());
+        return ApiResponse.success(serviceImp.searchAll(pageParmInfo).size());
 
     }
 
@@ -57,7 +57,7 @@ public class MessHeaderController {
     }
     @PostMapping("/search")
     public ApiResponse search(@RequestBody PageParmInfo pageParmInfo ){
-        return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
+        return ApiResponse.success(serviceImp.search(pageParmInfo));
 
     }
 }

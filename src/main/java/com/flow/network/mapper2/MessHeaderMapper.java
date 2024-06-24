@@ -37,6 +37,6 @@ public interface MessHeaderMapper {
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
     Integer selectByName(String name,Integer id);
 
-    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%')")
-    List<MessHeaderEntity> searchByName(String name,Integer uid);
+    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%') order by ${orderField} ${order}")
+    List<MessHeaderEntity> searchByName(String name,Integer uid,String order,String orderField);
 }

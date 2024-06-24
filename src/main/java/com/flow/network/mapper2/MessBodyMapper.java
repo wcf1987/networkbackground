@@ -36,6 +36,6 @@ public interface MessBodyMapper {
     List<MessBodyEntity> getList(Integer uid);
 
 
-    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%')")
-    List<MessBodyEntity> searchByName(String name,Integer uid);
+    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%') order by ${orderField} ${order}")
+    List<MessBodyEntity> searchByName(String name,Integer uid,String order,String orderField);
 }

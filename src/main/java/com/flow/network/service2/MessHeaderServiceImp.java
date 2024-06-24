@@ -1,6 +1,7 @@
 package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.MessDetailEntity;
 import com.flow.network.domain2.MessHeaderEntity;
 import com.flow.network.mapper2.MessDetailMapper;
@@ -118,18 +119,41 @@ public class MessHeaderServiceImp {
     public List<MessHeaderEntity> search(String name, Integer uid, Integer pageNum, Integer pageSize) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<MessHeaderEntity> list = detailMapper.searchByName(name, uid);
+        List<MessHeaderEntity> list = detailMapper.searchByName(name, uid,"asc","ID");
 
         return list;
     }
+    public List<MessHeaderEntity> search(PageParmInfo pageParmInfo ) {
+        //System.out.print("getlist");
+        PageHelper.startPage(pageParmInfo.getPageNum(),pageParmInfo.getPageSize());
+        if(pageParmInfo.getOrder()==null || pageParmInfo.getOrder().equals("")){
+            pageParmInfo.setOrder("ASC");
+        }
+        if(pageParmInfo.getOrderField()==null || pageParmInfo.getOrderField().equals("")){
+            pageParmInfo.setOrderField("ID");
+        }
+        List<MessHeaderEntity> list = detailMapper.searchByName(pageParmInfo.getName(), pageParmInfo.getUid(),pageParmInfo.getOrder(),pageParmInfo.getOrderField());
 
+        return list;
+    }
     public List<MessHeaderEntity> searchAll(String name, Integer uid) {
         //System.out.print("getlist");
-        List<MessHeaderEntity> list = detailMapper.searchByName(name, uid);
+        List<MessHeaderEntity> list = detailMapper.searchByName(name, uid,"asc","id");
 
         return list;
     }
+    public List<MessHeaderEntity> searchAll(PageParmInfo pageParmInfo ) {
+        //System.out.print("getlist");
+        if(pageParmInfo.getOrder()==null || pageParmInfo.getOrder().equals("")){
+            pageParmInfo.setOrder("ASC");
+        }
+        if(pageParmInfo.getOrderField()==null || pageParmInfo.getOrderField().equals("")){
+            pageParmInfo.setOrderField("ID");
+        }
+        List<MessHeaderEntity> list = detailMapper.searchByName(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getOrder(),pageParmInfo.getOrderField());
 
+        return list;
+    }
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);

@@ -51,6 +51,12 @@ public class SerialInterServiceImp
     public List<SerialInterEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize,String order,String orderField) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
+        if(order==null || order.equals("")){
+            order="ASC";
+        }
+        if(orderField==null || orderField.equals("")){
+            orderField="CreateTime";
+        }
         List<SerialInterEntity> list=detailMapper.searchByName(name,uid,order,orderField);
         //logimp.addInfo("查询:");
         return list;

@@ -55,6 +55,12 @@ public class NetworkInterServiceImp
     public List<NetworkInterEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize,String order,String orderField) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
+        if(order==null || order.equals("")){
+            order="ASC";
+        }
+        if(orderField==null || orderField.equals("")){
+            orderField="CreateTime";
+        }
         List<NetworkInterEntity> list=detailMapper.searchByName(name,uid,order,orderField);
 
         return list;
