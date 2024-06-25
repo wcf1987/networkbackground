@@ -51,8 +51,13 @@ public class FieldsDetailServiceImp
     public List<FieldsDetailEntity> search(String name,Integer uid,Integer pid,Integer pageNum, Integer pageSize,String order) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<FieldsDetailEntity> list=detailMapper.searchByName(name,uid,pid,order);
+        List<FieldsDetailEntity> list;
+        if(pid==0){
+          list = detailMapper.searchByNameNODFI(name, uid, pid, order);
 
+        }else {
+             list = detailMapper.searchByName(name, uid, pid, order);
+        }
         return list;
     }
     public List<FieldsDetailEntity> searchAll(String name,Integer uid,Integer pid) {

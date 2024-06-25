@@ -63,19 +63,19 @@ public class FieldsServiceImp
         //System.out.print("getlist");
         PageHelper.startPage(pageParmInfo.getPageNum(),pageParmInfo.getPageSize());
         String searchStr="1=2";
-        if(pageParmInfo.getName().equals("")){
+        if(pageParmInfo.getName()==null || pageParmInfo.getName().equals("")){
 
         }else{
             searchStr=searchStr+" or IDNO like '%"+pageParmInfo.getName()+"%'";
 
         }
-        if(pageParmInfo.getEname().equals("")){
+        if(pageParmInfo.getEname()==null || pageParmInfo.getEname().equals("")){
 
         }else{
             searchStr=searchStr+" or EName like '%"+pageParmInfo.getEname()+"%'";
 
         }
-        if(pageParmInfo.getAppmessstr().equals("")){
+        if(pageParmInfo.getAppmessstr()==null || pageParmInfo.getAppmessstr().equals("")){
 
         }else{
             searchStr=searchStr+" or ApplicableMess like '%"+pageParmInfo.getAppmessstr()+"%'";
@@ -83,13 +83,17 @@ public class FieldsServiceImp
         if(searchStr.equals("1=2")){
             searchStr="1=1";
         }
+        if(pageParmInfo.getOrder()==null || pageParmInfo.getOrder().equals("")){
+            pageParmInfo.setOrder("asc");
+        }
+
         List<FieldsEntity> list=detailMapper.searchByName(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getOrder(),searchStr);
 
         return list;
     }
     public List<FieldsEntity> searchAll(String name,Integer uid) {
         //System.out.print("getlist");
-        List<FieldsEntity> list=detailMapper.searchByName(name,uid,"asc","");
+        List<FieldsEntity> list=detailMapper.searchByName(name,uid,"asc","1=1");
 
         return list;
     }

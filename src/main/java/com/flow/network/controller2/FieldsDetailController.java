@@ -1,10 +1,12 @@
 package com.flow.network.controller2;
 
 import com.flow.network.config.ApiResponse;
-import com.flow.network.config.ResponseCode;
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain.PageParmInfo;
-import com.flow.network.domain2.*;
+import com.flow.network.domain2.FieldsDetailEntity;
+import com.flow.network.domain2.FieldsDetailUploadEntity;
+import com.flow.network.domain2.FieldsEntity;
+import com.flow.network.domain2.UploadErrorEntity;
 import com.flow.network.mapper2.FieldsMapper;
 import com.flow.network.service2.FieldsDetailServiceImp;
 import com.flow.network.tools.ExcelUtils;
@@ -66,18 +68,38 @@ public class FieldsDetailController {
         String result = "";
         // 调用fileService保存文件
         List<FieldsDetailEntity> listdb = serviceImp.searchAll("", 0, pid);
+        List<FieldsDetailEntity> listsucess;
+        List<UploadErrorEntity> errorlist;
         try {
             result = Tools.storeFile(file[0], path);
             List<FieldsDetailUploadEntity> list = ExcelUtils.importExcel(result, 1, 1, FieldsDetailUploadEntity.class);
-            List<UploadErrorEntity> errorlist = CheckDUI(listdb, list);
+             errorlist = CheckDUI(listdb, list);
             if (errorlist.size() > 0) {
-                return ApiResponse.fail(ResponseCode.UPLOAD_ERROR.getCode(), ResponseCode.UPLOAD_ERROR.getMessage(), errorlist);
+              //  return ApiResponse.fail(ResponseCode.UPLOAD_ERROR.getCode(), ResponseCode.UPLOAD_ERROR.getMessage(), errorlist);
             }
+
+             listsucess=new ArrayList<FieldsDetailEntity>();
             for (int i = 0; i < list.size(); i++) {
+                int flag=0;
+                for(int j=0;j<errorlist.size();j++){
+                    if (i==(Integer.valueOf(errorlist.get(j).getIndex())-1)){
+                        flag=1;
+                    }
+                }
+                if(flag==0 && list.get(i).getDUINO()!=null) {
+                    //FieldsEntity fieldsEntity = new FieldsEntity(list.get(i));
+                    listsucess.add(new FieldsDetailEntity(list.get(i)));
+
+                }
+
+            }
+
+
+            for (int i = 0; i < listsucess.size(); i++) {
                 if (list.get(i).getDUINO() == null) {
                     continue;
                 }
-                FieldsDetailEntity fieldsDetailEntity = new FieldsDetailEntity(list.get(i));
+                FieldsDetailEntity fieldsDetailEntity = listsucess.get(i);
                 fieldsDetailEntity.setDFIID(pid);
                 serviceImp.add(fieldsDetailEntity);
             }
@@ -87,8 +109,8 @@ public class FieldsDetailController {
             e.printStackTrace();
             throw new ServiceException(e.getMessage());
         }
-        //serviceImp.add(detailEntity);
-        return ApiResponse.success();
+        String msg="上传成功"+listsucess.size()+"条数据,失败"+errorlist.size()+"条数据";
+        return ApiResponse.success(msg,errorlist);
     }
 
     private List<UploadErrorEntity> CheckDUI(List<FieldsDetailEntity> listdb, List<FieldsDetailUploadEntity> list) {

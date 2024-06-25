@@ -1,7 +1,6 @@
 package com.flow.network.controller2;
 
 import com.flow.network.config.ApiResponse;
-import com.flow.network.config.ResponseCode;
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.*;
@@ -71,19 +70,31 @@ public class FieldsController {
         path=fileupload.getAbsolutePath();
         System.out.println(path);
         String result = "";
+        List<UploadErrorEntity> errorlist;
+        int sucessNum=0;
         // 调用fileService保存文件
         List<FieldsEntity> listdb = serviceImp.searchAll("", 0);
         try {
             result = Tools.storeFile(file[0], path);
             List<FieldsUploadEntity> list = ExcelUtils.importExcel(result, 1, 1, FieldsUploadEntity.class);
-            List<UploadErrorEntity> errorlist = CheckDFI(listdb, list);
+             errorlist = CheckDFI(listdb, list);
             if (errorlist.size() > 0) {
-                return ApiResponse.fail(ResponseCode.UPLOAD_ERROR.getCode(), ResponseCode.UPLOAD_ERROR.getMessage(), errorlist);
+            //    return ApiResponse.fail(ResponseCode.UPLOAD_ERROR.getCode(), ResponseCode.UPLOAD_ERROR.getMessage(), errorlist);
             }
-            for (int i = 0; i < list.size(); i++) {
-                FieldsEntity fieldsEntity = new FieldsEntity(list.get(i));
 
-                serviceImp.add(fieldsEntity);
+            for (int i = 0; i < list.size(); i++) {
+                int flag=0;
+                for(int j=0;j<errorlist.size();j++){
+                    if (i==(Integer.valueOf(errorlist.get(j).getIndex())-1)){
+                        flag=1;
+                    }
+                }
+                if(flag==0) {
+                    FieldsEntity fieldsEntity = new FieldsEntity(list.get(i));
+                    serviceImp.add(fieldsEntity);
+                    sucessNum++;
+                }
+
             }
 
         } catch (Exception e) {
@@ -92,7 +103,8 @@ public class FieldsController {
             throw new ServiceException(e.getMessage());
         }
         //serviceImp.add(detailEntity);
-        return ApiResponse.success();
+        String msg="上传成功"+sucessNum+"条数据,失败"+errorlist.size()+"条数据";
+        return ApiResponse.success(msg,errorlist);
     }
 
     private List<UploadErrorEntity> CheckDFI(List<FieldsEntity> listdb, List<FieldsUploadEntity> list) {
@@ -183,12 +195,28 @@ public class FieldsController {
             List<FieldsDetailUploadAllEntity> list = ExcelUtils.importExcel(result, 1, 1, FieldsDetailUploadAllEntity.class);
             List<UploadErrorEntity> errorlist = CheckDUI(listduidb, list);
             if (errorlist.size() > 0) {
-                return ApiResponse.fail(ResponseCode.UPLOAD_ERROR.getCode(), ResponseCode.UPLOAD_ERROR.getMessage(), errorlist);
+               // return ApiResponse.fail(ResponseCode.UPLOAD_ERROR.getCode(), ResponseCode.UPLOAD_ERROR.getMessage(), errorlist);
             }
 
-            for (int i = 0; i < list.size(); i++) {
+        List<FieldsDetailEntity> listsucess=new ArrayList<FieldsDetailEntity>();
+        for (int i = 0; i < list.size(); i++) {
+            int flag=0;
+            for(int j=0;j<errorlist.size();j++){
+                if (i==(Integer.valueOf(errorlist.get(j).getIndex())-1)){
+                    flag=1;
+                }
+            }
+            if(flag==0) {
+                //FieldsEntity fieldsEntity = new FieldsEntity(list.get(i));
+                listsucess.add(new FieldsDetailEntity(list.get(i)));
 
-                FieldsDetailEntity fieldsDetailEntity = new FieldsDetailEntity(list.get(i));
+            }
+
+        }
+
+            for (int i = 0; i < listsucess.size(); i++) {
+
+                FieldsDetailEntity fieldsDetailEntity = listsucess.get(i);
                 //fieldsDetailEntity.setDFIID(pid);
                 Integer pid = checkDFINO(listdfidb, fieldsDetailEntity.getDFINO());
                 fieldsDetailEntity.setDFIID(pid);
@@ -197,7 +225,8 @@ public class FieldsController {
 
 
         //serviceImp.add(detailEntity);
-        return ApiResponse.success();
+        String msg="上传成功"+listsucess.size()+"条数据,失败"+errorlist.size()+"条数据";
+        return ApiResponse.success(msg,errorlist);
     }
 
     private Integer checkDFINO(List<FieldsEntity> listdfidb, String dfino) {

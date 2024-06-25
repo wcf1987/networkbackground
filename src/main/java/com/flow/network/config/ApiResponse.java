@@ -43,6 +43,9 @@ public class ApiResponse<T> implements Serializable {
         public static <T> ApiResponse<T> success(T data){
             return new ApiResponse<>(ResponseCode.SUCCESS.getCode(),ResponseCode.SUCCESS.getMessage(),data);
         }
+    public static <T> ApiResponse<T> success(String message,T data){
+        return new ApiResponse<>(ResponseCode.SUCCESS.getCode(),message,data);
+    }
 
         public static <T> ApiResponse<T> fail(Integer code,String msg,T data){
             return new ApiResponse<>(code,msg,data);
