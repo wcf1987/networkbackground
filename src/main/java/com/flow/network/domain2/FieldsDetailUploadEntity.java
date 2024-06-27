@@ -14,6 +14,8 @@ public class FieldsDetailUploadEntity {
     private Integer ID;
     @Excel(name = "名称")
     private String name;
+    @Excel(name = "数据标识")
+    private String flag;
     private Integer DFIID;
 
 

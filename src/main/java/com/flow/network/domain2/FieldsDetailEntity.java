@@ -44,6 +44,7 @@ public class FieldsDetailEntity {
         TableName=up.getTableName();
         TableSaveName=up.getTableSaveName();
         Describes=up.getDescribes();
+        Flag=up.getFlag();
         this.AuthorID=1;
     }
     public FieldsDetailEntity(FieldsDetailUploadAllEntity up) {
@@ -59,6 +60,7 @@ public class FieldsDetailEntity {
         TableName=up.getTableName();
         TableSaveName=up.getTableSaveName();
         Describes=up.getDescribes();
+        Flag=up.getFlag();
         this.AuthorID=1;
     }
 
