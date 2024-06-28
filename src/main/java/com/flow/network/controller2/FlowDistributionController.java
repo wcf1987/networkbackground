@@ -33,6 +33,7 @@ public class FlowDistributionController {
         return ApiResponse.success();
 
     }
+
     @PostMapping("/add")
     public ApiResponse add(@RequestBody FlowDistributionEntity detailEntity){
         serviceImp.add(detailEntity);

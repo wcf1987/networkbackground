@@ -46,20 +46,23 @@ public class HomeServiceImp {
         //detailMapper.getlownum();
         h1.setFlownums(detailMapper.getFlowNum());
         Integer temp = detailMapper.getFlowNow();
-        System.out.println(temp * 100 / Integer.valueOf(h1.getFlownums()));
+        System.out.println(Integer.valueOf(h1.getFlownums()));
         h1.setFlowadd(Tools.formatNumber(temp * 100 / Integer.valueOf(h1.getFlownums())));
 
         h1.setDiswnums(detailMapper.getDisNum());
         temp = detailMapper.getDisNow();
+        System.out.println(Integer.valueOf(h1.getDiswnums()));
         h1.setDisadd(Tools.formatNumber(temp * 100 / Integer.valueOf(h1.getDiswnums())));
 
         h1.setUsernums(detailMapper.getUserNum());
         temp = detailMapper.getUserNow();
+        System.out.println(Integer.valueOf(h1.getUsernums()));
         h1.setUseradd(Tools.formatNumber(temp * 100 / Integer.valueOf(h1.getUsernums())));
 
 
         h1.setFieldsnums(detailMapper.getFieldsNum());
         temp = detailMapper.getFieldsNow();
+        System.out.println(Integer.valueOf(h1.getFieldsnums()));
         h1.setFieldsadd(Tools.formatNumber(temp * 100 / Integer.valueOf(h1.getFieldsnums())));
 
         home.setOne(h1);

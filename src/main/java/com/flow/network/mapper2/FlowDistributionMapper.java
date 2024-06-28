@@ -20,6 +20,8 @@ public interface FlowDistributionMapper {
 
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
+    @Delete("delete from "+TbaleName+" where FlowID = #{id}")
+    int deleteByFlowID(Integer id);
     //更改一个Person
     @Update("update "+TbaleName+" set Name =#{Name},   Describes =#{Describes}, FlowID =#{FlowID},GatewayIDs =#{GatewayIDs}  where ID=#{ID}")
     int updateByPrimaryKey(FlowDistributionEntity entity);

@@ -27,9 +27,10 @@ public class TransClassfyServiceImp
         Integer num=0;
         for(String s :ids){
             num=num+detailMapper.delete(Integer.parseInt(s));
+            detailMapper2.deleteByPID(Integer.parseInt(s));
         }
 
-        logimp.addInfo("成功删除网口:"+String.valueOf(num)+"条");
+        logimp.addInfo("成功删除模板分类:"+String.valueOf(num)+"条");
         return num;
     }
     public String add(TransClassfyEntity entity) {
@@ -41,7 +42,7 @@ public class TransClassfyServiceImp
         }
         //System.out.print("getlist");
         detailMapper.insert(entity);
-        logimp.addInfo("添加全局变量:"+entity.getName());
+        logimp.addInfo("添加模板分类:"+entity.getName());
         return Tools.SUCCESS;
     }
     public String update(TransClassfyEntity entity) {
@@ -82,7 +83,8 @@ public class TransClassfyServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
-        logimp.addInfo("删除全局变量:"+id);
+        detailMapper2.deleteByPID(id);
+        logimp.addInfo("删除模板分类:"+id);
         return 1;
     }
 }

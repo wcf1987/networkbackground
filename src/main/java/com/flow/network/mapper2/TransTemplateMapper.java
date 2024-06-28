@@ -20,7 +20,7 @@ public interface TransTemplateMapper {
     @Delete("delete from "+TbaleName+" where ID = #{id}")
     int delete(Integer id);
 
-    @Delete("delete from "+TbaleName+" where appid = #{id}")
+    @Delete("delete from "+TbaleName+" where ClassfyID = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
     @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type}, Describes =#{Describes},LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S')  where ID=#{ID}")

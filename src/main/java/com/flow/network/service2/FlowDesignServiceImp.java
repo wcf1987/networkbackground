@@ -3,6 +3,7 @@ package com.flow.network.service2;
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.FlowDesignEntity;
 import com.flow.network.mapper2.FlowDesignMapper;
+import com.flow.network.mapper2.FlowDistributionMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ public class FlowDesignServiceImp
 
     @Autowired
     FlowDesignMapper detailMapper;
-
+    @Autowired
+    FlowDistributionMapper detailMapper2;
     @Autowired
     private LogServiceImp logimp;
     public String add(FlowDesignEntity entity) {
@@ -77,6 +79,7 @@ public class FlowDesignServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        detailMapper2.deleteByFlowID(id);
         logimp.addInfo("删除流程设计:"+id);
         return 1;
     }

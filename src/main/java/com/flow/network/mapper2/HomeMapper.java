@@ -22,7 +22,7 @@ public interface HomeMapper {
     @Select("select count(*) from t_fieldsdetail ")
     String getFieldsNum();
 
-    @Select("select count(*) from t_flowdistribution ")
+    @Select("select count(*) from t_gatewaydistribute ")
     String getDisNum();
     @Select("select count(*) from t_flow where CreateTime>DATE_FORMAT(now(),'%Y-%m-%d') ")
     Integer getFlowNow();
