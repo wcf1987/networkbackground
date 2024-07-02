@@ -3,6 +3,7 @@ package com.flow.network.service2;
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.FieldsEntity;
+import com.flow.network.mapper2.FieldsDetailMapper;
 import com.flow.network.mapper2.FieldsMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
@@ -18,7 +19,8 @@ public class FieldsServiceImp
 
     @Autowired
     FieldsMapper detailMapper;
-
+    @Autowired
+    FieldsDetailMapper detailMapper2;
     @Autowired
     private LogServiceImp logimp;
     public Integer add(FieldsEntity entity) {
@@ -127,12 +129,14 @@ public class FieldsServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        detailMapper2.deleteByPID(id);
         return 1;
     }
     public Integer deleteByIDS(List<String> ids) {
         Integer num=0;
         for(String s :ids){
             num=num+detailMapper.delete(Integer.parseInt(s));
+            detailMapper2.deleteByPID(Integer.parseInt(s));
         }
 
         logimp.addInfo("成功删除网口:"+String.valueOf(num)+"条");

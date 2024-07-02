@@ -19,7 +19,7 @@ public interface FieldsDetailMapper {
     @Delete("delete from "+TbaleName+" where ID = #{id}")
     int delete(Integer id);
 
-    @Delete("delete from "+TbaleName+" where appid = #{id}")
+    @Delete("delete from "+TbaleName+" where DFIID = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
     @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type},DUINO=#{DUINO},ShortName=#{ShortName},DUIVersion=#{DUIVersion}, Describes =#{Describes},EName =#{EName},TypeCode =#{TypeCode},Length =#{Length},TableName =#{TableName},TableSaveName =#{TableSaveName} ,Flag =#{Flag}  where ID=#{ID}")

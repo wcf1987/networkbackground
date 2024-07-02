@@ -2,6 +2,7 @@ package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.MessTranslateEntity;
+import com.flow.network.mapper2.MessTranslateDetailMapper;
 import com.flow.network.mapper2.MessTraslateMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
@@ -17,12 +18,14 @@ public class MessTranslateServiceImp
 
     @Autowired
     MessTraslateMapper detailMapper;
-
+    @Autowired
+    MessTranslateDetailMapper detailMapper2;
     @Autowired
     private LogServiceImp logimp;
     public Integer deleteByIDS(List<String> ids) {
         Integer num=0;
         for(String s :ids){
+            detailMapper2.deleteByPID(Integer.parseInt(s));
             num=num+detailMapper.delete(Integer.parseInt(s));
         }
 
@@ -63,6 +66,7 @@ public class MessTranslateServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        detailMapper2.deleteByPID(id);
         logimp.addInfo("删除消息转换:"+id);
         return 1;
     }

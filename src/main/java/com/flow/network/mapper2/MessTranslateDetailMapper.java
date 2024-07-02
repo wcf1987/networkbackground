@@ -33,7 +33,7 @@ public interface MessTranslateDetailMapper {
     @Delete("delete from "+TbaleName+" where ID = #{id}")
     int delete(Integer id);
 
-    @Delete("delete from "+TbaleName+" where appid = #{id}")
+    @Delete("delete from "+TbaleName+" where TransID = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
     @Update("update "+TbaleName3+" set TName =#{TName},Optional=#{Optional}, Transrule=#{Transrule}, Describes =#{Describes},  Funcrule =#{Funcrule}, SourceData =#{SourceData} where ID=#{TransDetailID}")

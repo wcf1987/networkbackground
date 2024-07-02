@@ -2,6 +2,7 @@ package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.PackageEntity;
+import com.flow.network.mapper2.PackageDetailMapper;
 import com.flow.network.mapper2.PackageMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
@@ -18,10 +19,13 @@ public class PackageServiceImp
     @Autowired
     PackageMapper detailMapper;
     @Autowired
+    PackageDetailMapper detailMapper2;
+    @Autowired
     private LogServiceImp logimp;
     public Integer deleteByIDS(List<String> ids) {
         Integer num=0;
         for(String s :ids){
+            detailMapper2.deleteByPID(Integer.parseInt(s));
             num=num+detailMapper.delete(Integer.parseInt(s));
         }
 
@@ -62,6 +66,7 @@ public class PackageServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
+        detailMapper2.deleteByPID(id);
         logimp.addInfo("删除封装头:"+id);
         return 1;
     }

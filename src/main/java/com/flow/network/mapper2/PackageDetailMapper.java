@@ -18,7 +18,7 @@ public interface PackageDetailMapper {
     @Delete("delete from "+TbaleName+" where ID = #{id}")
     int delete(Integer id);
 
-    @Delete("delete from "+TbaleName+" where appid = #{id}")
+    @Delete("delete from "+TbaleName+" where packID = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
     @Update("update "+TbaleName+" set Name =#{Name}, EName =#{EName},  Type=#{Type},Length=#{Length},ArrayOr=#{ArrayOr},DefaultValue=#{DefaultValue}, Describes =#{Describes}  where ID=#{ID}")
