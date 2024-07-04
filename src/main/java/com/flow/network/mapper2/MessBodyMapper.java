@@ -9,7 +9,7 @@ import java.util.List;
 public interface MessBodyMapper {
     public static String TbaleName="t_messbody";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"( ID,Name,Type,Describes,CreateTime,AuthorID)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
+    @Insert("insert into "+TbaleName+"( ID,Name,Type,Describes,CreateTime,AuthorID,EName)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID},#{EName})")
     @Options(useGeneratedKeys = true, keyProperty = "ID", keyColumn = "ID")
     int insert(MessBodyEntity entity);
 
@@ -22,7 +22,7 @@ public interface MessBodyMapper {
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
     //更改一个Person
-    @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type}, Describes =#{Describes}  where ID=#{ID}")
+    @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type}, Describes =#{Describes} ,EName=#{EName} where ID=#{ID}")
     int updateByPrimaryKey(MessBodyEntity entity);
     //查询一个Person
 
@@ -32,10 +32,12 @@ public interface MessBodyMapper {
 
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
     Integer selectByName(String name,Integer id);
+    @Select("select count(*) from  "+TbaleName+"  where EName = #{ename} and ID!=#{id}")
+    Integer selectByEName(String ename,Integer id);
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<MessBodyEntity> getList(Integer uid);
 
 
-    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%') order by ${orderField} ${order}")
+    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,EName from "+TbaleName+" where  Name like concat('%',#{name},'%') order by ${orderField} ${order}")
     List<MessBodyEntity> searchByName(String name,Integer uid,String order,String orderField);
 }

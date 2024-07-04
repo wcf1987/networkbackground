@@ -22,5 +22,5 @@ public class FlowDesignEntity {
     private String  FlowJson;
     private String FlowOutStr;
     private String LastModified;
-
+    private String CheckGraph;
 }

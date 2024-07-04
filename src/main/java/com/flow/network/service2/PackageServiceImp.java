@@ -37,6 +37,9 @@ public class PackageServiceImp
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
+        if(detailMapper.selectByEName(entity.getEName(),0)>0){
+            throw new ServiceException("引用名重复，请更改");
+        }
         detailMapper.insert(entity);
         logimp.addInfo("添加封装头:"+entity.getName());
         return Tools.SUCCESS;
@@ -45,6 +48,9 @@ public class PackageServiceImp
         //System.out.print("getlist");
         if(detailMapper.selectByName(entity.getName(),entity.getID())>0){
             throw new ServiceException("名称重复，请更改");
+        }
+        if(detailMapper.selectByEName(entity.getEName(),0)>0){
+            throw new ServiceException("引用名重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
         logimp.addInfo("更新封装头:"+entity.getName());

@@ -100,6 +100,9 @@ public class MessHeaderServiceImp {
         if (detailMapper.selectByName(entity.getName(), 0) > 0) {
             throw new ServiceException("名称重复，请更改");
         }
+        if(detailMapper.selectByEName(entity.getEName(),0)>0){
+            throw new ServiceException("引用名重复，请更改");
+        }
         //System.out.print("getlist");
         detailMapper.insert(entity);
         logimp.addInfo("添加消息头:" + entity.getName());
@@ -110,6 +113,9 @@ public class MessHeaderServiceImp {
         //System.out.print("getlist");
         if (detailMapper.selectByName(entity.getName(), entity.getID()) > 0) {
             throw new ServiceException("名称重复，请更改");
+        }
+        if(detailMapper.selectByEName(entity.getEName(),0)>0){
+            throw new ServiceException("引用名重复，请更改");
         }
         detailMapper.updateByPrimaryKey(entity);
         logimp.addInfo("更新消息头:" + entity.getName());

@@ -13,7 +13,7 @@ public interface MessDetailMapper {
     public static String TbaleName2="t_fieldsdetail";
 
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,TType,OrderID,OutID,OutType,PID,NestID,Flag,EName,Describes,MaxGroupNum) values(null,#{Name},#{TType},#{OrderID},#{OutID},#{OutType},#{PID},#{NestID},#{Flag},#{EName},#{Describes},#{MaxGroupNum})")
+    @Insert("insert into "+TbaleName+"(ID,Name,TType,OrderID,OutID,OutType,PID,NestID,Flag,EName,Describes,MaxGroupNum,DefaultVal) values(null,#{Name},#{TType},#{OrderID},#{OutID},#{OutType},#{PID},#{NestID},#{Flag},#{EName},#{Describes},#{MaxGroupNum},#{DefaultVal})")
     @Options(useGeneratedKeys = true, keyProperty = "ID", keyColumn = "ID")
     int insert(MessDetailEntity entity);
 
@@ -31,7 +31,7 @@ public interface MessDetailMapper {
     @Delete("delete from "+TbaleName+" where PID = #{pid} and TType=#{ttype}")
     int deleteByPID(Integer pid,String ttype);
     //更改一个Person
-    @Update("update "+TbaleName+" set Name =#{Name},OutID=#{OutID}, NestID=#{NestID}, Flag =#{Flag}, EName=#{EName} ,Describes=#{Describes},MaxGroupNum=#{MaxGroupNum} where ID=#{ID}")
+    @Update("update "+TbaleName+" set Name =#{Name},OutID=#{OutID}, NestID=#{NestID}, Flag =#{Flag}, EName=#{EName} ,Describes=#{Describes},MaxGroupNum=#{MaxGroupNum},DefaultVal=#{DefaultVal} where ID=#{ID}")
     int updateByPrimaryKey(MessDetailEntity entity);
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and PID=#{pid} and ID!=#{id}")
     Integer selectByName(String name,Integer pid,Integer id);
@@ -58,11 +58,11 @@ public interface MessDetailMapper {
     FieldsDetailEntity selectFieldsInfoByID(String id) throws Exception;
     @Select("select DISTINCT t2.ID,t3.IDNO as DFINO,t3.Version as DFIVersion,t2.DUINO as DUINO,t2.DUIVersion as DUIVersion,t2.`Name`,t2.EName,t2.ShortName,t2.Type,t2.Describes,t2.Length,t2.TypeCode,t2.TableName,t2.TableSaveName from  t_messdetail t1,t_fieldsdetail t2,t_fields t3 where t1.OutType='fields' and t1.OutID=t2.ID  AND t2.DFIID=t3.ID and t1.Name=#{name} and t1.PID=#{sourceid}")
     FieldsDetailEntity selectFieldsInfoByName(String name,String sourceid);
-    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag ,t0.EName,t0.Describes,t0.MaxGroupNum from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=#{nestid} order by OrderID asc")
+    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag ,t0.EName,t0.Describes,t0.MaxGroupNum,t0.DefaultVal from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=#{nestid} order by OrderID asc")
     List<MessDetailEntity> searchByName(String name, Integer uid,Integer pid,String ttype,Integer nestid);
-    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag,t0.EName,t0.Describes,t0.MaxGroupNum from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=#{nestid} order by OrderID asc")
+    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag,t0.EName,t0.Describes,t0.MaxGroupNum,t0.DefaultVal from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=#{nestid} order by OrderID asc")
     List<MessDetailEntity> getListByNestID(String name,Integer uid, Integer pid,String ttype,Integer nestid);
-    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag,t0.EName,t0.Describes,t0.MaxGroupNum from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and NestID=#{nestid} order by OrderID asc")
+    @Select("select t0.ID,t0.Name,t0.TType,t0.OrderID,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag,t0.EName,t0.Describes,t0.MaxGroupNum,t0.DefaultVal from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and NestID=#{nestid} order by OrderID asc")
     List<MessDetailEntity> searchByPID(Integer pid,Integer nestid,String ttype);
 
 }

@@ -19,6 +19,8 @@ public class PackageEntity {
     private String Describes;
     private String CreateTime;
     private Integer AuthorID;
+    private String EName;
+
 
 
 }

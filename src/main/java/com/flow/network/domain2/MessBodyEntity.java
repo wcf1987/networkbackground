@@ -19,6 +19,6 @@ public class MessBodyEntity {
     private String Describes;
     private String CreateTime;
     private Integer AuthorID;
-
+    private String EName;
 
 }
