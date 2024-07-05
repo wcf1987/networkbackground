@@ -182,7 +182,7 @@ public class MessTranslateDetailServiceImp {
                     System.out.println(sourceDUI);
                     if(sourceDUI!=null){
                         DUITransDetailEntity duione=new DUITransDetailEntity();
-                        if(sourceDUI.getID()==targetDUI.getID()){
+                        if(sourceDUI.getID()==targetDUI.getID() || sourceDUI.getID().equals(targetDUI.getID())){
 
                         }else {
                             k=k+1;
