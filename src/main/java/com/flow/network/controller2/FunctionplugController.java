@@ -54,4 +54,9 @@ public class FunctionplugController {
         return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
     }
+    @PostMapping("/plugfile")
+    public ApiResponse plugfile(@RequestBody PageParmInfo pageParmInfo ){
+        return ApiResponse.success(serviceImp.getPlugFiles(pageParmInfo));
+
+    }
 }

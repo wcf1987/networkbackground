@@ -1,13 +1,18 @@
 package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
+import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.FunctionplugEntity;
+import com.flow.network.domain2.PlugFileEntity;
 import com.flow.network.mapper2.FunctionplugMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,7 +22,8 @@ public class FunctionplugServiceImp
 
     @Autowired
     FunctionplugMapper detailMapper;
-
+    @Value("${plug.file.dir}")
+    private String PlugFileDir;
     @Autowired
     private LogServiceImp logimp;
     public Integer deleteByIDS(List<String> ids) {
@@ -58,6 +64,26 @@ public class FunctionplugServiceImp
         //System.out.print("getlist");
         List<FunctionplugEntity> list=detailMapper.searchByName(name,uid);
 
+        return list;
+    }
+    public List<PlugFileEntity> getPlugFiles(PageParmInfo pageParmInfo){
+        List<PlugFileEntity> list=new ArrayList<PlugFileEntity>();
+        File dir=new File(PlugFileDir);
+        File[] files=dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                  //  searchFiles(file); // 递归调用，继续查询子目录
+                } else {
+                    PlugFileEntity temp=new PlugFileEntity();
+                    temp.setFileName(file.getName());
+                    //temp.setType(file.get);
+                    temp.setFilePath(file.getAbsolutePath());
+                    list.add(temp);
+                    //System.out.println(file.getAbsolutePath()); // 输出文件的绝对路径
+                }
+            }
+        }
         return list;
     }
     public Integer deleteByID(Integer id) {
