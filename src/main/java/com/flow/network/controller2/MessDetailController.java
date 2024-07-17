@@ -57,4 +57,9 @@ public class MessDetailController {
         return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPid(),pageParmInfo.getTtype(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize(),pageParmInfo.getNestid()));
 
     }
+    @PostMapping("/searchName")
+    public ApiResponse searchName(@RequestBody PageParmInfo pageParmInfo ){
+        return ApiResponse.success(serviceImp.searchName(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPid(),pageParmInfo.getTtype(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize(),pageParmInfo.getNestid()));
+
+    }
 }
