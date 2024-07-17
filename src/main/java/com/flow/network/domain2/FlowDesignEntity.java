@@ -23,4 +23,8 @@ public class FlowDesignEntity {
     private String FlowOutStr;
     private String LastModified;
     private String CheckGraph;
-}
+
+
+    private String SourceIP;
+
+    private String TargetIP;}

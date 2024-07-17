@@ -26,7 +26,7 @@ public interface FlowDesignMapper {
     @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type}, Describes =#{Describes},LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S')  where ID=#{ID}")
     int updateByPrimaryKey(FlowDesignEntity entity);
 
-    @Update("update "+TbaleName+" set FlowJson =#{FlowJson}, FlowOutStr=#{FlowOutStr}, LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S') ,CheckGraph=#{CheckGraph} where ID=#{ID}")
+    @Update("update "+TbaleName+" set FlowJson =#{FlowJson}, FlowOutStr=#{FlowOutStr}, LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S') ,CheckGraph=#{CheckGraph},SourceIP=#{SourceIP},TargetIP=#{TargetIP} where ID=#{ID}")
     int updateJsonByPrimaryKey(FlowDesignEntity entity);
     //查询一个Person
 
@@ -35,6 +35,6 @@ public interface FlowDesignMapper {
     FlowDesignEntity getFlowDesignByID(Integer id);
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
     Integer selectByName(String name,Integer id);
-    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified,CheckGraph from "+TbaleName+" where  Name like concat('%',#{name},'%')")
+    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified,CheckGraph,SourceIP,TargetIP from "+TbaleName+" where  Name like concat('%',#{name},'%')")
     List<FlowDesignEntity> searchByName(String name,Integer uid);
 }

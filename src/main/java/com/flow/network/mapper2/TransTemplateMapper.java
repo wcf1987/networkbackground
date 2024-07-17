@@ -26,7 +26,7 @@ public interface TransTemplateMapper {
     @Update("update "+TbaleName+" set Name =#{Name},  Type=#{Type}, Describes =#{Describes},LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S')  where ID=#{ID}")
     int updateByPrimaryKey(TransTemplateEntity entity);
 
-    @Update("update "+TbaleName+" set FlowJson =#{FlowJson}, FlowOutStr =#{FlowOutStr}, LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S')  where ID=#{ID}")
+    @Update("update "+TbaleName+" set FlowJson =#{FlowJson}, FlowOutStr =#{FlowOutStr}, LastModified=DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S') ,SourceIP=#{SourceIP},TargetIP=#{TargetIP} where ID=#{ID}")
     int updateJsonByPrimaryKey(TransTemplateEntity entity);
     //查询一个Person
 

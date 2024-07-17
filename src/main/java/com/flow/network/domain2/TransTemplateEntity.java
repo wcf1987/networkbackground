@@ -22,5 +22,8 @@ public class TransTemplateEntity {
     private String  FlowJson;
     private String FlowOutStr;
     private String LastModified;
+    private String SourceIP;
+
+    private String TargetIP;
 
 }

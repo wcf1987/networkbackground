@@ -25,6 +25,6 @@ public class NetworkInterEntity {
     private String Describes;
     private String CreateTime;
     private Integer AuthorID;
-
+    private String Pic;
 
 }
