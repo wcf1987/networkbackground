@@ -4,6 +4,7 @@ import com.flow.network.config.ApiResponse;
 import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.GatewayDistributeEntity;
 import com.flow.network.domain2.GatewayEntity;
+import com.flow.network.mapper2.FlowDesignMapper;
 import com.flow.network.service2.GatewayServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,7 +57,16 @@ public class GatewayController {
         return ApiResponse.success(serviceImp.searchGatewayDistributeAll());
 
     }
-    
+    @PostMapping("/dispatch")
+    public ApiResponse dispatch(@RequestBody PageParmInfo pageParmInfo ){
+        System.out.println("网关id："+pageParmInfo.getGatewayid()+"开始下发流程");
+        String re=serviceImp.disPatchByGateID(pageParmInfo.getGatewayid());
+        if(re.equals("")){
+            return ApiResponse.fail(200,re);
+        }else {
+            return ApiResponse.success();
+        }
+    }
     @RequestMapping("/delids")
     public ApiResponse delids(@RequestBody List<String> ids) {
         //List<InterfaceEntity> u = new ArrayList<>();

@@ -25,4 +25,5 @@ public class PageParmInfo {
     private String orderField;
     private Integer pidNear;
     private Integer nestid;
+    private Integer gatewayid;
 }

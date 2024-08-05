@@ -2,8 +2,10 @@ package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.FlowDesignEntity;
+import com.flow.network.domain2.TransTemplateEntity;
 import com.flow.network.mapper2.FlowDesignMapper;
 import com.flow.network.mapper2.FlowDistributionMapper;
+import com.flow.network.mapper2.TransTemplateMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +23,37 @@ public class FlowDesignServiceImp
     @Autowired
     FlowDistributionMapper detailMapper2;
     @Autowired
+    TransTemplateMapper detailMapper3;
+    @Autowired
     private LogServiceImp logimp;
     public String add(FlowDesignEntity entity) {
         if(detailMapper.selectByName(entity.getName(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
-        //System.out.print("getlist");
-        detailMapper.insert(entity);
-        logimp.addInfo("添加流程设计:"+entity.getName());
+        if(entity.getTemplateID()!=null && entity.getTemplateID()!=""){
+            applyTemplate(entity);
+        }else {
+            //System.out.print("getlist");
+            detailMapper.insert(entity);
+
+        }
+        logimp.addInfo("添加流程设计:" + entity.getName());
         return Tools.SUCCESS;
+    }
+    public String applyTemplate(FlowDesignEntity entity) {
+        TransTemplateEntity f=detailMapper3.getFlowDesignByIDStr(entity.getTemplateID());
+        //System.out.print("getlist");
+        FlowDesignEntity fd=new FlowDesignEntity();
+        fd.setFlowJson(f.getFlowJson());
+        fd.setFlowOutStr(f.getFlowOutStr());
+        fd.setName(entity.getName());
+        //fd.setName(f.getName()+"_"+DateTools.getNowStr()+"实例");
+        fd.setType(entity.getType());
+        fd.setDescribes(entity.getDescribes());
+        fd.setAuthorID(entity.getAuthorID());
+        detailMapper.insert(fd);
+        logimp.addInfo("应用模板:"+f.getName());
+        return String.valueOf(fd.getID());
     }
     public String copy(FlowDesignEntity entity) {
         FlowDesignEntity f=detailMapper.getFlowDesignByID(entity.getID());

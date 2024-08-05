@@ -58,7 +58,9 @@ public class FlowDistributionController {
     }
     @PostMapping("/dispatch")
     public ApiResponse dispatch(@RequestBody PageParmInfo pageParmInfo ){
-        String re=serviceImp.dispatch(pageParmInfo.getId());
+        System.out.println("网关id："+pageParmInfo.getGatewayid()+"开始下发流程");
+        String re="";
+        //String re=serviceImp.disPatchByGateID(pageParmInfo.getGatewayid());
         if(re.equals("")){
             return ApiResponse.fail();
         }else {

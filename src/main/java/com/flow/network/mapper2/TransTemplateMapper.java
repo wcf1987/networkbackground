@@ -33,6 +33,9 @@ public interface TransTemplateMapper {
 
     @Select("select ID,Name,Type,Describes,ClassfyID,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified from "+TbaleName+" where ID=#{id}")
     TransTemplateEntity getFlowDesignByID(Integer id);
+
+    @Select("select ID,Name,Type,Describes,ClassfyID,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified from "+TbaleName+" where ID=#{id}")
+    TransTemplateEntity getFlowDesignByIDStr(String id);
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
     Integer selectByName(String name,Integer id);
     @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified from "+TbaleName+" where  Name like concat('%',#{name},'%')")

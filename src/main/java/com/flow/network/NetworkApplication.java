@@ -15,7 +15,7 @@ public class NetworkApplication {
     public static void main(String[] args) {
 
         ConfigurableApplicationContext context =SpringApplication.run(NetworkApplication.class, args);
-        // 启动 ZeroMQResponder
+         //启动 ZeroMQResponder
 
         //ZMQResponder responder =   context.getBean(ZMQResponder.class);
         //responder.receiveMessages();

@@ -27,4 +27,7 @@ public class FlowDesignEntity {
 
     private String SourceIP;
 
-    private String TargetIP;}
+    private String TargetIP;
+    private String templateID;
+
+}
