@@ -62,7 +62,7 @@ public class GatewayController {
         System.out.println("网关id："+pageParmInfo.getGatewayid()+"开始下发流程");
         String re=serviceImp.disPatchByGateID(pageParmInfo.getGatewayid());
         if(re.equals("")){
-            return ApiResponse.fail(200,re);
+            return ApiResponse.fail(200,"流程下发出现错误");
         }else {
             return ApiResponse.success();
         }
