@@ -5,7 +5,6 @@ import com.flow.network.domain2.FlowDesignEntity;
 import com.flow.network.domain2.TransTemplateEntity;
 import com.flow.network.mapper2.FlowDesignMapper;
 import com.flow.network.mapper2.TransTemplateMapper;
-import com.flow.network.tools.DateTools;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ public class TransTemplateServiceImp
         fd.setName(entity.getName());
         //fd.setName(f.getName()+"_"+DateTools.getNowStr()+"实例");
         fd.setType(f.getType());
-        fd.setDescribes(f.getName()+"的一个实例，创建于"+ DateTools.getNowStr());
+        fd.setDescribes(entity.getDescribes());
         fd.setAuthorID(entity.getAuthorID());
         detailMapper2.insert(fd);
         logimp.addInfo("应用模板:"+f.getName());
