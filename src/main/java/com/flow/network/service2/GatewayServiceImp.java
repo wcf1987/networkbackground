@@ -2,7 +2,6 @@ package com.flow.network.service2;
 
 import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.FlowDesignEntity;
-import com.flow.network.domain2.FlowDistributionEntity;
 import com.flow.network.domain2.GatewayDistributeEntity;
 import com.flow.network.domain2.GatewayEntity;
 import com.flow.network.mapper2.FlowDesignMapper;
@@ -92,7 +91,7 @@ public class GatewayServiceImp {
 
         String s3 = s1.replace("@REPLACE@", s2);
         String sa1 = "tcp://";
-        String sa2 = ":5555";
+        String sa2 = ":5556";
         String gatewayAddr = sa1 + gatewayEntity.getIP() + sa2;
         System.out.println(gatewayAddr + "---" + s3);
         try {
