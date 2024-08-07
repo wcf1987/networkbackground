@@ -5,6 +5,7 @@ import com.flow.network.domain2.FlowDesignEntity;
 import com.flow.network.domain2.TransTemplateEntity;
 import com.flow.network.mapper2.FlowDesignMapper;
 import com.flow.network.mapper2.FlowDistributionMapper;
+import com.flow.network.mapper2.GatewayMapper;
 import com.flow.network.mapper2.TransTemplateMapper;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
@@ -21,7 +22,7 @@ public class FlowDesignServiceImp
     @Autowired
     FlowDesignMapper detailMapper;
     @Autowired
-    FlowDistributionMapper detailMapper2;
+    GatewayMapper detailMapper2;
     @Autowired
     TransTemplateMapper detailMapper3;
     @Autowired
@@ -103,7 +104,7 @@ public class FlowDesignServiceImp
     public Integer deleteByID(Integer id) {
         //System.out.print("deleteByID");
         detailMapper.delete(id);
-        detailMapper2.deleteByFlowID(id);
+        detailMapper2.deleteGateDistributeByFlowID(id);
         logimp.addInfo("删除流程设计:"+id);
         return 1;
     }

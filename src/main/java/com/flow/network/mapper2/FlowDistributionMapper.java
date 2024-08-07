@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface FlowDistributionMapper {
-    public static String TbaleName="t_flowdistribution";
+    public static String TbaleName="t_gatewaydistribute";
     //增加一个Person
     @Insert("insert into "+TbaleName+"(ID,Name,FlowID,GatewayIDs,Describes,CreateTime,AuthorID)values(null,#{Name},#{FlowID},#{GatewayIDs},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
     int insert(FlowDistributionEntity entity);

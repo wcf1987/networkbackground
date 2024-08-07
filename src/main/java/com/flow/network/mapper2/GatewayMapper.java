@@ -23,7 +23,8 @@ public interface GatewayMapper {
 
     @Delete("delete from "+TbaleName1+" where GateID = #{GateID} and FlowID=#{FlowID}")
     int deleteGateDistribute(GatewayDistributeEntity entity);
-
+    @Delete("delete from "+TbaleName1+" where FlowID=#{flowID}")
+    int deleteGateDistributeByFlowID(Integer flowID);
     @Insert("insert into "+TbaleName1+"(ID,GateID,FlowID,Describes,CreateTime,AuthorID)values(null,#{GateID},#{FlowID},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID})")
     int insertGateDistribute(GatewayDistributeEntity entity);
     @Select("select count(*) from  "+TbaleName1+"  where GateID = #{GateID} and FlowID=#{FlowID}")
