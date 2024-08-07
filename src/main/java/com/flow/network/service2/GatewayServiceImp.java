@@ -97,17 +97,18 @@ public class GatewayServiceImp {
         System.out.println(gatewayAddr + "---" + s3);
         try {
             zmqreq.newZMQ(gatewayAddr);
-            re = zmqreq.sendRequest(s3);
-            System.out.println("re---" + re);
+
 
             for (FlowDesignEntity entity : flowDesignEntityList) {
 
                 //zmqreq.sendRequest(s3,gatewayAddr);
                 System.out.println(gatewayAddr + "---" + entity.getFlowOutStr());
-                re = zmqreq.sendRequest(entity.getFlowOutStr());
-
+                //re = zmqreq.sendRequest(entity.getFlowOutStr());
+                re=zmqreq.sendFile(entity.getFlowOutStr(), entity.getID());
                 logimp.addInfo(gatewayEntity.getName() + " 网关下发流程:" + entity.getName() + " ");
             }
+            re = zmqreq.sendRequest(s3);
+            System.out.println("re---" + re);
             zmqreq.closeZMQ();
         } catch (Exception e) {
             e.printStackTrace();
