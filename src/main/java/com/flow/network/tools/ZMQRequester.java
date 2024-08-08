@@ -7,6 +7,7 @@ import org.zeromq.SocketType;
 import org.zeromq.ZMQ;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Arrays;
 
 /**
@@ -57,6 +58,7 @@ public class ZMQRequester {
         byte[] bytes = new byte[4];
         ByteBuffer buffertemp = ByteBuffer.allocate(4);
         buffertemp.putInt(a);
+        buffertemp.order(ByteOrder.LITTLE_ENDIAN);
         buffertemp.clear();
         buffertemp.get(bytes);
         return bytes;
