@@ -57,8 +57,9 @@ public class ZMQRequester {
     public byte[] getByteArray(int a) {
         byte[] bytes = new byte[4];
         ByteBuffer buffertemp = ByteBuffer.allocate(4);
-        buffertemp.putInt(a);
         buffertemp.order(ByteOrder.LITTLE_ENDIAN);
+        buffertemp.putInt(a);
+
         buffertemp.clear();
         buffertemp.get(bytes);
         return bytes;
