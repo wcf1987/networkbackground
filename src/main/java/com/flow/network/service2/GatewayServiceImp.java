@@ -78,10 +78,11 @@ public class GatewayServiceImp {
                 continue;
             }
             FlowDesignEntity flowDesignEntity = detailMapper2.getFlowDesignByID(entity.getFlowID());
-            flowDesignEntityList.add(flowDesignEntity);
-            //stemp=stemp+String.valueOf(entity.getFlowID());
-            flowIDList.add(String.valueOf(entity.getFlowID()));
-
+            if(flowDesignEntity!=null) {
+                flowDesignEntityList.add(flowDesignEntity);
+                //stemp=stemp+String.valueOf(entity.getFlowID());
+                flowIDList.add(String.valueOf(entity.getFlowID()));
+            }
         }
 
         ZMQRequester zmqreq = new ZMQRequester();
