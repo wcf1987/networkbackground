@@ -39,5 +39,6 @@ public class MessDetailEntity {
     private Integer DFIID;
     private String MaxGroupNum;
     private String DefaultVal;
+    private String ArrayOr;
 
 }

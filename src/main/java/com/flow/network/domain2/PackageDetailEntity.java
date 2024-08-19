@@ -26,6 +26,6 @@ public class PackageDetailEntity {
     private Integer AuthorID;
     private Double OrderID;
     private Integer SortID ;
-
+    private String Flag;
 
 }
