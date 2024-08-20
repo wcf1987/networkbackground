@@ -34,6 +34,8 @@ public class MessTraslateDetailEntity {
     private String Funcrule;
     private String SourceData;
 
-
+    private String Flag;
+    private String Type;
+    private String Length;
 
 }

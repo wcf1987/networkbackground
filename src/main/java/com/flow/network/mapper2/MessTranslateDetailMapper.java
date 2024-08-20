@@ -63,7 +63,7 @@ public interface MessTranslateDetailMapper {
     List<FieldsDetailEntity> getList(Integer uid);
 
 
-    @Select("select t0.ID,t0.Name,t0.OutID,t0.OutType,t0.PID,t0.NestID from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=0 order by OrderID asc")
+    @Select("select t0.ID,t0.Name,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=0 order by OrderID asc")
     List<MessTraslateDetailEntity> searchByName(String name, Integer uid, Integer pid, String ttype);
     @Select("select t0.ID,t0.Name,t0.OutID,t0.OutType,t0.PID,t0.NestID from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=#{nestid} order by OrderID asc")
     List<MessTraslateDetailEntity> getListByNestID(String name,Integer uid, Integer pid,String ttype,Integer nestid);

@@ -109,6 +109,9 @@ public class MessTranslateDetailServiceImp {
             t.setEName(temp.getEName());
             t.setShortName(temp.getShortName());
             t.setTName(t.getName());
+            //t.setFlag(temp.getFlag());
+            t.setType(temp.getType());
+            t.setLength(temp.getLength());
 
         }
         if (t.getOutType().equals("fields")) {
@@ -116,7 +119,8 @@ public class MessTranslateDetailServiceImp {
             t.setEName(temp.getEName());
             t.setShortName(temp.getShortName());
             t.setTName(t.getName());
-
+            t.setType(temp.getType());
+            t.setLength(temp.getLength());
         }
         temp = detailMapper.selectByFieldsID(t.getID(), transid);
         if (temp != null) {
