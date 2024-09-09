@@ -29,5 +29,7 @@ public class FlowDesignEntity {
 
     private String TargetIP;
     private String templateID;
+    private Integer ClassfyID;
+    private String ClassfyName;
 
 }

@@ -40,5 +40,6 @@ public class MessDetailEntity {
     private String MaxGroupNum;
     private String DefaultVal;
     private String ArrayOr;
+    private String Alias;
 
 }

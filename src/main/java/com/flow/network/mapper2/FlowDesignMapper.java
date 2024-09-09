@@ -8,8 +8,9 @@ import java.util.List;
 @Mapper
 public interface FlowDesignMapper {
     public static String TbaleName="t_flow";
+    public static String TbaleName1="t_transclassfy";
     //增加一个Person
-    @Insert("insert into "+TbaleName+"(ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID},#{FlowJson},#{FlowOutStr},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'))")
+    @Insert("insert into "+TbaleName+"(ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified,ClassfyID)values(null,#{Name},#{Type},#{Describes},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{AuthorID},#{FlowJson},#{FlowOutStr},DATE_FORMAT(now(),'%Y-%m-%d %H:%i:%S'),#{ClassfyID})")
     @Options(useGeneratedKeys = true, keyProperty = "ID", keyColumn = "ID")
     int insert(FlowDesignEntity entity);
 
@@ -35,6 +36,6 @@ public interface FlowDesignMapper {
     FlowDesignEntity getFlowDesignByID(Integer id);
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
     Integer selectByName(String name,Integer id);
-    @Select("select ID,Name,Type,Describes,CreateTime,AuthorID,FlowJson,FlowOutStr,LastModified,CheckGraph,SourceIP,TargetIP from "+TbaleName+" where  Name like concat('%',#{name},'%')")
+    @Select("select t0.ID,t0.Name,t0.Type,t0.Describes,t0.CreateTime,t0.AuthorID,FlowJson,FlowOutStr,LastModified,CheckGraph,SourceIP,TargetIP,t1.Name as ClassfyName from "+TbaleName+" t0, "+TbaleName1+" t1 where  t0.Name like concat('%',#{name},'%') and t0.ClassfyID=t1.ID")
     List<FlowDesignEntity> searchByName(String name,Integer uid);
 }

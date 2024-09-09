@@ -102,9 +102,15 @@ public class MessDetailServiceImp
             if(detailMapper.selectByName(entity.getName(),entity.getPID(),0)>0){
                 throw new ServiceException("名称重复，请更改");
             }
+            if(detailMapper.selectByAlias(entity.getAlias(),entity.getPID(),0)>0){
+                throw new ServiceException("别名重复，请更改");
+            }
             addCustom(entity);
         }
         if(entity.getOutType().equals("fields")){
+            if(detailMapper.selectByAlias(entity.getAlias(),entity.getPID(),0)>0){
+                throw new ServiceException("别名重复，请更改");
+            }
             addFields(entity);
         }
         if(entity.getOutType().equals("nest")){
@@ -199,14 +205,23 @@ public class MessDetailServiceImp
             if(detailMapper.selectByName(entity.getName(),entity.getPID(),entity.getID())>0){
                 throw new ServiceException("名称重复，请更改");
             }
+            if(detailMapper.selectByAlias(entity.getAlias(),entity.getPID(),entity.getID())>0){
+                throw new ServiceException("别名重复，请更改");
+            }
             updateCustom(entity);
         }
         if(entity.getOutType().equals("fields")){
+            if(detailMapper.selectByAlias(entity.getAlias(),entity.getPID(),entity.getID())>0){
+                throw new ServiceException("别名重复，请更改");
+            }
             updateFields(entity);
         }
         if(entity.getOutType().equals("nest")){
             if(detailMapper.selectByName(entity.getName(),entity.getPID(),entity.getID())>0){
                 throw new ServiceException("名称重复，请更改");
+            }
+            if(detailMapper.selectByAlias(entity.getAlias(),entity.getPID(),entity.getID())>0){
+                throw new ServiceException("别名重复，请更改");
             }
             updateNest(entity);
         }

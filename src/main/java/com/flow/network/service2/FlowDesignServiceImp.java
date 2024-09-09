@@ -4,7 +4,6 @@ import com.flow.network.config.ServiceException;
 import com.flow.network.domain2.FlowDesignEntity;
 import com.flow.network.domain2.TransTemplateEntity;
 import com.flow.network.mapper2.FlowDesignMapper;
-import com.flow.network.mapper2.FlowDistributionMapper;
 import com.flow.network.mapper2.GatewayMapper;
 import com.flow.network.mapper2.TransTemplateMapper;
 import com.flow.network.tools.Tools;
@@ -35,6 +34,7 @@ public class FlowDesignServiceImp
             applyTemplate(entity);
         }else {
             //System.out.print("getlist");
+            entity.setClassfyID(99999);
             detailMapper.insert(entity);
 
         }
@@ -52,6 +52,7 @@ public class FlowDesignServiceImp
         fd.setType(entity.getType());
         fd.setDescribes(entity.getDescribes());
         fd.setAuthorID(entity.getAuthorID());
+        fd.setClassfyID(f.getClassfyID());
         detailMapper.insert(fd);
         logimp.addInfo("应用模板:"+f.getName());
         return String.valueOf(fd.getID());
