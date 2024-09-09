@@ -34,12 +34,10 @@ public class TransClassfyServiceImp
         return num;
     }
     public String add(TransClassfyEntity entity) {
-        if(detailMapper.selectByName(entity.getName(),0)>0){
+        if(detailMapper.selectByName(entity.getName(),entity.getType(),0)>0){
             throw new ServiceException("名称重复，请更改");
         }
-        if(detailMapper.selectByCode(entity.getCode(),0)>0){
-            throw new ServiceException("变量名重复，请更改");
-        }
+
         //System.out.print("getlist");
         detailMapper.insert(entity);
         logimp.addInfo("添加模板分类:"+entity.getName());
@@ -47,36 +45,34 @@ public class TransClassfyServiceImp
     }
     public String update(TransClassfyEntity entity) {
         //System.out.print("getlist");
-        if(detailMapper.selectByName(entity.getName(),entity.getID())>0){
+        if(detailMapper.selectByName(entity.getName(),entity.getType(),entity.getID())>0){
             throw new ServiceException("名称重复，请更改");
         }
-        if(detailMapper.selectByCode(entity.getCode(),entity.getID())>0){
-            throw new ServiceException("变量名重复，请更改");
-        }
+
         detailMapper.updateByPrimaryKey(entity);
-        logimp.addInfo("更新全局变量:"+entity.getName());
+        logimp.addInfo("更新分类:"+entity.getName());
         return Tools.SUCCESS;
     }
-    public List<TransClassfyEntity> search(String name,Integer uid,Integer pageNum, Integer pageSize) {
+    public List<TransClassfyEntity> search(String name,String type,Integer uid,Integer pageNum, Integer pageSize) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);
-        List<TransClassfyEntity> list=detailMapper.searchByName(name,uid);
+        List<TransClassfyEntity> list=detailMapper.searchByName(name,type,uid);
 
         return list;
     }
-    public List<TransClassfyEntity> searchWithChildren(String name,Integer uid,Integer pageNum, Integer pageSize) {
+    public List<TransClassfyEntity> searchWithChildren(String name,String type,Integer uid,Integer pageNum, Integer pageSize) {
         //System.out.print("getlist");
 
-        List<TransClassfyEntity> list=detailMapper.searchByName(name,uid);
+        List<TransClassfyEntity> list=detailMapper.searchByName(name,type,uid);
         for(TransClassfyEntity e : list){
             List<TransTemplateEntity> list2=detailMapper2.searchByPID("",e.getID());
             e.setChildren(list2);
         }
         return list;
     }
-    public List<TransClassfyEntity> searchAll(String name,Integer uid) {
+    public List<TransClassfyEntity> searchAll(String name,String type,Integer uid) {
         //System.out.print("getlist");
-        List<TransClassfyEntity> list=detailMapper.searchByName(name,uid);
+        List<TransClassfyEntity> list=detailMapper.searchByName(name,type,uid);
 
         return list;
     }

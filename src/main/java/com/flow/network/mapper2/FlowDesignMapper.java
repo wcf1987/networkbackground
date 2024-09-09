@@ -36,6 +36,6 @@ public interface FlowDesignMapper {
     FlowDesignEntity getFlowDesignByID(Integer id);
     @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
     Integer selectByName(String name,Integer id);
-    @Select("select t0.ID,t0.Name,t0.Type,t0.Describes,t0.CreateTime,t0.AuthorID,FlowJson,FlowOutStr,LastModified,CheckGraph,SourceIP,TargetIP,t1.Name as ClassfyName from "+TbaleName+" t0, "+TbaleName1+" t1 where  t0.Name like concat('%',#{name},'%') and t0.ClassfyID=t1.ID")
+    @Select("select t0.ID,t0.Name,t0.Type,t0.Describes,t0.CreateTime,t0.AuthorID,FlowJson,FlowOutStr,LastModified,CheckGraph,SourceIP,TargetIP,t0.classfyid,t1.Name as ClassfyName from "+TbaleName+" t0, "+TbaleName1+" t1 where  t0.Name like concat('%',#{name},'%') and t0.ClassfyID=t1.ID")
     List<FlowDesignEntity> searchByName(String name,Integer uid);
 }

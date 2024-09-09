@@ -30,12 +30,12 @@ public interface TransClassfyMapper {
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<TransClassfyEntity> getList(Integer uid);
 
-    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id}")
-    Integer selectByName(String name,Integer id);
+    @Select("select count(*) from  "+TbaleName+"  where Name = #{name} and ID!=#{id} and Type=#{type}")
+    Integer selectByName(String name,String type,Integer id);
 
     @Select("select count(*) from  "+TbaleName+"  where Code = #{code} and ID!=#{id}")
     Integer selectByCode(String code,Integer id);
 
-    @Select("select ID,Name,Type,Code,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%')")
-    List<TransClassfyEntity> searchByName(String name,Integer uid);
+    @Select("select ID,Name,Type,Code,Describes,CreateTime,AuthorID from "+TbaleName+" where  Name like concat('%',#{name},'%') and Type=#{type}")
+    List<TransClassfyEntity> searchByName(String name,String type,Integer uid);
 }

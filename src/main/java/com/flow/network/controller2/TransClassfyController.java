@@ -22,7 +22,7 @@ public class TransClassfyController {
     @RequestMapping("/searchSize")
     public ApiResponse searchSize(@RequestBody PageParmInfo pageParmInfo) {
 
-        return ApiResponse.success(serviceImp.searchAll(pageParmInfo.getName(),pageParmInfo.getUid()).size());
+        return ApiResponse.success(serviceImp.searchAll(pageParmInfo.getName(),pageParmInfo.getType(),pageParmInfo.getUid()).size());
 
     }
     @RequestMapping("/delids")
@@ -51,13 +51,13 @@ public class TransClassfyController {
     }
     @PostMapping("/search")
     public ApiResponse search(@RequestBody PageParmInfo pageParmInfo ){
-        return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
+        return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getType(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
     }
 
     @PostMapping("/searchWithChildren")
     public ApiResponse searchWithChildren(@RequestBody PageParmInfo pageParmInfo ){
-        return ApiResponse.success(serviceImp.searchWithChildren(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
+        return ApiResponse.success(serviceImp.searchWithChildren(pageParmInfo.getName(),pageParmInfo.getType(),pageParmInfo.getUid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
 
     }
 }

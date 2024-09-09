@@ -34,7 +34,7 @@ public class FlowDesignServiceImp
             applyTemplate(entity);
         }else {
             //System.out.print("getlist");
-            entity.setClassfyID(99999);
+            //entity.setClassfyID(99999);
             detailMapper.insert(entity);
 
         }
@@ -52,7 +52,7 @@ public class FlowDesignServiceImp
         fd.setType(entity.getType());
         fd.setDescribes(entity.getDescribes());
         fd.setAuthorID(entity.getAuthorID());
-        fd.setClassfyID(f.getClassfyID());
+        fd.setClassfyID(entity.getClassfyID());
         detailMapper.insert(fd);
         logimp.addInfo("应用模板:"+f.getName());
         return String.valueOf(fd.getID());
