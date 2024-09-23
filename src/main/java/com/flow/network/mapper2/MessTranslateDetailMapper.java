@@ -48,6 +48,8 @@ public interface MessTranslateDetailMapper {
     //查询一个Person
     @Select("select ID,EName,Type,ShortName ,Length from  "+TbaleName1+"  where ID = #{id}")
     MessTraslateDetailEntity selectCustomByPrimaryKey(Integer id);
+    @Select("select ID,EName from  "+TbaleName+"  where ID = #{id} and OutType='nest'")
+    MessTraslateDetailEntity selectNestByPrimaryKey(Integer id);
     //查询所有的Person
     @Select("select ID,EName,Type,ShortName ,Length,DFIID from  "+TbaleName2+"  where ID = #{id}")
     MessTraslateDetailEntity selectFieldsByPrimaryKey(Integer id);

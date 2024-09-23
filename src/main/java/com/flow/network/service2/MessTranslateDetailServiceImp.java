@@ -71,6 +71,7 @@ public class MessTranslateDetailServiceImp {
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getOutType().equals("nest")) {
+                CompleteFields(list.get(i), transid);
                 waitList.push(list.get(i));
             } else {
                 CompleteFields(list.get(i), transid);
@@ -90,6 +91,7 @@ public class MessTranslateDetailServiceImp {
             }
             for (int i = 0; i < listt.size(); i++) {
                 if (listt.get(i).getOutType().equals("nest")) {
+                    CompleteFields(listt.get(i), transid);
                     waitList.push(listt.get(i));
                 } else {
                     CompleteFields(listt.get(i), transid);
@@ -121,6 +123,12 @@ public class MessTranslateDetailServiceImp {
             t.setTName(t.getName());
             t.setType(temp.getType());
             t.setLength(temp.getLength());
+        }
+        if (t.getOutType().equals("nest")) {
+            temp = detailMapper.selectNestByPrimaryKey(t.getID());
+            //System.out.println(temp.getEName());
+            t.setEName(temp.getEName());
+            return ;
         }
         temp = detailMapper.selectByFieldsID(t.getID(), transid);
         if (temp != null) {
