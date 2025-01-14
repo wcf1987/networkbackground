@@ -20,6 +20,9 @@ public interface MessTraslateMapper {
 
     @Delete("delete from "+TbaleName+" where appid = #{id}")
     int deleteByPID(Integer id);
+
+    @Select("select max(ID) from t_messbody")
+    Integer getMaxMessBodyID();
     //更改一个Person
     @Update("update "+TbaleName+" set Name =#{Name},   Describes =#{Describes}  where ID=#{ID}")
     int updateByPrimaryKey(MessTranslateEntity entity);

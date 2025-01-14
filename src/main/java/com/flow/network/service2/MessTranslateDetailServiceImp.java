@@ -5,6 +5,8 @@ import cn.hutool.json.JSONUtil;
 import com.flow.network.domain2.*;
 import com.flow.network.mapper2.MessDetailMapper;
 import com.flow.network.mapper2.MessTranslateDetailMapper;
+import com.flow.network.mapper2.MessTraslateMapper;
+import com.flow.network.tools.GraphTools;
 import com.flow.network.tools.Tools;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,8 @@ public class MessTranslateDetailServiceImp {
 
     @Autowired
     MessTranslateDetailMapper detailMapper;
-
+    @Autowired
+    MessTraslateMapper transDetailMapper;
     @Autowired
     private LogServiceImp logimp;
     public Integer deleteByIDS(List<String> ids) {
@@ -45,6 +48,28 @@ public class MessTranslateDetailServiceImp {
         return Tools.SUCCESS;
     }
 
+    public List<MessTraslateDetailEntity> dfs(MessTranslateEntity detailEntity){
+        GraphTools graphTools = new GraphTools();
+        Integer maxid =transDetailMapper.getMaxMessBodyID();
+        graphTools.initGraph(maxid+1);
+
+        List<MessTranslateEntity> pareList=transDetailMapper.searchByName("", 0);
+
+        for(MessTranslateEntity me:pareList){
+            graphTools.setGraph(me.getSourceID(),me.getTargetID());
+        }
+        graphTools.setGraphValue(detailEntity.getSourceID(),detailEntity.getTargetID(),0);
+
+
+        graphTools.dfs(detailEntity.getSourceID(),detailEntity.getTargetID());
+        System.out.println(graphTools.ans.get(0));
+
+        ArrayList<Integer> dfsArray=graphTools.ans.get(0);
+
+
+
+        return new ArrayList<MessTraslateDetailEntity>();
+    }
     public List<MessTraslateDetailEntity> search(String name, Integer uid, Integer pid, String ttype, Integer transid, Integer pageNum, Integer pageSize) {
         //System.out.print("getlist");
         PageHelper.startPage(pageNum, pageSize);

@@ -4,6 +4,7 @@ import com.flow.network.config.ApiResponse;
 import com.flow.network.domain.PageParmInfo;
 import com.flow.network.domain2.FieldsDetailEntity;
 import com.flow.network.domain2.MessDetailEntity;
+import com.flow.network.domain2.MessTranslateEntity;
 import com.flow.network.domain2.MessTraslateDetailEntity;
 import com.flow.network.service2.MessTranslateDetailServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,11 @@ public class MessTranslateDetailController {
     @PostMapping("/search")
     public ApiResponse search(@RequestBody PageParmInfo pageParmInfo ){
         return ApiResponse.success(serviceImp.search(pageParmInfo.getName(),pageParmInfo.getUid(),pageParmInfo.getPid(),pageParmInfo.getTtype(),pageParmInfo.getTransid(),pageParmInfo.getPageNum(),pageParmInfo.getPageSize()));
+
+    }
+    @PostMapping("/dfs")
+    public ApiResponse dfs(@RequestBody MessTranslateEntity detailEntity ){
+        return ApiResponse.success(serviceImp.dfs(detailEntity));
 
     }
     @PostMapping("/searchAllDUITrans")
