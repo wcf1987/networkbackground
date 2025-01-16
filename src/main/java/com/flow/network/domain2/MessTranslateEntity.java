@@ -21,6 +21,7 @@ public class MessTranslateEntity {
     private String Describes;
     private String CreateTime;
     private Integer AuthorID;
+    private Integer transid;
 
 
 }

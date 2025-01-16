@@ -39,6 +39,10 @@ public interface MessTranslateDetailMapper {
     @Update("update "+TbaleName3+" set TName =#{TName},Optional=#{Optional}, Transrule=#{Transrule}, Describes =#{Describes},  Funcrule =#{Funcrule}, SourceData =#{SourceData} where ID=#{TransDetailID}")
     int updateByPrimaryKey(MessTraslateDetailEntity entity);
 
+    @Update("update "+TbaleName3+" set Optional=#{Optional}, Transrule=#{Transrule},SourceData =#{SourceData} where TransID=#{TransID} and FieldsID=#{FieldsID}")
+    int updateTransDetailByID(MessTraslateDetailEntity entity);
+
+
     @Update("update "+TbaleName1+" set EName =#{EName}, ShortName=#{ShortName},Length =#{Length},Type =#{Type}  where ID=#{OutID}")
     int updateCustomByPrimaryKey(MessDetailEntity entity);
 
@@ -64,7 +68,8 @@ public interface MessTranslateDetailMapper {
     @Select("select ID,Name,Type,IP,Port,Protocol,Describes,CreateTime,AuthorID from "+TbaleName+" where AuthorID=#{uid}")
     List<FieldsDetailEntity> getList(Integer uid);
 
-
+    @Select("select t1.ID,t2.Name,t2.EName,t1.TName,t1.FieldsID,t2.NestID,t1.TransID,t1.Optional,t1.Transrule,t1.Describes,t1.CreateTime,t1.Funcrule,t1.SourceData from  "+TbaleName3+" t1 ,"+TbaleName+" t2  where t1.FieldsID=t2.ID and t1.TransID=#{transid}")
+    List<MessTraslateDetailEntity> searchByTransID(Integer transid);
     @Select("select t0.ID,t0.Name,t0.OutID,t0.OutType,t0.PID,t0.NestID,t0.Flag from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=0 order by OrderID asc")
     List<MessTraslateDetailEntity> searchByName(String name, Integer uid, Integer pid, String ttype);
     @Select("select t0.ID,t0.Name,t0.OutID,t0.OutType,t0.PID,t0.NestID from "+TbaleName+" t0 where t0.PID=#{pid} and t0.TType=#{ttype}  and t0.Name like concat('%',#{name},'%') and NestID=#{nestid} order by OrderID asc")

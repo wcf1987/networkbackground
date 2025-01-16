@@ -33,7 +33,7 @@ public class MessTraslateDetailEntity {
     private String CreateTime;
     private String Funcrule;
     private String SourceData;
-
+    private Integer FieldsID;
     private String Flag;
     private String Type;
     private String Length;
