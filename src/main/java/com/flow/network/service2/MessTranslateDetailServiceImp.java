@@ -69,6 +69,7 @@ public class MessTranslateDetailServiceImp {
         ArrayList<Integer> dfsArray = graphTools.ans.get(0);
         List<MessTraslateDetailEntity> tempA;
         List<MessTraslateDetailEntity> tempB = null;
+        List<MessTraslateDetailEntity> tempC = null;
         for (int i = 1; i < dfsArray.size(); i++) {
             Integer transID = 0;
             for (MessTranslateEntity me : pareList) {
@@ -78,7 +79,7 @@ public class MessTranslateDetailServiceImp {
             }
             if (transID != 0) {
                 tempA = tempB;
-                tempB = detailMapper.searchByTransID(transID);
+                tempB = detailMapper.searchByTransID(transID,dfsArray.get(i));
                 CompleteEName(tempB);
                 if (tempA != null) {
 
@@ -103,7 +104,7 @@ public class MessTranslateDetailServiceImp {
             return z.getEName();
         }
         for(MessTraslateDetailEntity z1:temp) {
-            if (z.getNestID() == z1.getID()) {
+            if (z.getNestID().equals(z1.getFieldsID())) {
                 return getEName(temp, z1) + "." + z.getEName();
             }
         }
