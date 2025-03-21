@@ -2,6 +2,7 @@ package com.flow.network.service2;
 
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
+import com.flow.network.config.ApiResponse;
 import com.flow.network.domain2.*;
 import com.flow.network.mapper2.MessDetailMapper;
 import com.flow.network.mapper2.MessTranslateDetailMapper;
@@ -50,7 +51,7 @@ public class MessTranslateDetailServiceImp {
         return Tools.SUCCESS;
     }
 
-    public List<MessTraslateDetailEntity> dfs(MessTranslateEntity detailEntity) {
+    public ApiResponse dfs(MessTranslateEntity detailEntity) {
         GraphTools graphTools = new GraphTools();
         Integer maxid = transDetailMapper.getMaxMessBodyID();
         graphTools.initGraph(maxid + 1);
@@ -66,7 +67,8 @@ public class MessTranslateDetailServiceImp {
         graphTools.dfs(detailEntity.getSourceID(), detailEntity.getTargetID());
 
         if(graphTools.ans.size()==0){
-            return new ArrayList<MessTraslateDetailEntity>();
+            return ApiResponse.fail(200, "没有发现字段自动转换路径");
+
         }
         System.out.println(graphTools.ans.get(0));
         ArrayList<Integer> dfsArray = graphTools.ans.get(0);
@@ -75,9 +77,15 @@ public class MessTranslateDetailServiceImp {
         List<MessTraslateDetailEntity> tempC = null;
         for (int i = 1; i < dfsArray.size(); i++) {
             Integer transID = 0;
+            Integer key=0;
             for (MessTranslateEntity me : pareList) {
                 if (me.getSourceID() == dfsArray.get(i - 1) && me.getTargetID() == dfsArray.get(i)) {
                     transID = me.getID();
+                    key=key+1;
+                    if(key>1){
+                        return ApiResponse.fail(200, "发现多条字段转换路径,无法自动匹配");
+                    }
+
                 }
             }
             if (transID != 0) {
@@ -93,7 +101,7 @@ public class MessTranslateDetailServiceImp {
         List<MessTraslateDetailEntity> re = search("", 0, detailEntity.getTargetID(), "body", 0, 1, 1000);
         updateTransSourceReturn(re, tempB);
         updateTransNodesDB(tempB,detailEntity.getTransid());
-        return re;
+        return ApiResponse.success(re);
     }
     public void CompleteEName(List<MessTraslateDetailEntity> temp){
             for(MessTraslateDetailEntity z:temp){

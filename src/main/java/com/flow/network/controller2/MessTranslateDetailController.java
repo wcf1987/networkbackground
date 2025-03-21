@@ -60,7 +60,7 @@ public class MessTranslateDetailController {
     }
     @PostMapping("/dfs")
     public ApiResponse dfs(@RequestBody MessTranslateEntity detailEntity ){
-        return ApiResponse.success(serviceImp.dfs(detailEntity));
+        return serviceImp.dfs(detailEntity);
 
     }
     @PostMapping("/searchAllDUITrans")
