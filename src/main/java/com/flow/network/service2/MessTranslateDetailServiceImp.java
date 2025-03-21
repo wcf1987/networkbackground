@@ -64,8 +64,11 @@ public class MessTranslateDetailServiceImp {
 
 
         graphTools.dfs(detailEntity.getSourceID(), detailEntity.getTargetID());
-        System.out.println(graphTools.ans.get(0));
 
+        if(graphTools.ans.size()==0){
+            return new ArrayList<MessTraslateDetailEntity>();
+        }
+        System.out.println(graphTools.ans.get(0));
         ArrayList<Integer> dfsArray = graphTools.ans.get(0);
         List<MessTraslateDetailEntity> tempA;
         List<MessTraslateDetailEntity> tempB = null;
@@ -127,7 +130,7 @@ public class MessTranslateDetailServiceImp {
                 JSONArray jsonArrayFinal = new JSONArray();
                 for (int i = 0; i < jsonArray.size(); i++) {
                     for (MessTraslateDetailEntity t1 : tempA) {
-                        if (t1.getName().equals(jsonArray.get(i).toString())) {
+                        if (t1.getName().equals(jsonArray.get(i).toString()) && t1.getTransrule() != null) {
                             JSONArray jsonArray2 = JSONUtil.parseArray(t1.getSourceData());
                             jsonArrayFinal.addAll(jsonArray2);
                             rules=rules.replaceAll(t1.getEName(),t1.getTransrule());
